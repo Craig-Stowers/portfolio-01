@@ -12,9 +12,14 @@ body {
    /* makingheight 100% messes with ios touch events */
    /* background-image: url("./images/background.png");
    background-size: 50px 50px; */
-   background-color: #d1fffe;
+   background-color:black;
    transition: background-color 1000ms;
 }
+
+html, body {
+   height:100%;
+   width:100vw;
+ }
 
 .App {
    text-align: center;

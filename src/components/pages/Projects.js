@@ -6,12 +6,12 @@ import image3 from "../../images/projects/03.png";
 import image4 from "../../images/projects/04.png";
 import image5 from "../../images/projects/05.png";
 
-import VideoPlayer from "./../VideoPlayer"
-
-import { useState } from "react";
+import VideoPlayer from "./../VideoPlayer";
+import VideoPlayer2 from "./../VideoPlayer2";
+import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 
 import classes from "./Projects.module.css";
-
 
 const isMobile = false;
 
@@ -35,33 +35,33 @@ const projectData = [
       support: "mobileonly",
       text: "Prototype game to test live socket connections.",
       url: "https://silvereye.dev/",
+      video: "https://www.dropbox.com/s/n4i1jcgvgoox20z/video2.mp4?dl=0"
    },
    {
       image: backgammon,
       title: "SquirrelBank",
       support: "mobileonly",
       text: "Prototype game to test live socket connections.",
-  
       video: "https://www.dropbox.com/s/cauralukkzb3hdf/gravity-game.mp4",
    },
-
-   
 ];
 
-const Projects = ({ show }) => {
+const Projects = ({ show, scrollable }) => {
    const midSplit = Math.ceil(projectData.length / 2);
    const col1 = projectData.slice(0, midSplit);
    const col2 = projectData.slice(midSplit, projectData.length);
 
    const [videoUrl, setVideoUrl] = useState(null);
 
-
+   useEffect(() => {
+      if (videoUrl) {
+         scrollable(false);
+      } else {
+         scrollable(true);
+      }
+   }, [videoUrl]);
 
    return (
-
-
-
-
       <div className={classes.projects}>
          <div className={classes.projectsWrapper}>
             <div className={classes.topNote}>
@@ -110,26 +110,36 @@ const Projects = ({ show }) => {
                            key={"rightProject_" + i}
                            data={e}
                            style={{ opacity: show ? 1 : 0 }}
-                           setVideo={(url)=>{setVideoUrl(url)}}
-                           
+                           setVideo={(url) => {
+                              setVideoUrl(url);
+                           }}
                         />
                      );
                   })}
                </div>
             </div>
          </div>
-         {videoUrl && <VideoPlayer url={videoUrl} close={()=>{setVideoUrl(null)}}/>}
+         <VideoPlayer
+            url={videoUrl}
+            close={() => {
+               setVideoUrl(null);
+            }}
+         />
+         )
       </div>
    );
 };
 
 const Project = ({ data, isLeft, style, setVideo }) => {
    return (
-      <a className={classes.project} onClick={()=>{
-         if(data.video){
-            setVideo(data.video)
-         }
-      }}>
+      <a
+         className={classes.project}
+         onClick={() => {
+            if (data.video) {
+               setVideo(data.video);
+            }
+         }}
+      >
          <div className={classes.imageWrapper}>
             <img src={data.image} />
          </div>
@@ -143,16 +153,20 @@ const Project = ({ data, isLeft, style, setVideo }) => {
 
          {data.support === "mobileonly" && !isMobile && (
             <div className={`${classes.warning} ${classes.mobileonly}`}>
-               Developed for mobile only upon clients request.<br/>Please launch from mobile
-               device.
+               Developed for mobile only upon clients request.
+               <br />
+               Please launch from mobile device.
             </div>
          )}
          {data.support === "desktoponly" && isMobile && (
             <div className={`${classes.warning}`}>
-               Developed for desktop upon clients request.<br/>Please launch from a desktop computer.
+               Developed for desktop upon clients request.
+               <br />
+               Please launch from a desktop computer.
             </div>
          )}
       </a>
+
       // <div className={`${classes.project} ${isLeft && classes.left}`} style={{...style}}>
       //    <div className={classes.imageContainer}>
       //       <div className={classes.imageWrapper}>

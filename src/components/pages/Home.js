@@ -7,7 +7,13 @@ import React, {
    useMemo,
 } from "react";
 
-import { isMobile } from "react-device-detect";
+import {
+   BrowserView,
+   MobileView,
+   isBrowser,
+   isMobile,
+} from "react-device-detect";
+
 import classes from "./HomeStyles.module.css";
 import Sticky from "../shared/Sticky";
 import PlayfulText from "../shared/PlayfulText";
@@ -36,6 +42,12 @@ import Projects from "./Projects";
 
 import useScroller from "../../hooks/useScroller";
 
+import {
+   disableBodyScroll,
+   enableBodyScroll,
+   clearAllBodyScrollLocks,
+} from "body-scroll-lock";
+
 import hiddenObjects from "../../images/hidden-objects.png";
 import { addTween } from "../../utility/Tweens";
 const asciiText = require(`../code/${"bulb"}.txt`);
@@ -44,9 +56,9 @@ let debug = false;
 const electricblue = [0, 173, 255];
 const seablue = [0, 240, 255];
 const lightpink = [255, 167, 247];
-const purpleblue = [27,44,86	];
+const purpleblue = [27, 44, 86];
 
-const sandyellow = [244,	199,	77	]
+const sandyellow = [244, 199, 77];
 
 const coral = [255, 81, 113];
 const teal = [81, 255, 223];
@@ -90,7 +102,7 @@ const slidingTextColors = [
    black,
    hotpink,
    black,
-   [0,0,0],
+   [0, 0, 0],
    [0, 0, 0],
    [0, 0, 0],
    [0, 0, 0],
@@ -149,7 +161,9 @@ const Home = ({ changeBackgroundColor }) => {
    const [scrolled, setScrolled] = useState(false);
    const startScroll = useRef(null);
 
-   console.log("scrolled", scrolled);
+   const scrollLockRef = useRef(document.createElement("div"));
+   const storedScrollY = useRef(null);
+   const [hidePlayText, setHidePlayText] = useState(false);
 
    useScroller(
       (scroll) => {
@@ -208,6 +222,25 @@ const Home = ({ changeBackgroundColor }) => {
       //    });
    }, []);
 
+   const handleScrollable = (isScrollable) => {
+      if (isMobile) return;
+
+      if (isScrollable) {
+         enableBodyScroll(scrollLockRef.current);
+         // document.body.style.setProperty("top", "");
+         // document.body.scrollTo(0, storedScrollY.current);
+         setHidePlayText(false);
+
+         //lockMessages.current = false
+      } else {
+         // lockMessages.current = true;
+         setHidePlayText(true);
+         // storedScrollY.current = window.scrollY;
+         disableBodyScroll(scrollLockRef.current);
+         // document.body.style.setProperty("top", `${window.scrollY * -1}px`);
+      }
+   };
+
    const buildReppellerGroup = (data, colorSet, baseIndex) => {
       const lowIndex = baseIndex;
       const highIndex = lowIndex + data.items.length;
@@ -223,8 +256,8 @@ const Home = ({ changeBackgroundColor }) => {
 
       for (let i = 0; i < data.items.length; i++) {
          const v = new Vector(0, 0);
-         const fontSize =  data.items[i].style.fontSize || 30
-         v.power = data.items[i].text.length * fontSize * 0.1
+         const fontSize = data.items[i].style.fontSize || 30;
+         v.power = data.items[i].text.length * fontSize * 0.1;
          // v.weight = 10;
          repellingTextVectors.current[i + baseIndex] = v;
 
@@ -261,13 +294,9 @@ const Home = ({ changeBackgroundColor }) => {
 
                   v.x = xPos;
                   v.y = yPos;
-                  const d = (heightRef.current * 0.5) - yPos;
-
-
+                  const d = heightRef.current * 0.5 - yPos;
 
                   //const yMod = Math.pow(Math.abs(d*0.1), 2)*0.
-
-                 
 
                   // if( d < 0){
                   //    console.log("neg d", d)
@@ -286,10 +315,11 @@ const Home = ({ changeBackgroundColor }) => {
                      v.outOfBounds = false;
                   }
 
-               
-                  const darkness = Math.min(Math.max(Math.abs(d) - limit, 0) * 0.0065, 1);
+                  const darkness = Math.min(
+                     Math.max(Math.abs(d) - limit, 0) * 0.0065,
+                     1
+                  );
 
-                  
                   // const left = `calc(-50% + ${d*0.1}px)`
                   const scale = 0.9 + Math.abs(d) * 0.0015;
                   el.style.transform = `translate(${-50}%,-50%) scale(${scale})`;
@@ -396,8 +426,12 @@ const Home = ({ changeBackgroundColor }) => {
    return (
       <div className={classes.Home} ref={homeRef}>
          <Sticky
-            style={{ position: "relative" }}
+            style={{
+               position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
+            }}
             dominantIn={(dir) => {
+               if (hidePlayText) return;
                setTextIndex(0);
                changeFormat(0);
             }}
@@ -407,10 +441,11 @@ const Home = ({ changeBackgroundColor }) => {
 
          <Sticky
             style={{
-               // backgroundColor: "green",
                position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
             }}
             dominantIn={() => {
+               if (hidePlayText) return;
                setTextIndex(1);
                changeFormat(1);
             }}
@@ -421,8 +456,12 @@ const Home = ({ changeBackgroundColor }) => {
          </Sticky>
 
          <Sticky
-            style={{ position: "relative" }}
+            style={{
+               position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
+            }}
             dominantIn={() => {
+               if (hidePlayText) return;
                // if (textIndex !== 2) {
                setTextIndex(2);
                changeFormat(2);
@@ -434,8 +473,12 @@ const Home = ({ changeBackgroundColor }) => {
          </Sticky>
 
          <Sticky
-            style={{ position: "relative" }}
+            style={{
+               position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
+            }}
             dominantIn={() => {
+               if (hidePlayText) return;
                // if (textIndex !== 2) {
                setTextIndex(3);
                changeFormat(3);
@@ -447,8 +490,12 @@ const Home = ({ changeBackgroundColor }) => {
          </Sticky>
 
          <Sticky
-            style={{ position: "relative" }}
+            style={{
+               position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
+            }}
             dominantIn={() => {
+               if (hidePlayText) return;
                // if (textIndex !== 2) {
                setTextIndex(4);
                changeFormat(4);
@@ -467,13 +514,14 @@ const Home = ({ changeBackgroundColor }) => {
                color: "white",
             }}
             dominantIn={(direction) => {
+               if (hidePlayText) return;
                setTextIndex(null);
                setShowProjects(true);
                changeFormat(5);
             }}
          >
             {/* <MirrorElement lag={!isMobile} tween={0.983}> */}
-            <Projects show={showProjects} />
+            <Projects show={showProjects} scrollable={handleScrollable} />
             {/* </MirrorElement> */}
          </Sticky>
 
@@ -568,7 +616,7 @@ const Home = ({ changeBackgroundColor }) => {
          </div> */}
 
          {showPlayText && (
-            <>
+            <div style={{ visibility: hidePlayText ? "hidden" : "visible" }}>
                <PlayfulText
                   ascii={ascii}
                   parentRef={playfulTextRef}
@@ -579,7 +627,10 @@ const Home = ({ changeBackgroundColor }) => {
                      //   // e.rotation = (e.x - e.aim.x) * (e.y - e.aim.y) * -0.008;
 
                      //    // e.shifting // if letter is tweening
-                     const percColorShift = Math.min(Math.pow(d*0.12,2)/270, 1);
+                     const percColorShift = Math.min(
+                        Math.pow(d * 0.12, 2) / 270,
+                        1
+                     );
 
                      //    //console.log(distance, percColorShift)
 
@@ -636,7 +687,7 @@ const Home = ({ changeBackgroundColor }) => {
                      </div>
                   </>
                )}
-            </>
+            </div>
          )}
       </div>
    );
