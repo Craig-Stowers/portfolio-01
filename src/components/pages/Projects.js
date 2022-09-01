@@ -5,7 +5,7 @@ import image2 from "../../images/projects/memorygame.png";
 import image3 from "../../images/projects/03.png";
 import image4 from "../../images/projects/04.png";
 import image5 from "../../images/projects/05.png";
-
+import newto from "../../images/projects/newto.png";
 import VideoPlayer from "./../VideoPlayer";
 import VideoPlayer2 from "./../VideoPlayer2";
 import { useEffect, useState } from "react";
@@ -33,17 +33,23 @@ const projectData = [
    },
    {
       image: backgammon,
-      title: "SquirrelBank",
-      support: "mobileonly",
+      title: "Testing",
+      // support: "mobileonly",
       text: "Prototype game to test live socket connections.",
-
-      video: "https://www.dropbox.com/s/n4i1jcgvgoox20z/video2.mp4?dl=0",
+      video: "https://www.dropbox.com/s/n4i1jcgvgoox20z/video2.mp4",
    },
    {
-      image: backgammon,
+      image: newto,
       title: "Newto",
       text: "Prototype game to test live socket connections. Prototype game to test live socket connections. Prototype game to test live socket connections. Prototype game to test live socket connections.",
       video: "https://www.dropbox.com/s/cauralukkzb3hdf/gravity-game.mp4",
+   },
+
+   {
+      image: backgammon,
+      title: "Stone Roses",
+      text: "Great video of a great band.",
+      video: "https://www.youtube.com/watch?v=cokwtKStjKQ",
    },
 ];
 
@@ -99,6 +105,9 @@ const Projects = ({ show, scrollable }) => {
                            key={"leftProject_" + i}
                            data={e}
                            style={{ opacity: show ? 1 : 0 }}
+                           setVideo={(url) => {
+                              setVideoUrl(url);
+                           }}
                         />
                      );
                   })}
@@ -154,10 +163,10 @@ const Project = ({ data, isLeft, style, setVideo }) => {
                      viewBox="0 0 24 24"
                      fill="none"
                      stroke="currentColor"
-                     stroke-width="2"
-                     stroke-linecap="round"
-                     stroke-linejoin="round"
-                     class="feather feather-external-link"
+                     strokeWidth="2"
+                     strokeLinecap="round"
+                     strokeLinejoin="round"
+                     className="feather feather-external-link"
                   >
                      <title>External Link</title>
                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
