@@ -11,6 +11,8 @@ import VideoPlayer2 from "./../VideoPlayer2";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
+import videoIcon from "./../../images/video-icon.png";
+
 import classes from "./Projects.module.css";
 
 const isMobile = false;
@@ -34,14 +36,13 @@ const projectData = [
       title: "SquirrelBank",
       support: "mobileonly",
       text: "Prototype game to test live socket connections.",
-      url: "https://silvereye.dev/",
-      video: "https://www.dropbox.com/s/n4i1jcgvgoox20z/video2.mp4?dl=0"
+
+      video: "https://www.dropbox.com/s/n4i1jcgvgoox20z/video2.mp4?dl=0",
    },
    {
       image: backgammon,
-      title: "SquirrelBank",
-      support: "mobileonly",
-      text: "Prototype game to test live socket connections.",
+      title: "Newto",
+      text: "Prototype game to test live socket connections. Prototype game to test live socket connections. Prototype game to test live socket connections. Prototype game to test live socket connections.",
       video: "https://www.dropbox.com/s/cauralukkzb3hdf/gravity-game.mp4",
    },
 ];
@@ -144,7 +145,31 @@ const Project = ({ data, isLeft, style, setVideo }) => {
             <img src={data.image} />
          </div>
 
-         <div className={classes.gradientCover}></div>
+         <div className={classes.gradientCover}>
+            {data.url && (
+               <div className={classes.link}>
+                  <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     role="img"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     class="feather feather-external-link"
+                  >
+                     <title>External Link</title>
+                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                     <polyline points="15 3 21 3 21 9"></polyline>
+                     <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+               </div>
+            )}
+            {data.video && (
+               <img className={classes.videoIcon} src={videoIcon} />
+            )}
+         </div>
 
          <div className={classes.infoSlide}>
             <h2>{data.title}</h2>

@@ -49,7 +49,7 @@
    overflow: hidden;
    
 
-   transform: scale(0.9);
+   transform: scale(0.94);
    opacity: 0;
 
    /* width:calc(100% - 100px);
@@ -58,7 +58,7 @@
    max-width:70vw; */
 
    margin: auto;
-   transition: all 540ms;
+   transition: all 340ms;
    transition-property:opacity, transform; 
 }
 
