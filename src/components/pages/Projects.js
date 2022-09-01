@@ -11,18 +11,30 @@ import VideoPlayer2 from "./../VideoPlayer2";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
+import {
+   BrowserView,
+   MobileView,
+   isBrowser,
+   isMobile,
+} from "react-device-detect";
+
 import videoIcon from "./../../images/video-icon.png";
 
 import classes from "./Projects.module.css";
 
-const isMobile = false;
-
 const projectData = [
    {
       image: crossword,
-      title: " Crossword",
+      title: " Crossword (desktop)",
       text: "Crossword game with intutive text input and across/down toggle.",
       support: "desktoponly",
+      url: "https://toi-crossword.netlify.app/",
+   },
+   {
+      image: crossword,
+      title: " Crossword (mobile)",
+      text: "Crossword game with intutive text input and across/down toggle.",
+      support: "mobileonly",
       url: "https://toi-crossword.netlify.app/",
    },
    {
@@ -33,10 +45,10 @@ const projectData = [
    },
    {
       image: backgammon,
-      title: "Testing",
+      title: "Penguin Game",
       // support: "mobileonly",
       text: "Prototype game to test live socket connections.",
-      video: "https://www.dropbox.com/s/n4i1jcgvgoox20z/video2.mp4",
+      video: "https://www.dropbox.com/s/u7c2q99m7ieykzm/penguin-game.mp4",
    },
    {
       image: newto,
@@ -141,65 +153,119 @@ const Projects = ({ show, scrollable }) => {
 };
 
 const Project = ({ data, isLeft, style, setVideo }) => {
+   const [showMessage, setShowMessage] = useState(false);
+
+   const showWarning =
+      (data.support === "mobileonly" && !isMobile) ||
+      (data.support === "desktoponly" && isMobile);
+
+   console.log(data.title, "warning", showWarning);
+
+   let WarningMessage = "";
+   if (data.support === "mobileonly") {
+      WarningMessage = (
+         <div>
+            Developed for mobile only.
+            <br />
+            Please launch from a mobile device.
+         </div>
+      );
+   }
+   if (data.support === "desktoponly") {
+      WarningMessage = (
+         <div>
+            Developed for desktop only.
+            <br />
+            Please launch from a desktop computer.
+         </div>
+      );
+   }
+
+   useEffect(() => {
+      if (!showMessage) return;
+
+      const timer = setTimeout(() => {
+         setShowMessage(false);
+      }, 3000);
+
+      return () => {
+         clearTimeout(timer);
+      };
+   }, [showMessage]);
+
    return (
-      <a
-         className={classes.project}
-         onClick={() => {
-            if (data.video) {
-               setVideo(data.video);
-            }
-         }}
-      >
-         <div className={classes.imageWrapper}>
-            <img src={data.image} />
-         </div>
+      <div className={classes.projectWrapper}>
+         <div
+            className={classes.project}
+            onClick={() => {
+               // if (data.url) {
+               //    window.open(data.url, "_blank").focus();
+               // }
 
-         <div className={classes.gradientCover}>
-            {data.url && (
-               <div className={classes.link}>
-                  <svg
-                     xmlns="http://www.w3.org/2000/svg"
-                     role="img"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="currentColor"
-                     strokeWidth="2"
-                     strokeLinecap="round"
-                     strokeLinejoin="round"
-                     className="feather feather-external-link"
-                  >
-                     <title>External Link</title>
-                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                     <polyline points="15 3 21 3 21 9"></polyline>
-                     <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
+               if (data.video) {
+                  setVideo(data.video);
+               }
+               if (showWarning) {
+                  setShowMessage(true);
+               }
+               if (showMessage) {
+                  setShowMessage(false);
+               }
+            }}
+         >
+            <div className={classes.imageWrapper}>
+               <img src={data.image} />
+            </div>
+
+            <div
+               className={`${classes.content} ${showMessage && classes.hide}`}
+            >
+               <div className={`${classes.gradientCover}`}>
+                  {data.url && (
+                     <div className={classes.link}>
+                        <svg
+                           xmlns="http://www.w3.org/2000/svg"
+                           role="img"
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           stroke="currentColor"
+                           strokeWidth="2"
+                           strokeLinecap="round"
+                           strokeLinejoin="round"
+                           className="feather feather-external-link"
+                        >
+                           <title>External Link</title>
+                           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                           <polyline points="15 3 21 3 21 9"></polyline>
+                           <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                     </div>
+                  )}
+                  {data.video && (
+                     <img className={classes.videoIcon} src={videoIcon} />
+                  )}
                </div>
-            )}
-            {data.video && (
-               <img className={classes.videoIcon} src={videoIcon} />
+
+               <div className={`${classes.infoSlide}`}>
+                  <h2>{data.title}</h2>
+                  <p>{data.text}</p>
+               </div>
+            </div>
+
+            <div
+               className={`${classes.warning} ${showMessage && classes.show}`}
+            >
+               {WarningMessage}
+            </div>
+            {!showWarning && data.url && (
+               <a
+                  className={classes.externalLink}
+                  href={data.url}
+                  target={"_blank"}
+               ></a>
             )}
          </div>
-
-         <div className={classes.infoSlide}>
-            <h2>{data.title}</h2>
-            <p>{data.text}</p>
-         </div>
-
-         {data.support === "mobileonly" && !isMobile && (
-            <div className={`${classes.warning} ${classes.mobileonly}`}>
-               Developed for mobile only upon clients request.
-               <br />
-               Please launch from mobile device.
-            </div>
-         )}
-         {data.support === "desktoponly" && isMobile && (
-            <div className={`${classes.warning}`}>
-               Developed for desktop upon clients request.
-               <br />
-               Please launch from a desktop computer.
-            </div>
-         )}
-      </a>
+      </div>
 
       // <div className={`${classes.project} ${isLeft && classes.left}`} style={{...style}}>
       //    <div className={classes.imageContainer}>
