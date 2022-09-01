@@ -1,0 +1,24 @@
+.workBackground {
+   transform-origin: 0 0;
+   transition: all 300ms;
+   border-radius:400px;
+   overflow: hidden;
+}
+
+.workContainer {
+   /* padding:0px;
+   margin:0px;
+   display:block; */
+   transition: all 400ms;
+}
+
+.image {
+   -webkit-filter: grayscale(100%);
+   filter: grayscale(100%);
+   opacity:0.5;
+
+   /* padding:0px;
+   margin:0px;
+   display:block; */
+   transition: all 400ms;
+}

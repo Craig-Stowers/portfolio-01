@@ -1,0 +1,33 @@
+.Project {
+
+   height: 400px;
+   margin-bottom:100px;
+   margin-top:100px;
+}
+
+.flexgrid2 {
+   display: flex;
+   border:3px solid #B4545C;
+
+}
+
+.col {
+   flex: 1;
+   
+   background-color: #B4545C;
+  
+   overflow: hidden;
+   height:400px;
+   padding:20px;
+}
+
+.col > div {
+  
+   height: 100%;
+   overflow:hidden;
+}
+
+.col img {
+   width:100%;
+   
+}

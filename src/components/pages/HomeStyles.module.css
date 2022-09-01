@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
+
+/* ".." for loading variable font range */
+
+@import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100..900&display=swap");
+
+.Home {
+   width: 100%;
+   left: 0px;
+   min-height: 100vh;
+   position: relative;
+   /* font-family: 'Source Code Pro'; */
+   font-family: "Albert Sans";
+   overflow-x: hidden;
+   transition: background-color 2000ms;
+}
+
+.playfulText {
+   pointer-events: none;
+   
+}
+
+.hoverText {
+   position: absolute;
+   color: green;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 30px;
+   width: 100%;
+   font-weight: 300;
+}
+
+/* .trackerText span {
+   transition: opacity 1s;
+} */
+
+.playArea {
+   top: 0px;
+   left:0px;
+   /* width: 1200px;
+   max-width: 100%; */
+   width:100%;
+
+   position: fixed;
+
+   /* left: 50%;
+   transform: translateX(-50%); */
+   text-align: center;
+
+   z-index: 1;
+  
+   font-weight: 900;
+}
+
+/* .rock {
+   position: relative;
+
+   font-size: 26px;
+   color: rgb(255, 255, 255);
+   font-weight: bold;
+   background-color: rgba(255, 255, 255, 0.25);
+   display: inline-block;
+   width: 120px;
+   height: 120px;
+   vertical-align: middle;
+   line-height: 120px;
+   border-radius: 60px;
+   z-index: 2;
+} */
+
+.trackerText span {
+   display: inline-block;
+   font-size: 60px;
+   z-index: 1;
+
+   /* -webkit-transform: translate3d(0, 0, 0); */
+   /* stops flickering on safari with rapid DOM updates */
+   /* -webkit-backface-visibility: hidden; */
+   color: white;
+   /* transition: color 200ms; */
+}
+
+.ASCII {
+   font-family: "Courier New";
+   background-color: black;
+   white-space: pre;
+   letter-spacing: 0;
+   font-size: 12px;
+   font-weight: 600;
+   width: 137px;
+
+   left: 50%;
+   transform: translateX(-50%);
+   position: relative;
+   text-align: left;
+}
+
+.globe {
+   width: 0px;
+   height: 200px;
+   border: 4px solid white;
+   border-radius: 0px / 100px;
+}
+
+
+
+/* .stickyParent1 {
+   display: flex;
+   justify-content: space-around;
+   align-items: flex-start;
+   border: 2px dashed rgba(114, 186, 94, 1);
+   height: 300vh;
+   background: rgba(114, 186, 94, 0.05);
+   width: 500px;
+}
+
+.stickyChild1 {
+   position: sticky;
+   height: 100vh;
+   background-color: "#440099";
+   border:1px solid red;
+   width:300px;
+   top: 0;
+   z-index: 200;
+   line-height:100vh;
+} */
+
+
+.frameContainer{
+   width:100%;
+   display:flex;
+   position:fixed;
+   top:0px;
+   left:0px;
+   z-index: 1;
+}
+.frameTop {
+   background: rgb(0,0,0);
+/* background: linear-gradient(180deg, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%); */
+  
+   height: 70px;
+   width:0px;
+   max-width: 800px;
+   border-bottom:1px solid rgb(30, 172, 84);
+   margin-left:auto;
+  margin-right:auto;
+  transition: all 300ms;
+  
+}
+
+.frameTopReveal{
+   width:100%;
+   max-width: 640px;
+}
+
+.frameBottom {
+   background: rgb(0,0,0);
+background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+   position:fixed;
+   bottom:0px;
+   left:0px;
+   height: 20px;
+   width:100%;
+  
+  
+}

@@ -1,0 +1,38 @@
+.globeRing {
+   background: linear-gradient(
+         90deg,
+         rgba(255, 255, 255, 1),
+         rgba(255, 255, 255, 1)
+      )
+      border-box; /*3*/
+   -webkit-mask: /*4*/ linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+   -webkit-mask-composite: xor; /*5'*/
+   mask-composite: exclude; /*5*/
+}
+
+.globeRingFlip {
+   background: linear-gradient(
+         90deg,
+         rgba(255, 255, 255, 1),
+         rgba(255, 255, 255, 0.2)
+      )
+      border-box; /*3*/
+   -webkit-mask: /*4*/ linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+   -webkit-mask-composite: xor; /*5'*/
+   mask-composite: exclude; /*5*/
+}
+
+.globeRingUnFlip {
+   background: linear-gradient(
+         90deg,
+         rgba(255, 255, 255, 0.2),
+         rgba(255, 255, 255, 1)
+      )
+      border-box; /*3*/
+   -webkit-mask: /*4*/ linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+   -webkit-mask-composite: xor; /*5'*/
+   mask-composite: exclude; /*5*/
+}

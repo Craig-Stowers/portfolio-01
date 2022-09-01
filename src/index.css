@@ -1,0 +1,218 @@
+@font-face {
+   font-family: 'Menlo';
+   src: url('fonts/Menlo-BoldItalic.woff2') format('woff2'),
+       url('fonts/Menlo-BoldItalic.woff') format('woff'),
+       url('fonts/Menlo-BoldItalic.ttf') format('truetype');
+   font-weight: bold;
+   font-style: italic;
+   font-display: swap;
+}
+
+@font-face {
+   font-family: 'Menlo';
+   src: url('fonts/Menlo-Italic.woff2') format('woff2'),
+       url('fonts/Menlo-Italic.woff') format('woff'),
+       url('fonts/Menlo-Italic.ttf') format('truetype');
+   font-weight: normal;
+   font-style: italic;
+   font-display: swap;
+}
+
+@font-face {
+   font-family: 'Menlo';
+   src: url('fonts/Menlo-Bold.woff2') format('woff2'),
+       url('fonts/Menlo-Bold.woff') format('woff'),
+       url('fonts/Menlo-Bold.ttf') format('truetype');
+   font-weight: bold;
+   font-style: normal;
+   font-display: swap;
+}
+
+@font-face {
+   font-family: 'Menlo';
+   src: url('fonts/Menlo-Regular.woff2') format('woff2'),
+       url('fonts/Menlo-Regular.woff') format('woff'),
+       url('fonts/Menlo-Regular.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+   font-display: swap;
+}
+
+
+
+
+:root {
+   --font-sans: "Calibre", "Inter", "San Francisco", "SF Pro Text",
+      -apple-system, system-ui, sans-serif;
+   --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+
+   --pacific-coast: #5b84b1;
+   --pacific-coast-dark: #436385;
+   --pacific-coast-darker: #223243;
+   --pacific-coast-light: #71a4db;
+   --backgroundColor: rgb(45, 64, 83);
+   --backgroundColorX: 5, 75, 80;
+
+   --color1rgb: 255, 111, 97;
+   --color1b: rgb(150, 30, 18);
+   --color2: #2a4885;
+   --color2b: #041122;
+   --color2c: #252b2f;
+   --color3: #cd2b08;
+   --color4: rgb(187, 61, 95);
+   --color4rgb: 187, 61, 95;
+   --color5: #7d8d9c;
+   --color5b: #7d8d9c;
+   --color6: #e6a28e;
+   --color6b: #ebcec5;
+
+   --teal: #32a2ad;
+   --teal-dark: #145156;
+   --lightblue: #a9e2ff;
+
+   --grey: #45525c;
+   --grey-light: #718695;
+   --grey-dark: #171b1e;
+
+   --livingcoral: #ec6f60;
+
+   --white: #ffffff;
+
+   --coral: #ec6f60;
+
+   --customblue: #85cfe3;
+
+   --ocean: #354d68;
+
+   --cyan: #61e6ff;
+   --cyan-dark: #56352b;
+   --cyan-darker: #e05323;
+
+   --metroid-blue: #5b759d;
+
+   --color1: var(--coral);
+
+   --color1: #ff6f61;
+
+   --navbg2: #455781;
+   --navbg1: #29999e;
+
+   --metroid-green: #29999e;
+
+   --melvins-pink: #ed575e;
+   --QOTSA: #c62a2b;
+   --talkingheads: #d02721;
+   /* strong red and yellow: #DF2516/#ffffffB8 */
+
+   --yellow: #fdc432;
+   --cyan-dark: #009ddf;
+   --cyan-darker: #009ddf;
+
+   --testcolor: #343d78;
+
+   --cyan-dark: #000000;
+   --cyan-darker: #000000;
+
+   /* --cyan-dark: #32091b;
+   --cyan-darker: #32091b; */
+
+   /* good yellow/blue pair : FFE814 / 009DDF */
+
+   --title1: #ffffff;
+   --title2: #c19a00;
+   --title2: #585858;
+
+   --intro: #ed575e;
+
+   --kiwigreen: #19e4a2;
+
+   --name: #19e4a2;
+   /* --name:#389198; */
+   --slogan: #ffe600;
+   --slogan: #19e4a2;
+
+   --titleMessage: #9de2ff;
+   --titleMessage: #19e4a2;
+
+   --pantone-yellow: #f4df4eff;
+
+   --water: #9dd5cb;
+
+   --navtext: #5b5b5b;
+   --navhover: #d5fffe;
+   --navselected: #ed575e;
+   --navselect0: #ebcd9a;
+   --navselect-bg: var(--grey-light);
+   --navbg: #ed725f;
+   --bodybg1: var(--cyan-dark);
+   --bodybg2: var(--cyan-darker);
+   --bodytext: #000000;
+}
+
+/* FF6F61 EBB383 EEE7C1 6BBECE 5B84B1 */
+
+@supports (padding: max(0px)) {
+   body,
+   header,
+   footer {
+      padding-left: min(0vmin, env(safe-area-inset-left));
+      padding-right: min(0vmin, env(safe-area-inset-right));
+   }
+}
+
+html {
+   box-sizing: border-box;
+   width: 100%;
+   scroll-behavior: smooth;
+   scrollbar-width: thin;
+
+   scrollbar-color: var(--color1x) var(--backgroundColor);
+   /* overflow-y: scroll; */
+}
+
+*,
+::before,
+::after {
+   box-sizing: inherit;
+}
+
+body {
+   margin: 0;
+   min-height: 100%;
+
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   overflow-x: hidden;
+
+   height: 100%;
+
+   background-color: black;
+   /* overflow-x: hidden;
+  overflow-y: scroll; */
+
+   /* padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right); */
+}
+
+body.blur {
+   overflow: hidden;
+}
+
+body #content {
+   box-sizing: inherit;
+}
+
+body.blur #content > * {
+   filter: blur(5px) brightness(0.7);
+   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+   pointer-events: none;
+   user-select: none;
+}
+
+code {
+   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+}

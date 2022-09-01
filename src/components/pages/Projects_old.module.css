@@ -1,0 +1,377 @@
+.projects {
+   width: 100%;
+   margin-top: 100px;
+
+   /* if not border then mirror logic has y offset */
+   border: 1px solid transparent;
+   display: flex;
+   flex-direction: column;
+   font-family:'Futura', Courier, monospace;
+   padding: 20px;
+   font-smooth: always;
+   -webkit-font-smoothing: auto;
+   -moz-osx-font-smoothing: grayscale;
+
+   transition: all 1000ms;
+
+   /* background-color: rgb(2, 9, 30); */
+}
+
+.projectsWrapper {
+   width: 100%;
+   max-width: 900px;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.projects .heading {
+   margin-left: auto;
+   margin-right: auto;
+ 
+
+   display: flex;
+   flex-direction: row;
+   height: 40px;
+   font-family: "Albert Sans";
+   margin-bottom:50px;
+}
+
+.projects h1 {
+   font-size: 44px;
+   text-align: left;
+   margin-right: 20px;
+   margin-top: auto;
+   
+
+  
+   color:#79eeec;
+   color:rgb(0, 255, 200);
+   font-weight:900;
+   
+
+   /* background: hsla(330, 70%, 52%, 1);
+
+   background: linear-gradient(
+      0deg,
+      hsla(330, 70%, 52%, 1) 1%,
+      hsla(50, 93%, 78%, 1) 100%
+   );
+
+   background: -moz-linear-gradient(
+      0deg,
+      hsla(330, 70%, 52%, 1) 1%,
+      hsla(50, 93%, 78%, 1) 100%
+   );
+
+   background: -webkit-linear-gradient(
+      0deg,
+      hsla(330, 70%, 52%, 1) 0%,
+      hsla(50, 93%, 78%, 1) 70%
+   );
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent; */
+}
+
+
+.projects .line {
+   background-color: rgb(251, 234, 147);
+   background-color: #4e79d0;
+   /* background-color: rgb(218, 47, 133); */
+   height: 1px;
+   width: 100%;
+   opacity: 0.4;
+   margin-top: auto;
+   margin-bottom: auto;
+}
+
+
+
+.project {
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 90px;
+   z-index: 0;
+   height: 260px;
+   position: relative;
+   opacity:0;
+   transition: all 1000ms;
+}
+
+.note {
+   text-align: left;
+   padding:0px;
+   margin-bottom:120px;
+   color:#d1fffe;
+   font-size:22px;
+   font-family: "Albert Sans";
+   opacity:0px;
+   transition: all 1000ms;
+}
+
+.imageContainer {
+   width: 53.5%;
+   position: absolute;
+   left: 0px;
+   opacity:0.7;
+   transition: all 250ms;
+  
+}
+
+.left .imageContainer {
+   left: auto;
+   right: 0px;
+  
+   padding-left:0px;
+
+}
+
+.imageWrapper {
+   display: block;
+
+   width: 260px;
+   left: 0px;
+   height: 260px;
+   z-index: 1;
+   overflow: hidden;
+   border-radius: 20px;
+
+   background: hsla(330, 70%, 52%, 1);
+   background: hsla(330, 70%, 52%, 1);
+   background:  rgb(0, 255, 200);;
+
+   /* background: linear-gradient(
+      90deg,
+      rgb(218, 47, 133) 1%,
+      rgb(251, 234, 147) 100%
+   );
+
+   background: -moz-linear-gradient(
+      90deg,
+      hsla(330, 70%, 52%, 1) 1%,
+      hsla(50, 93%, 78%, 1) 100%
+   );
+
+   background: -webkit-linear-gradient(
+      90deg,
+      hsla(330, 70%, 52%, 1) 1%,
+      hsla(50, 93%, 78%, 1) 100%
+   );
+
+   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#DA3186", endColorstr="#FBEA92", GradientType=1 ); */
+}
+
+.project img {
+   display: block;
+   -webkit-filter: grayscale(100%);
+   filter: grayscale(100%);
+   opacity: 0.45;
+   width: 100%;
+   transition: all 280ms;
+}
+
+.imageContainer:hover {
+   opacity:1;
+}
+
+.imageContainer:hover img {
+   opacity: 0.9;
+   filter: grayscale(0%);
+   cursor: pointer;
+}
+
+.info {
+   width: 53.5%;
+   z-index: 200;
+   /* margin-left:auto; */
+   position: absolute;
+   right: 0px;
+   top: 0px;
+   height: 240px;
+   pointer-events: none;
+}
+
+.left .info {
+   right: auto;
+   left: 0px;
+}
+
+
+.info .wrapper {
+   text-align: left;
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   display: flex;
+   flex-direction: column;
+}
+
+.info h2 {
+   display: block;
+
+   font-size: 20px;
+   padding: 0px;
+   font-weight: 600;
+   margin: 0px;
+   position: relative;
+   margin-bottom: 14px;
+   text-align: right;
+   transition: all 250ms;
+   color:#79eeec;
+}
+
+
+
+.left .info h2 {
+   right: auto;
+   left: 0px;
+   margin-right: auto;
+   text-align: left;
+}
+
+.textbox {
+   background-color: #191a1a;
+   background-color:#19e480;
+   /* background-color: rgb(100, 20, 60); */
+
+   padding: 0px;
+
+   /* border-top:1px solid rgb(0, 255, 200); */
+   
+   position: relative;
+   text-align: left;
+   display: flex;
+   flex-direction: column;
+
+  
+   border-radius: 10px;
+   -webkit-box-shadow: 3px 3px 3px 6px #ccc; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+   -moz-box-shadow: 3px 3px 3px 6px #ccc; /* Firefox 3.5 - 3.6 */
+   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+   pointer-events: all;
+}
+
+.text {
+   padding: 12px 18px;
+   color: #000000;
+   font-size: 18px;
+   line-height: 24px;
+   /* color: rgb(255, 193, 224); */
+}
+
+.textbox div {
+}
+
+.left .textbox div {
+   margin-left: 0px;
+}
+
+.left .textbox {
+   left: auto;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+   .imageContainer {
+      width:100%;
+      position:static;
+    
+   }
+
+
+   .projects h1 {
+      font-size: 38px;
+      padding:10px;
+      margin:0px;
+      
+   }
+
+   .projects .heading {
+      margin-bottom:10px;
+   }
+
+   .note {
+      margin-bottom:60px;
+      padding:10px;
+   }
+
+
+   .imageWrapper {
+      height:auto;
+      display:block;
+      max-height: 250px;
+
+   }
+
+   .project img {
+      opacity:0.9
+   }
+
+   .info {
+      width:100%;
+      position:static;
+      height:auto;
+     
+   }
+
+   .info .textbox{
+     
+      
+      box-shadow: none;
+      border:none;
+      background-color: transparent;
+   }
+
+   .info h2 {
+      position:static;
+      margin:10px 10px 0px 10px;
+   }
+
+   .info .wrapper {
+
+      position:static;
+      transform: none;
+      background-color: #191a1a;
+   
+      
+      
+   }
+
+   .text {
+      padding:10px;
+   }
+
+   .projects {
+      padding:10px;
+   }
+
+   .project{
+      height:auto;
+      margin-bottom:60px;
+      position:static;
+     
+   }
+ }
+/* .info {
+   transition: all 700ms;
+} */
+
+/* .imageContainer:hover + .info h1 {
+  
+  
+   color:#FBE893;
+   
+}
+
+.imageContainer:hover + .info .text {
+  
+  
+   color:#FBE893;
+   
+} */
+
+/* .imageContainer:hover + .info {
+  
+   margin-right:-80px;
+   
+} */

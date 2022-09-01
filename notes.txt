@@ -1,0 +1,7 @@
+//manually animating html opacity severely hinders performance on text.
+
+//canvas size could be reduced
+
+//background color transition hurts performance
+
+//anti-aliasing canvas text hurts performance

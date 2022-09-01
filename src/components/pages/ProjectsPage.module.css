@@ -1,0 +1,10 @@
+.ProjectsPage {
+}
+
+
+
+@media only screen and (max-width: 600px) {
+   .flexgrid2 {
+      display: block;
+   }
+}
