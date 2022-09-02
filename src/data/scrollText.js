@@ -54,8 +54,11 @@ const projectFade = function (position, element, height) {
 const getSpacing = (spacing, arr) => {
    arr.forEach(
       (e, i) =>{
-         const spaceFactor = i - (arr.length-1) * 0.5
-         e.style.left = `calc(50% + ${spaceFactor * spacing}px)`;
+
+         const spaceFactor = i - (arr.length-1) * 0.5;
+         const gap = (spaceFactor /arr.length)*65
+
+         e.style.left = `calc(50% + ${gap}%)`;
       }
         
    );
@@ -175,7 +178,7 @@ export const repellerData2 = {
 };
 
 export const repellerData3 = {
-   items: getSpacing(50, [
+   items: getSpacing(30, [
       {
          text: "React",
          style: {

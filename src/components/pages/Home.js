@@ -266,7 +266,7 @@ const Home = ({ changeBackgroundColor }) => {
       for (let i = 0; i < data.items.length; i++) {
          const v = new Vector(0, 0);
          const fontSize = data.items[i].style.fontSize || 30;
-         v.power = data.items[i].power || (data.items[i].text.length * fontSize * 0.1);
+         v.power = data.items[i].power || (data.items[i].text.length * fontSize * 0.19);
          // v.weight = 10;
          repellingTextVectors.current[i + baseIndex] = v;
 
@@ -288,6 +288,12 @@ const Home = ({ changeBackgroundColor }) => {
             style={{
                fontSize: 40,
                fontWeight: 800,
+               width:"100%",
+               maxWidth:700,
+               marginLeft:"auto",
+               marginRight:"auto",
+
+             
 
                height: max + paddingBottom,
                position: "relative",
@@ -298,7 +304,7 @@ const Home = ({ changeBackgroundColor }) => {
 
                for (var j = lowIndex; j < highIndex; j++) {
                   const yPos = y + tracking.current[j].y;
-                  const xPos = tracking.current[j].x;
+                  const xPos = x + tracking.current[j].x;
                   const v = repellingTextVectors.current[j];
 
                   v.x = xPos;

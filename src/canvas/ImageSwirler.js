@@ -68,7 +68,6 @@ ImageSwirler.prototype.unload = function () {
 };
 
 ImageSwirler.prototype.transMouse = function(mouseX, mouseY){
-   console.log(this.left, this.top)
    return {x: mouseX - this.left, y:mouseY - this.top}
 }
 

@@ -278,7 +278,7 @@ const PlayfulText = (props) => {
             <div style={{marginTop:-30}}>
                <div
                   style={{
-                     fontSize: 50,
+                     fontSize: 56,
                      letterSpacing: 1,
                      fontWeight: 600,
                      padding: 20,

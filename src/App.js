@@ -41,7 +41,7 @@ function App() {
    const [showEnterButton, setShowEnterButton] = useState(false);
    const [hideEnterButton, setHideEnterButton] = useState(true);
    const startExit = useRef(null);
-   const [showIntro, setShowIntro] = useState(true);
+   const [showIntro, setShowIntro] = useState(false);
 
    const size = useWindowSize();
 
@@ -116,59 +116,62 @@ function App() {
 
    const enterPosition = `calc(100% - calc( calc(100% - ${welcomeImageHeight}px) / 4))`;
 
-// return <></>
+   // return <></>
 
    return (
-      <div
-         style={{ backgroundColor: bgColor }}
-         className={`App${!showIntro ? " secondaryColor" : ""}`}
-         ref={appRef}
-      >
-         {showIntro && (
-            <Swirl
-               onImageHeight={(h) => {
-                  setWelcomeImageHeight(h);
-               }}
-               onCloseOrbit={() => {
-                  setShowEnterButton(true);
-                  setTimeout(() => {
-                     setHideEnterButton(false);
-                  }, 800);
-               }}
-               startExit={startExit}
-               onComplete={() => {
-                  setShowIntro(false);
-               }}
-            />
-         )}
+      <>
+         <div
+            className={`App${!showIntro ? " secondaryColor" : ""}`}
+            ref={appRef}
+         >
+            {showIntro && (
+               <Swirl
+                  onImageHeight={(h) => {
+                     setWelcomeImageHeight(h);
+                  }}
+                  onCloseOrbit={() => {
+                     setShowEnterButton(true);
+                     setTimeout(() => {
+                        setHideEnterButton(false);
+                     }, 800);
+                  }}
+                  startExit={startExit}
+                  onComplete={() => {
+                     setShowIntro(false);
+                  }}
+               />
+            )}
 
-         {showEnterButton && showIntro && (
-            <div
-               className="enter"
-               style={{ top: enterPosition, opacity: hideEnterButton ? 0 : 1 }}
-               onClick={(e) => {
-                  e.preventDefault();
-                  if (startExit.current) startExit.current();
-                  setHideEnterButton(true);
-               }}
-               onTouchEnd={(e) => {
-                  e.preventDefault();
-                  if (startExit.current) startExit.current();
-                  setHideEnterButton(true);
-               }}
-            >
-               enter
-            </div>
-         )}
+            {showEnterButton && showIntro && (
+               <div
+                  className="enter"
+                  style={{
+                     top: enterPosition,
+                     opacity: hideEnterButton ? 0 : 1,
+                  }}
+                  onClick={(e) => {
+                     e.preventDefault();
+                     if (startExit.current) startExit.current();
+                     setHideEnterButton(true);
+                  }}
+                  onTouchEnd={(e) => {
+                     e.preventDefault();
+                     if (startExit.current) startExit.current();
+                     setHideEnterButton(true);
+                  }}
+               >
+                  enter
+               </div>
+            )}
 
-         {!showIntro && (
-            <div id="content">
-               <Home changeBackgroundColor={changeBackgroundColor} />
-            </div>
-         )}
+            {!showIntro && (
+               <div id="content">
+                  <Home changeBackgroundColor={changeBackgroundColor} />
+               </div>
+            )}
 
-         {/* <CodeBlock codeString={codeString} /> */}
-         {/* <div className="debug">
+            {/* <CodeBlock codeString={codeString} /> */}
+            {/* <div className="debug">
             showNav: {showNav ? "true" : "false"} | scrollY: {scrollY}
          </div>
          <div className="parallax1" ref={parallaxRef1}></div>
@@ -195,13 +198,13 @@ function App() {
             />
          </header> */}
 
-         {/* {true && (
+            {/* {true && (
             <h3 style={{ color: "white" }}>
                Mobile version in development. Please open on a desktop browser.
             </h3>
          )} */}
 
-         {/* {true && (
+            {/* {true && (
             <div id="content">
                <Routes>
                   <Route path="/" element={<Home />} />
@@ -215,10 +218,22 @@ function App() {
             </div>
          )} */}
 
-         {/* <div className="water"></div> */}
-      </div>
+            {/* <div className="water"></div> */}
+         </div>
+         <div
+            style={{
+               backgroundColor: bgColor,
+               position: "fixed",
+               top: 0,
+               left: 0,
+               width: "100vw",
+               height: "100vh",
+               zIndex:-1,
+               transition:"all 500ms"
+            }}
+         ></div>
+      </>
    );
 }
-
 
 export default App;
