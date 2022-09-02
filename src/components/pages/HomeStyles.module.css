@@ -5,10 +5,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Albert+Sans:wght@100..900&display=swap");
 
 .Home {
-   width: 100%;
+ 
+ 
    left: 0px;
    min-height: 100vh;
    position: relative;
+  
    /* font-family: 'Source Code Pro'; */
    font-family: "Albert Sans";
    overflow-x: hidden;

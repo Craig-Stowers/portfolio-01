@@ -79,7 +79,7 @@ const useCanvas = (draw, resize, options = {}) => {
          const rect = canvas.parentElement.getBoundingClientRect();
          size = { width: rect.width, height: rect.height };
          // alert(rect.height)
-         resize && resize(rect.width, rect.height);
+         resize && resize(rect.width, rect.height, rect.left, rect.top);
       };
 
       options.init && options.init(context, canvas);

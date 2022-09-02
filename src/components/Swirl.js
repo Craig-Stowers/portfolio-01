@@ -35,6 +35,8 @@ const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
             options={{ context: "2d", fillParent: true }}
             style={{
                display: "block",
+              
+              
             }}
          />
       ),

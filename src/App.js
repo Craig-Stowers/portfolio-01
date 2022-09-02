@@ -15,6 +15,7 @@ import {
    isBrowser,
    isMobile,
 } from "react-device-detect";
+import useWindowSize from "./hooks/useWindowSize";
 
 //require("./utility/Console");
 
@@ -40,7 +41,11 @@ function App() {
    const [showEnterButton, setShowEnterButton] = useState(false);
    const [hideEnterButton, setHideEnterButton] = useState(true);
    const startExit = useRef(null);
-   const [showIntro, setShowIntro] = useState(false);
+   const [showIntro, setShowIntro] = useState(true);
+
+   const size = useWindowSize();
+
+   console.log("app size", size);
 
    useEffect(() => {
       var font = new FontFaceObserver("Albert Sans");
@@ -111,7 +116,7 @@ function App() {
 
    const enterPosition = `calc(100% - calc( calc(100% - ${welcomeImageHeight}px) / 4))`;
 
-
+// return <></>
 
    return (
       <div

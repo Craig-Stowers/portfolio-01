@@ -1,3 +1,4 @@
+import { getSpaceUntilMaxLength } from "@testing-library/user-event/dist/utils";
 import image1 from "../images/hidden-objects.png";
 
 import workClasses from "./work.module.css";
@@ -50,22 +51,33 @@ const projectFade = function (position, element, height) {
    // console.log("el", element);
 };
 
+const getSpacing = (spacing, arr) => {
+   arr.forEach(
+      (e, i) =>{
+         const spaceFactor = i - (arr.length-1) * 0.5
+         e.style.left = `calc(50% + ${spaceFactor * spacing}px)`;
+      }
+        
+   );
+   return arr;
+};
+
+
 export const repellerData1 = {
-   items: [
+   items: getSpacing(40, [
       {
          text: "I",
          style: {
-            left: "50%",
+            left: "calc(50% - 110px",
             top: 1000,
-            fontSize:100
-
+            fontSize: 100,
          },
          // modMove: slowTowardsMid,
       },
       {
          text: "build",
          style: {
-            left: "calc(50% + 70px",
+            left: "calc(50% - 66px",
             top: 1300,
          },
          expandSpans: true,
@@ -74,7 +86,7 @@ export const repellerData1 = {
       {
          text: "things",
          style: {
-            left: "calc(50% - 70px)",
+            left: "calc(50% - 22px)",
             top: 1600,
          },
          expandSpans: true,
@@ -83,7 +95,7 @@ export const repellerData1 = {
       {
          text: "for",
          style: {
-            left: "calc(50% + 0px)",
+            left: "calc(50% + 22px)",
             top: 1900,
          },
          expandSpans: true,
@@ -92,7 +104,7 @@ export const repellerData1 = {
       {
          text: "the",
          style: {
-            left: "calc(50% - 70px)",
+            left: "calc(50% + 66px)",
             top: 2200,
          },
          expandSpans: true,
@@ -101,49 +113,42 @@ export const repellerData1 = {
       {
          text: "web",
          style: {
-            left: "calc(50% + 70px)",
+            left: "calc(50% + 110px)",
             top: 2500,
          },
          expandSpans: true,
          // modMove: slowTowardsMid,
       },
-     
-   ],
+   ]),
 };
 
+
 export const repellerData2 = {
-   items: [
+   items: getSpacing(40, [
       {
          text: "websites",
          style: {
-            left: "calc(50% + 0px)",
+            left: "calc(50% + -110px)",
             top: 1200,
-            fontSize:30
+            fontSize: 30,
          },
          expandSpans: true,
       },
       {
-         text: "e-learning",
+         text: <span style={{textAlign:"centre"}}>e-learning<br/>modules</span>,
+         power:42,
          style: {
-            left: "calc(50% + 50px",
-            top: 1485,
-            fontSize: 27,
+            left: "calc(50% - 90px)",
+            top: 1500,
+            fontSize: 24,
          },
          expandSpans: true,
       },
-      {
-         text: "modules",
-         style: {
-            left: "calc(50% + 50px",
-            top: 1515,
-            fontSize: 27,
-         },
-         expandSpans: true,
-      },
+      
       {
          text: "simulations",
          style: {
-            left: "calc(50% - 50px)",
+            left: "calc(50% + 22px)",
             top: 1800,
             fontSize: 23,
          },
@@ -152,7 +157,7 @@ export const repellerData2 = {
       {
          text: "apps",
          style: {
-            left: "calc(50% + 70px)",
+            left: "calc(50% + 66px)",
             top: 2100,
          },
          expandSpans: true,
@@ -160,17 +165,17 @@ export const repellerData2 = {
       {
          text: "games",
          style: {
-            left: "calc(50% + 0px)",
+            left: "calc(50% + 110px)",
             top: 2400,
-            fontSize:40
+            fontSize: 40,
          },
          expandSpans: true,
       },
-   ],
+   ]),
 };
 
 export const repellerData3 = {
-   items: [
+   items: getSpacing(50, [
       {
          text: "React",
          style: {
@@ -180,23 +185,16 @@ export const repellerData3 = {
          expandSpans: true,
       },
       {
-         text: "JavaScript",
+         text: <span style={{textAlign:"centre"}}>Javascript<br/>(ES6+)</span>,
+         power:37,
          style: {
-            left: "calc(50% + 90px",
-            top: 1280,
-            fontSize:30
+            left: "calc(50% - 90px)",
+            top: 1300,
+            fontSize: 23,
          },
          expandSpans: true,
       },
-      {
-         text: "(ES6+)",
-         style: {
-            left: "calc(50% + 90px",
-            top: 1320,
-            fontSize:30
-         },
-         expandSpans: true,
-      },
+     
       {
          text: "PixiJS",
          style: {
@@ -229,17 +227,17 @@ export const repellerData3 = {
          },
          expandSpans: true,
       },
-   ],
+   ]),
 };
 
 export const repellerData4 = {
-   items: [
+   items: getSpacing(40, [
       {
          text: "Photoshop",
          style: {
             left: "calc(50% + 0px)",
             top: 1000,
-            fontSize:25
+            fontSize: 25,
          },
          expandSpans: true,
       },
@@ -248,17 +246,17 @@ export const repellerData4 = {
          style: {
             left: "calc(50% + 90px",
             top: 1250,
-            fontSize:25
+            fontSize: 25,
          },
          expandSpans: true,
       },
-     
+
       {
          text: "audio & video",
          style: {
             left: "calc(50% - 90px)",
             top: 1500,
-            fontSize:23
+            fontSize: 23,
          },
          expandSpans: true,
       },
@@ -267,7 +265,7 @@ export const repellerData4 = {
          style: {
             left: "calc(50% + 40px)",
             top: 1750,
-            fontSize:30
+            fontSize: 30,
          },
          expandSpans: true,
       },
@@ -276,22 +274,22 @@ export const repellerData4 = {
          style: {
             left: "calc(50% + 0px)",
             top: 2000,
-            fontSize:27
+            fontSize: 27,
          },
          expandSpans: true,
       },
-   ],
+   ]),
 };
 
 export const repellerData5 = {
-   paddingBottom:-290,
-   items: [
+   paddingBottom: -290,
+   items: getSpacing(80,[
       {
          text: "Westpac",
          style: {
             left: "calc(50% + 0px)",
             top: 1000,
-            fontSize:32,
+            fontSize: 32,
          },
          expandSpans: true,
       },
@@ -300,35 +298,27 @@ export const repellerData5 = {
          style: {
             left: "calc(50% + 50px",
             top: 1300,
-            fontSize:32,
+            fontSize: 32,
          },
          expandSpans: true,
       },
       {
-         text: "Theory of",
+         text: <span style={{textAlign:"centre"}}>Theory of<br/>Invention</span>,
+         power:44,
          style: {
             left: "calc(50% - 90px)",
             top: 1585,
-            fontSize:23
+            fontSize: 23,
          },
          expandSpans: true,
       },
-    
-      {
-         text: "Invention",
-         style: {
-            left: "calc(50% - 90px)",
-            top: 1615,
-            fontSize:23
-         },
-         expandSpans: true,
-      },
+     
       {
          text: "Marops",
          style: {
             left: "calc(50% + 70px)",
             top: 1900,
-            fontSize:32,
+            fontSize: 32,
          },
          expandSpans: true,
       },
@@ -337,11 +327,11 @@ export const repellerData5 = {
          style: {
             left: "calc(50% + 0px)",
             top: 2200,
-            fontSize:32,
+            fontSize: 32,
          },
          expandSpans: true,
-      }
-   ],
+      },
+   ]),
 };
 
 const startY = 100;

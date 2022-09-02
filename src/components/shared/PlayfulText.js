@@ -275,7 +275,7 @@ const PlayfulText = (props) => {
    const getMessages = useCallback(() => {
       return [
          <>
-            <div>
+            <div style={{marginTop:-30}}>
                <div
                   style={{
                      fontSize: 50,

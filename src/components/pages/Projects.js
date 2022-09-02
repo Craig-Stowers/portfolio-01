@@ -95,7 +95,7 @@ const Projects = ({ show, scrollable }) => {
                   Please flick an email to{" "}
                   <a href="mailto:craig.stowers@proton.me">
                      craig.stowers@proton.me
-                  </a>{" "}
+                  </a>
                   if you'd like to discuss a project or job opportunity.
                </p>
 
@@ -147,7 +147,6 @@ const Projects = ({ show, scrollable }) => {
                setVideoUrl(null);
             }}
          />
-         )
       </div>
    );
 };

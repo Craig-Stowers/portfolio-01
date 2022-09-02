@@ -67,6 +67,11 @@ ImageSwirler.prototype.unload = function () {
    this.touchAndMouse.unload();
 };
 
+ImageSwirler.prototype.transMouse = function(mouseX, mouseY){
+   console.log(this.left, this.top)
+   return {x: mouseX - this.left, y:mouseY - this.top}
+}
+
 ImageSwirler.prototype.init = function (context, canvas) {
    this.showPointer = false;
    this.canvas = canvas;
@@ -86,8 +91,9 @@ ImageSwirler.prototype.init = function (context, canvas) {
          this.mouseY = null;
       },
       move: (x, y) => {
-         this.mouseX = x;
-         this.mouseY = y;
+         const {x:fixX, y:fixY} = this.transMouse(x, y)
+         this.mouseX = fixX;
+         this.mouseY = fixY;
          if (!this.exploding) this.testHover();
       },
    });
@@ -347,11 +353,15 @@ ImageSwirler.prototype.matchPixelsToOrbits = function () {
 };
 
 //should fire first from canvas controller.
-ImageSwirler.prototype.resize = function (width, height) {
+ImageSwirler.prototype.resize = function (width, height, left, top) {
    this.width = width;
    this.height = height;
    this.midX = this.width * 0.5;
-   this.midY = this.height * 0.5;  
+   this.midY = this.height * 0.5;
+   this.left = left;
+   this.top = top
+
+ 
 
    if (this.exploding) return; //otherwise repositions exiting particles
 

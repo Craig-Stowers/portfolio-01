@@ -28,7 +28,10 @@ function VideoPlayer(props) {
 
    return (
       <>
-         <div className={`${classes.cover} ${props.url && classes.show}`}></div>
+         <div
+            className={`${classes.cover} ${props.url && classes.show}`} style={{ visibility: hide ? "hidden" : "visible" }}
+            
+         ></div>
          <div
             className={classes.videoPlayer}
             ref={videoRef}
@@ -50,9 +53,8 @@ function VideoPlayer(props) {
                      const opacity = window
                         .getComputedStyle(e.target)
                         .getPropertyValue("opacity");
-                     console.log("OPACITY", opacity);
+
                      if (opacity == 0) {
-                        console.log("what the fuck");
                         setHide(true);
                      }
                   }

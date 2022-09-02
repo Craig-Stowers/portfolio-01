@@ -61,7 +61,8 @@ const purpleblue = [27, 44, 86];
 const sandyellow = [244, 199, 77];
 
 const coral = [255, 81, 113];
-const teal = [81, 255, 223];
+const teal = [173,	225,	201	];
+const teal2 = [136,	243,	219]
 
 const yellow = [252, 227, 108];
 const white = [255, 255, 255];
@@ -71,14 +72,19 @@ const orange1 = [245, 64, 7];
 
 const charcoal = [14, 20, 24];
 
+
+const yellow1 = [245,197,69	];
 const yellow2 = [255, 229, 21];
 
-const skyblue = [118, 153, 221];
 
-const orange = [255, 118, 26];
-const hotpink = [253, 76, 164];
+const skyblue = [49,	109,	145	];
 
-const islandgreen = [40, 162, 83];
+const orange = [227,84,39	];
+const hotpink = [226, 80, 171];
+
+
+const islandgreen = [85,	161,	92	];
+
 const white2 = [252, 244, 244];
 
 const brightgreen = [108, 250, 0];
@@ -87,10 +93,10 @@ const red = [225, 23, 6];
 const c_eggWhite = [237, 225, 205];
 
 const bgColors = [
-   purpleblue,
+   teal,
    coral,
    charcoal,
-   yellow2,
+   yellow1,
    white2,
    white2,
    [0, 0, 0],
@@ -99,9 +105,9 @@ const bgColors = [
 
 const slidingTextColors = [
    white,
-   black,
+   charcoal,
    hotpink,
-   black,
+   orange,
    [0, 0, 0],
    [0, 0, 0],
    [0, 0, 0],
@@ -110,7 +116,7 @@ const slidingTextColors = [
 const funTextColors = [
    coral,
    white,
-   yellow2,
+   yellow1,
    islandgreen,
    black,
    white,
@@ -230,9 +236,12 @@ const Home = ({ changeBackgroundColor }) => {
          // document.body.style.setProperty("top", "");
          // document.body.scrollTo(0, storedScrollY.current);
          setHidePlayText(false);
+         document.body.style.width = "100%";
 
          //lockMessages.current = false
       } else {
+
+         document.body.style.width = `calc(100vw - ${size.gutter}px)`;
          // lockMessages.current = true;
          setHidePlayText(true);
          // storedScrollY.current = window.scrollY;
@@ -257,7 +266,7 @@ const Home = ({ changeBackgroundColor }) => {
       for (let i = 0; i < data.items.length; i++) {
          const v = new Vector(0, 0);
          const fontSize = data.items[i].style.fontSize || 30;
-         v.power = data.items[i].text.length * fontSize * 0.1;
+         v.power = data.items[i].power || (data.items[i].text.length * fontSize * 0.1);
          // v.weight = 10;
          repellingTextVectors.current[i + baseIndex] = v;
 
@@ -321,8 +330,8 @@ const Home = ({ changeBackgroundColor }) => {
                   );
 
                   // const left = `calc(-50% + ${d*0.1}px)`
-                  const scale = 0.9 + Math.abs(d) * 0.0015;
-                  el.style.transform = `translate(${-50}%,-50%) scale(${scale})`;
+                  const scale = 0.9 + Math.abs(d) * 0.0018;
+                  // el.style.transform = `translate(${-50}%,-50%) scale(${scale})`;
                   const newColor = blendRgb(
                      slidingTextColors[colorSet],
                      bgColors[colorSet],

@@ -1,5 +1,11 @@
 .projects {
    display: flex;
+   position:relative;
+   margin-right:auto;
+  
+  
+  width:100%;
+
 }
 
 .projects h1 {
@@ -8,13 +14,17 @@
    font-weight: 900;
    text-align: left;
    padding-left: 10px;
+
 }
 
 .projectsWrapper {
-   width: 100%;
+  
+  
    max-width: 900px;
    margin-left: auto;
    margin-right: auto;
+  
+   position:relative;
 }
 
 .columnsWrapper {
@@ -84,18 +94,18 @@
 .project .imageWrapper img {
    width: 100%;
    display: block;
-   opacity: 0.8;
+   /* opacity: 0.8; */
    border-radius: 20px;
 
-   -webkit-filter: grayscale(80%);
-   filter: grayscale(80%);
+   /* -webkit-filter: grayscale(0%);
+   filter: grayscale(0%); */
    transition: all 500ms;
 }
 
 .project:hover .imageWrapper img {
-   opacity: 1;
-   -webkit-filter: grayscale(0%);
-   filter: grayscale(0%);
+   /* opacity: 0.6; */
+   /* -webkit-filter: grayscale(90%);
+   filter: grayscale(90%); */
 }
 
 .project:hover .infoSlide {
@@ -134,8 +144,8 @@
       0deg,
       rgba(0, 0, 0, 0.8) 0%,
 
+      rgba(0, 0, 0, 0.3) 45%,
       rgba(0, 0, 0, 0.3) 55%,
-      rgba(0, 0, 0, 0.3) 75%,
       rgba(0, 0, 0, 0.8) 100%
    );
 }
@@ -153,13 +163,16 @@
    padding: 0px;
    margin: 0px;
    margin-bottom: 10px;
-   font-size: 25px;
+   font-size: 22px;
    font-weight: 600;
-   color: rgb(255, 254, 186);
+   color:white;
+      text-shadow: 0px 0px 10px #000000
+  
 }
 
 .infoSlide p {
    padding: 0px;
+   padding-bottom:7px;
    line-height: 24px;
    margin: 4px 0px;
 }

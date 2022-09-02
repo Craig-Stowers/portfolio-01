@@ -12,14 +12,25 @@ body {
    /* makingheight 100% messes with ios touch events */
    /* background-image: url("./images/background.png");
    background-size: 50px 50px; */
-   background-color:black;
+   background-color: white;
    transition: background-color 1000ms;
 }
 
-html, body {
-   height:100%;
-   width:100vw;
- }
+html,
+body {
+   height: 100%;
+   width: 100%;
+   font-smooth: always;
+   -webkit-font-smoothing: auto;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+@media only screen and (max-width: 600px) {
+   html,
+   body {
+      width: 100vw;
+   }
+}
 
 .App {
    text-align: center;
@@ -30,11 +41,13 @@ html, body {
 
    font-family: "Montserrat";
 
-  
+   overflow-x: hidden;
+   /* border: 2px solid green; */
+
+   width:100%;
+
    transition: all 500ms;
 }
-
-
 
 .ScaredText {
    /* background-color:green; */
@@ -42,7 +55,7 @@ html, body {
 .scaredText span {
 }
 
-.home {
+/* .home {
    font-family: "Menlo", "Times New Roman", monospace;
    padding-top: 100px;
    padding-bottom: 100px;
@@ -52,14 +65,12 @@ html, body {
    -webkit-perspective: 1000px;
    perspective-origin: left top;
 
-   width: 100%;
+   width: 100vw;
+   border:2px solid green;
    position: fixed;
 
-   /* transform-origin: 0% 0%;
-   transform: scale(0.5); */
-
-   /* overflow: hidden; */
-}
+ 
+} */
 
 .funtext {
    font-smooth: always;
@@ -380,50 +391,45 @@ h2 .slogan {
    }
 }
 
-
 canvas {
-   font-smooth:always;
-   -webkit-font-smoothing : auto;
+   font-smooth: always;
+   -webkit-font-smoothing: auto;
    -moz-osx-font-smoothing: grayscale;
-} 
+}
 
 .downArrow {
-
-   opacity:0.0;
+   opacity: 0;
    animation: pulse 1000ms infinite;
    animation-direction: alternate;
    animation-iteration-count: infinite;
    animation-timing-function: ease-in;
    position: fixed;
-   z-index:10;
+   z-index: 10;
 }
 
 .downArrow img {
-  transform: translate(-50%, -50%) scale(0.4, 0.4);
+   transform: translate(-50%, -50%) scale(0.4, 0.4);
 }
 
 .downArrow1 {
- 
 }
 
 .downArrow2 {
-   animation-delay: 120ms;
+   animation-delay: 100ms;
 }
-
 
 .downArrow3 {
-   animation-delay: 240ms;
+   animation-delay: 200ms;
 }
-
 
 @keyframes pulse {
    0% {
-     opacity:0.0;
+      opacity: 0;
    }
-   50%{
-      opacity:0.0;
+   67% {
+      opacity: 0;
    }
    100% {
-      opacity:0.8;
+      opacity: 0.8;
    }
- }
+}

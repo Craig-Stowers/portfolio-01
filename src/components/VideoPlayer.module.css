@@ -27,18 +27,27 @@
 .cover {
    z-index: 10;
    position: fixed;
-   width: 100vw;
+   width: 200vw;
    height: 200vh;
    top: -50vw;
-   background-color: #ffffffcc;
+   left:-50vw;
+   background-color:black;
    opacity: 0;
-   transition: opacity 540ms;
-   pointer-events: none;
+   transition: opacity 300ms;
+  
+  
+}
+
+@media only screen and (max-width:600px){
+   .cover {
+      background-color:black;
+   }
 }
 
 .cover.show {
-   opacity: 1;
-   pointer-events: all;
+   opacity: 0.8;
+   
+  
 }
 
 .window {
