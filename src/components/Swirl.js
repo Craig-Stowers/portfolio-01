@@ -3,40 +3,35 @@ import Canvas from "./Canvas";
 import classes from "./Swirl.module.css";
 import ImageSwirler from "../canvas/ImageSwirler";
 
-
-
 import useImagePreloader from "./hooks/useImagePreloader";
 
-import portrait from '../images/craig-small.png'
+import portrait from "../images/craig-blue.png";
 import star from "../images/star.png";
 import orb from "../images/orb.png";
-const preloadSrcList = [
-   portrait,
-   star,
-   orb,
-]
-
+const preloadSrcList = [portrait, star, orb];
 
 const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
-   const { imagesPreloaded } = useImagePreloader(preloadSrcList)
+   const { imagesPreloaded } = useImagePreloader(preloadSrcList);
    const swirler = useRef(null);
 
-   useEffect(()=>{
+   useEffect(() => {
       document.body.style.overflow = "hidden";
-      swirler.current = new ImageSwirler();
-      startExit.current = swirler.current.loadImage(
-         portrait,
-         onImageHeight,
-         onCloseOrbit,
-         onComplete
-      );
+
+      if (!swirler.current) {
+         swirler.current = new ImageSwirler();
+         startExit.current = swirler.current.loadImage(
+            portrait,
+            onImageHeight,
+            onCloseOrbit,
+            onComplete
+         );
+      }
 
       return () => {
          document.body.style.overflow = "auto";
          swirler.current.unload();
       };
-
-   }, [imagesPreloaded])
+   }, [imagesPreloaded]);
 
    // useLayoutEffect(() => {
    //    document.body.style.overflow = "hidden";
@@ -66,8 +61,7 @@ const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
    //          options={{ context: "2d", fillParent: true }}
    //          style={{
    //             display: "block",
-              
-              
+
    //          }}
    //       />
    //    ),
@@ -89,18 +83,17 @@ const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
             msUserSelect: "none",
          }}
       >
-          <Canvas
+         <Canvas
             init={(...args) => swirler.current && swirler.current.init(...args)}
             draw={(...args) => swirler.current && swirler.current.draw(...args)}
-            resize={(...args) => swirler.current && swirler.current.resize(...args)}
+            resize={(...args) =>
+               swirler.current && swirler.current.resize(...args)
+            }
             options={{ context: "2d", fillParent: true }}
             style={{
                display: "block",
-              
-              
             }}
          />
-         
       </div>
    );
 };

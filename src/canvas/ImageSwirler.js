@@ -396,7 +396,7 @@ ImageSwirler.prototype.calcPixelOrigins = function (isInit) {
    console.log("width/height", width,height)
    const imageData = this.imageData;
 
-   let imageHeight = Math.min(Math.pow(height * 0.4, 0.4) * 40, height);
+   let imageHeight = Math.min(Math.pow(height * 0.4, 0.4) * 25, height);
    const imageWidth = Math.min(
       imageHeight * (imageData.width / imageData.height),
       width
@@ -410,7 +410,7 @@ ImageSwirler.prototype.calcPixelOrigins = function (isInit) {
    //    Math.ceil((imageWidth / imageData.width) * roundingFactor) /
    //    roundingFactor;
 
-   const pixelSize = imageWidth / 70;
+   const pixelSize = imageWidth / 90;
 
 
    console.log("imageWidth", imageWidth, imageData.width)
