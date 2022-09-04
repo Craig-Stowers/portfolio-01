@@ -122,13 +122,13 @@ export let switchModesWithTween = function () {
       let duration = 1;
       if (this.orbiting) {
          sp.real.target = sp.orbit;
-         duration = Math.pow(Math.hypot(sp.orbit.x, sp.orbit.y), 0.3) * 1400;
+         duration = 3000 //Math.pow(Math.hypot(sp.orbit.x, sp.orbit.y), 0.3) * 1400;
       } else {
          sp.real.trail = [];
          sp.real.target = sp.pix;
-         duration = Math.pow(sp.pix.distance, 0.4) * 400;
+         duration = 1000 //Math.pow(sp.pix.distance, 0.4) * 400;
          //reduce tween by how far through previous tween
-         if (sp.tween) duration *= sp.tween.percTween;
+        // if (sp.tween) duration *= sp.tween.percTween;
       }
       const tweenParams = {
          duration,

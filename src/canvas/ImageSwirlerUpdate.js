@@ -265,7 +265,7 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
       this.finished = true;
       this.onComplete();
    }
-
+   console.log("?track=delta", delta)
    console.log("?track=xDistort", this.xDistort)
    console.log("?track=yDistort", this.yDistort)
 };
