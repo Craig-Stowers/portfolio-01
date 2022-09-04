@@ -62,7 +62,7 @@ export let switchModesWithTween = function () {
 
    let distortX, distortY, tweenType;
    if (this.orbiting) {
-      duration = 4000;
+      duration = 7000;
       delay = 0;
       distortX = this.orbitDistortX;
       distortY = this.orbitDistortY;
@@ -123,7 +123,7 @@ export let switchModesWithTween = function () {
       let duration = 1;
       if (this.orbiting) {
          sp.real.target = sp.orbit;
-         duration = 3000 //Math.pow(Math.hypot(sp.orbit.x, sp.orbit.y), 0.3) * 1400;
+         duration = 6000 //Math.pow(Math.hypot(sp.orbit.x, sp.orbit.y), 0.3) * 1400;
       } else {
          sp.real.trail = [];
          sp.real.target = sp.pix;
@@ -150,7 +150,7 @@ export let switchModesWithTween = function () {
       };
 
       if (sp.tween) sp.tween.remove();
-     // sp.tween = addTween(tweenParams);
+          sp.tween = addTween(tweenParams);
    }
    if (!this.orbiting) {
       this.onCloseOrbit();
