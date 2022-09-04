@@ -39,7 +39,7 @@ export let switchModesWithTween = function () {
    }
    if (this.sunTween) {
       console.log("remove old", this.sunTween.percTime);
-      duration *= this.sunTween.percTime;
+      //duration *= this.sunTween.percTime;
       if (this.sunTween) this.sunTween.remove();
    }
    const sunTween = {
@@ -76,9 +76,10 @@ export let switchModesWithTween = function () {
    }
 
    if (this.distortTween) {
-      duration *= this.distortTween.percTime;
-      if (this.distortTween) this.distortTween.remove();
+      //duration *= this.distortTween.percTime;
+     
    }
+   if (this.distortTween) this.distortTween.remove();
    const distortTween = {
       duration,
       delay,
@@ -105,7 +106,7 @@ export let switchModesWithTween = function () {
       },
    };
 
-   this.distortTween = addTween(distortTween);
+  // this.distortTween = addTween(distortTween);
 
    console.log("this.orbiting", this.orbiting)
 

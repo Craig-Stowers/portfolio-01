@@ -179,6 +179,7 @@ ImageSwirler.prototype.loadImage = function (
    onCloseOrbit,
    onComplete
 ) {
+   console.log("loadImage", img)
    this.onImageHeight = onImageHeight;
    this.onCloseOrbit = onCloseOrbit;
    this.onComplete = onComplete;
