@@ -124,11 +124,12 @@ export let switchModesWithTween = function () {
       if (this.orbiting) {
          sp.real.target = sp.orbit;
          console.log(sp.orbit.y)
+         //safari issue with value creating horizontal line grouping.
          duration = Math.pow(Math.hypot(sp.orbit.x, sp.orbit.y), 0.3) * 1000;
       } else {
          sp.real.trail = [];
          sp.real.target = sp.pix;
-         duration = 1000 //Math.pow(sp.pix.distance, 0.4) * 400;
+         duration = 2000 //Math.pow(sp.pix.distance, 0.4) * 400;
          //reduce tween by how far through previous tween
         // if (sp.tween) duration *= sp.tween.percTween;
       }
