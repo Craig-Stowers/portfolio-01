@@ -61,29 +61,28 @@ const purpleblue = [27, 44, 86];
 const sandyellow = [244, 199, 77];
 
 const coral = [255, 81, 113];
-const teal = [173,	225,	201	];
-const teal2 = [136,	243,	219]
+const coral2 = [225, 111, 124];
+const teal = [173, 225, 201];
+const gold = [241, 174, 117];
+const teal2 = [136, 243, 219];
 
-const yellow = [252, 227, 108];
 const white = [255, 255, 255];
 const black = [0, 0, 0];
 const blue = [20, 146, 194];
-const orange1 = [245, 64, 7];
+const orange1 = [255, 159, 28];
 
-const charcoal = [14, 20, 24];
+const charcoal = [37, 38, 45];
 
-
-const yellow1 = [245,197,69	];
+const yellow1 = [245, 197, 69];
 const yellow2 = [255, 229, 21];
 
+const skyblue = [49, 109, 145];
 
-const skyblue = [49,	109,	145	];
+const orange = [227, 84, 39];
+const hotpink = [209, 64, 129];
 
-const orange = [227,84,39	];
-const hotpink = [226, 80, 171];
-
-
-const islandgreen = [85,	161,	92	];
+const islandgreen = [85, 161, 92];
+const mintcream = [243, 247, 240];
 
 const white2 = [252, 244, 244];
 
@@ -91,12 +90,24 @@ const brightgreen = [108, 250, 0];
 
 const red = [225, 23, 6];
 const c_eggWhite = [237, 225, 205];
+const dullblue = [78, 128, 152];
+
+const wine = [106, 46, 53];
+
+const citrine = [215, 207, 7];
+const russiangreen = [111, 143, 114];
+const spanishViridian = [28, 124, 84];
+const powderblue = [190, 227, 219];
+const wildblueyonder = [161, 181, 216];
+const persimmon = [235, 100, 36];
+
+const yellow = [241,	210,	89	]
 
 const bgColors = [
-   teal,
+   [218,254,253],
    coral,
    charcoal,
-   yellow1,
+   yellow,
    white2,
    white2,
    [0, 0, 0],
@@ -104,10 +115,10 @@ const bgColors = [
 ];
 
 const slidingTextColors = [
-   white,
+   dullblue,
    charcoal,
    hotpink,
-   orange,
+   spanishViridian,
    [0, 0, 0],
    [0, 0, 0],
    [0, 0, 0],
@@ -115,9 +126,9 @@ const slidingTextColors = [
 ];
 const funTextColors = [
    coral,
-   white,
-   yellow1,
-   islandgreen,
+   mintcream,
+   yellow,
+   charcoal,
    black,
    white,
    white,
@@ -170,6 +181,8 @@ const Home = ({ changeBackgroundColor }) => {
    const scrollLockRef = useRef(document.createElement("div"));
    const storedScrollY = useRef(null);
    const [hidePlayText, setHidePlayText] = useState(false);
+   const slideTextRefs = useRef([]);
+   const slideTextPositions = useRef([]);
 
    useScroller(
       (scroll) => {
@@ -197,6 +210,8 @@ const Home = ({ changeBackgroundColor }) => {
          targetColor,
          0.03
       );
+
+      slideTextRefs.current[0].style.color = "red";
    });
 
    const changeFormat = (i) => {
@@ -212,7 +227,21 @@ const Home = ({ changeBackgroundColor }) => {
    useEffect(() => {
       heightRef.current = size.height;
       widthRef.current = size.width;
-      console.log("CHANGE SIZE", size.height);
+
+      console.log("cal new positions", slideTextRefs.current.length);
+
+      for (let i = 0; i < slideTextRefs.current.length; i++) {
+         const ref = slideTextRefs.current[i];
+         const parent = ref.parentElement;
+         const parentRect = parent.getBoundingClientRect();
+         const rect = ref.getBoundingClientRect();
+         const x = rect.left - parentRect.left + rect.width * 0.5;
+         const y = rect.top - parentRect.top + rect.height * 0.5;
+
+         console.log(x, y);
+
+         slideTextPositions.current[i] = { x, y };
+      }
    }, [size]);
 
    useEffect(() => {
@@ -240,7 +269,6 @@ const Home = ({ changeBackgroundColor }) => {
 
          //lockMessages.current = false
       } else {
-
          document.body.style.width = `calc(100vw - ${size.gutter}px)`;
          // lockMessages.current = true;
          setHidePlayText(true);
@@ -266,7 +294,9 @@ const Home = ({ changeBackgroundColor }) => {
       for (let i = 0; i < data.items.length; i++) {
          const v = new Vector(0, 0);
          const fontSize = data.items[i].style.fontSize || 30;
-         v.power = data.items[i].power || (data.items[i].text.length * fontSize * 0.19);
+         v.power =
+            data.items[i].power ||
+            Math.pow(data.items[i].text.length * fontSize, 0.5) * 1.2;
          // v.weight = 10;
          repellingTextVectors.current[i + baseIndex] = v;
 
@@ -279,7 +309,7 @@ const Home = ({ changeBackgroundColor }) => {
 
       // console.log("tracking", lowIndex, repellingTextVectors.current.length)
 
-      let paddingBottom = data.paddingBottom || 300;
+      let paddingBottom = data.paddingBottom || 100;
       if (data.paddingBottom === 0) paddingBottom = 0;
 
       return (
@@ -288,28 +318,65 @@ const Home = ({ changeBackgroundColor }) => {
             style={{
                fontSize: 40,
                fontWeight: 800,
-               width:"100%",
-               maxWidth:700,
-               marginLeft:"auto",
-               marginRight:"auto",
-
-             
+               width: "100%",
+               maxWidth: 700,
+               marginLeft: "auto",
+               marginRight: "auto",
 
                height: max + paddingBottom,
                position: "relative",
                color: formatRgbArr(slidingTextColors[colorSet]),
             }}
-            onMove={(x, y) => {
-               // console.log(`?track=mirror${baseIndex}-Y?round=2`, y);
-
+            onResize={() => {}}
+            //recieve x,y of sliding mirror
+            onMovexx={(x, y) => {
                for (var j = lowIndex; j < highIndex; j++) {
-                  const yPos = y + tracking.current[j].y;
-                  const xPos = x + tracking.current[j].x;
+                  // console.log("slideText", j)
+                  const slideText = slideTextPositions.current[j];
+                  if (!slideText) continue;
+                  const yPos = y + slideText.y;
+                  const xPos = x + slideText.x;
+                  const v = repellingTextVectors.current[j];
+                  v.x = xPos; // + sinMod;
+                  v.y = yPos;
+                  //  console.log("slideText", j, slideText);
+               }
+            }}
+            onMove={(x, y, clones) => {
+               for (var j = lowIndex; j < highIndex; j++) {
+                  const slideText = slideTextPositions.current[j];
+                  if (!slideText) continue;
+
+                  const yPos = y + slideText.y;
+                  const xPos = x + slideText.x;
                   const v = repellingTextVectors.current[j];
 
-                  v.x = xPos;
-                  v.y = yPos;
-                  const d = heightRef.current * 0.5 - yPos;
+                  const d = yPos - heightRef.current * 0.5;
+
+                  let newDistance = d; //Math.pow(Math.abs(d), 1.2)/4;
+
+                  const sinMod = Math.sin(d * 0.010) * 40;
+                  if(j === 0){
+                   //  console.log(yPos, sinMod)
+                  }
+                  
+                  // let newDistance = Math.pow(Math.abs(d*2), 2)/9999; //very cool cascade of appearences because distnace is tightend so much
+
+                  //this combo has cool bouncing back effect (never goes above halfway)
+                  //   let newDistance = d
+                  //    if (d < 0) {
+                  //       newDistance *= -1;
+                  //    }
+
+                  // let modDistance = Math.pow(Math.abs(newDistance),1.2)*10
+
+                  //  if(newDistance < 0)modDistance *= -1
+
+                  const newY = heightRef.current * 0.5 + newDistance;
+
+                  //simple const newY = heightRef.current * 0.5 + newDistance
+
+                  const yDiff = newY - yPos;
 
                   //const yMod = Math.pow(Math.abs(d*0.1), 2)*0.
 
@@ -319,32 +386,54 @@ const Home = ({ changeBackgroundColor }) => {
                   // }
                   const dx = Math.abs(widthRef.current * 0.5 - xPos);
                   const limit = Math.max(heightRef.current * 0.2, 120);
-                  const el = tracking.current[j].element;
-                  if (d > limit * 2) {
-                     if (!v.outOfBounds) {
-                        v.outOfBounds = true;
-                        el.style.color = formatRgbArr(bgColors[colorSet]);
-                     }
-                     continue;
-                  } else {
-                     v.outOfBounds = false;
-                  }
+                  const el = clones[j - lowIndex];
 
                   const darkness = Math.min(
                      Math.max(Math.abs(d) - limit, 0) * 0.0065,
                      1
                   );
 
-                  // const left = `calc(-50% + ${d*0.1}px)`
-                  const scale = 0.9 + Math.abs(d) * 0.0018;
-                  // el.style.transform = `translate(${-50}%,-50%) scale(${scale})`;
                   const newColor = blendRgb(
                      slidingTextColors[colorSet],
-                     bgColors[colorSet],
+                     bgColors[formatingIndex.current],                   
                      darkness
                   );
                   newColor[3] = 1;
                   el.style.color = formatRgbArr(newColor);
+
+                  if (d > limit * 2) {
+                     v.x = xPos;
+                     v.y = yPos;
+                     if (!v.outOfBounds) {
+                        v.outOfBounds = true;
+                       // el.style.color = formatRgbArr(bgColors[formatingIndex.current]);
+                     }
+                     continue;
+                  } else {
+                     v.outOfBounds = false;
+                  }
+
+                 
+                  // const left = `calc(-50% + ${d*0.1}px)`
+                  const scale = 0.9 + Math.abs(d) * 0.0018;
+
+                  const sign = sinMod < 0 ? "-" : "+";
+
+                  const transLeft = `calc(-50% ${sign} ${Math.round(
+                     Math.abs(sinMod)
+                  )}px)`; //using % instead of px would scale deviance with word width
+                  // if (j == 6) {
+                  //    console.log(xPos, yPos, transLeft);
+                  // }
+
+                  el.style.transform = `translate(${transLeft}, -50%) scale(${1}) rotate(${
+                     -sinMod * 0.0
+                  }deg)`;
+
+                  
+
+                  v.x = xPos + sinMod;
+                  v.y = yPos;
                }
             }}
          >
@@ -355,23 +444,23 @@ const Home = ({ changeBackgroundColor }) => {
                   e.style.fontSize || 80 / Math.pow(e.text.length, 0.4);
 
                return (
-                  <SharePosition
+                  <div
+                     ref={(ref) => {
+                        slideTextRefs.current[index] = ref;
+                     }}
                      key={"repeller" + index}
                      style={{
                         ...e.style,
                         position: "absolute",
-                        display: "inline-block",
+                        display: "block",
                         color: "rgba(0,0,0,1)",
                         fontWeight: 800,
                         fontSize,
                         transform: "translate(-50%,-50%)",
                      }}
-                     recieveData={(data) => {
-                        tracking.current[index] = data;
-                     }}
                   >
                      {e.text}
-                  </SharePosition>
+                  </div>
                );
             })}
          </MirrorElement>
@@ -382,7 +471,7 @@ const Home = ({ changeBackgroundColor }) => {
       const repelGroups = [];
       let repelIndex = 0;
       for (var i = 0; i < repelSets.length; i++) {
-         console.log("repelindex", repelIndex);
+         //    console.log("repelindex", repelIndex);
          repelGroups.push(buildReppellerGroup(repelSets[i], i, repelIndex));
          repelIndex += repelSets[i].items.length;
       }
@@ -519,6 +608,7 @@ const Home = ({ changeBackgroundColor }) => {
             }}
          >
             {repellerGroup5}
+            
          </Sticky>
 
          <Sticky

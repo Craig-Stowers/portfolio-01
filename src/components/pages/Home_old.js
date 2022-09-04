@@ -1,4 +1,4 @@
-import {
+import React, {
    useEffect,
    useLayoutEffect,
    useCallback,
@@ -6,21 +6,30 @@ import {
    useState,
    useMemo,
 } from "react";
+
+import {
+   BrowserView,
+   MobileView,
+   isBrowser,
+   isMobile,
+} from "react-device-detect";
+
 import classes from "./HomeStyles.module.css";
 import Sticky from "../shared/Sticky";
 import PlayfulText from "../shared/PlayfulText";
-import SpanChars from "../shared/SpanChars";
-import { toRadians } from "../util/utils";
+
+import arrowDown from "../../images/arrow-down.png";
+
 import { Vector } from "../util/vector";
-import LagElement from "../shared/LagElement";
 import useWindowSize from "../../hooks/useWindowSize";
 import { limitNumberRange } from "../util/utils";
 import { clamp } from "../../utility/common";
 import {
    repellerData1,
-   lagText2,
-   lagText3,
-   work1,
+   repellerData2,
+   repellerData3,
+   repellerData4,
+   repellerData5,
 } from "../../data/scrollText";
 import useRequestAnimationFrame from "../../hooks/useRequestAnimationFrame";
 import { UNSAFE_LocationContext } from "react-router-dom";
@@ -29,66 +38,108 @@ import SharePosition from "../shared/SharePosition";
 
 import MirrorElement from "../shared/MirrorElement";
 
-import ProjectSlider2 from "./ProjectSlider2";
+import Projects from "./Projects";
 
-import { ProjectItem } from "./ProjectItem";
+import useScroller from "../../hooks/useScroller";
+
+import {
+   disableBodyScroll,
+   enableBodyScroll,
+   clearAllBodyScrollLocks,
+} from "body-scroll-lock";
 
 import hiddenObjects from "../../images/hidden-objects.png";
 import { addTween } from "../../utility/Tweens";
 const asciiText = require(`../code/${"bulb"}.txt`);
 let debug = false;
 
+const electricblue = [0, 173, 255];
+const seablue = [0, 240, 255];
+const lightpink = [255, 167, 247];
+const purpleblue = [27, 44, 86];
+
+const sandyellow = [244, 199, 77];
+
+const coral = [255, 81, 113];
+const coral2 = [225, 111, 124];
+const teal = [173, 225, 201];
+const gold = [241, 174, 117];
+const teal2 = [136, 243, 219];
+
+const yellow = [252, 227, 108];
+const white = [255, 255, 255];
+const black = [0, 0, 0];
+const blue = [20, 146, 194];
+const orange1 = [255, 159, 28];
+
+const charcoal = [37, 38, 45];
+
+const yellow1 = [245, 197, 69];
+const yellow2 = [255, 229, 21];
+
+const skyblue = [49, 109, 145];
+
+const orange = [227, 84, 39];
+const hotpink = [209, 64, 129];
+
+const islandgreen = [85, 161, 92];
+const mintcream = [243, 247, 240];
+
+const white2 = [252, 244, 244];
+
+const brightgreen = [108, 250, 0];
+
+const red = [225, 23, 6];
+const c_eggWhite = [237, 225, 205];
+const dullblue = [78, 128, 152];
+
+const wine = [106, 46, 53];
+
+const citrine = [215, 207, 7];
+const russiangreen = [111, 143, 114];
+const spanishViridian = [28, 124, 84];
+const powderblue = [190, 227, 219];
+const wildblueyonder = [161, 181, 216];
+const persimmon = [235, 100, 36];
+
 const bgColors = [
-   [80, 50, 120],
-   [180, 69, 100],
-   [0, 0, 255],
-   [0, 0, 0],
-   [0, 0, 0],
-   [0, 0, 0],
+   teal,
+   coral2,
+   charcoal,
+   citrine,
+   white2,
+   white2,
    [0, 0, 0],
    [0, 0, 0],
 ];
+
 const slidingTextColors = [
-   [0, 255, 200],
-   [242, 66, 37],
-   [0, 200, 125],
-   [0, 200, 125],
-   [0, 200, 125],
-   [0, 200, 125],
-   [0, 200, 125],
-   [0, 200, 125],
+   dullblue,
+   charcoal,
+   hotpink,
+   persimmon,
+   [0, 0, 0],
+   [0, 0, 0],
+   [0, 0, 0],
+   [0, 0, 0],
 ];
 const funTextColors = [
-   [255, 0, 255],
-   [100, 255, 49],
-   [255, 255, 100],
-   [6, 223, 232],
-   [27, 254, 73],
-   [221, 0, 81],
-   [252, 246, 104],
-   [209, 249, 255],
+   coral2,
+   mintcream,
+   citrine,
+   spanishViridian,
+   black,
+   white,
+   white,
+   [0, 0, 0],
 ];
 
-const formatRgbArr = (rgb) => {
-   return `rgba(${rgb[0]},${rgb[1]},${rgb[2]}, 1)`;
-};
-
-const baseStyle1 = {
-   position: "absolute",
-   transform: "translate(-50%,-50%)",
-   fontSize: "auto",
-   fontWeight: 700,
-   textAlign: "center",
-   color: formatRgbArr(slidingTextColors[0]),
-};
-
-const baseStyle2 = {
-   ...baseStyle1,
-   color: formatRgbArr(slidingTextColors[1]),
-};
-const baseStyle3 = {
-   ...baseStyle1,
-   color: formatRgbArr(slidingTextColors[2]),
+const formatRgbArr = (rgba) => {
+   let a = rgba[3];
+   if (a === null || a === undefined) {
+      a = 1;
+   }
+   return `rgba(${rgba[0]},${rgba[1]},${rgba[2]}, ${a})`;
 };
 
 const blendRgb = (curr, target, perc) => {
@@ -101,30 +152,12 @@ const blendRgb = (curr, target, perc) => {
    return [r, g, b];
 };
 
-const addBaseStyle = (arr, style) => {
-   arr.forEach((e) => {
-      const oldStyle = e.style;
-      e.style = {
-         ...style,
-         ...oldStyle,
-      };
-   });
-};
-
-const setTopSpacing = (arr, start, spacing) => {
-   let height = 0;
-   arr.forEach((e, i) => {
-      height = start + spacing * i;
-      e.style.top = height;
-   });
-   return height;
-};
-
 const Home = ({ changeBackgroundColor }) => {
    const repellingTextVectors = useRef([]);
    const [textIndex, setTextIndex] = useState(null);
    const size = useWindowSize();
    const heightRef = useRef(size.height);
+   const widthRef = useRef(size.width);
    const [showPlayText, setShowPlayText] = useState(false);
    const lagTextSpans = useRef([]);
    const [ascii, setAscii] = useState(null);
@@ -136,412 +169,420 @@ const Home = ({ changeBackgroundColor }) => {
    const playfulTextY = useRef(0);
    const playfulTextRef = useRef(null);
    const lockTextToProjects = useRef(false);
-   const tracking = useRef([{}]);
+   const tracking = useRef([]);
+   const [showProjects, setShowProjects] = useState(false);
+
+   const homeRef = useRef(null);
+
+   const [scrolled, setScrolled] = useState(false);
+   const startScroll = useRef(null);
+
+   const scrollLockRef = useRef(document.createElement("div"));
+   const storedScrollY = useRef(null);
+   const [hidePlayText, setHidePlayText] = useState(false);
+
+   useScroller(
+      (scroll) => {
+         if (scroll.y > 300) {
+            setScrolled(true);
+         } else {
+            setScrolled(false);
+         }
+
+         // console.log(scroll)
+      },
+      true,
+      [scrolled, setScrolled]
+   );
+
+   //repellingTextVectors.current = [];
+
+   //  tracking.current = [];
+   //  repellingTextVectors.current = [];
 
    useRequestAnimationFrame((delta) => {
       const targetColor = funTextColors[formatingIndex.current];
       funTextColorRef.current = blendRgb(
          funTextColorRef.current,
          targetColor,
-         0.01
+         0.03
       );
    });
 
-   useEffect(() => {
-      heightRef.current = size.height;
-   }, [size]);
-
-   useEffect(() => {
-      fetch(asciiText)
-         .then((t) => t.text())
-         .then((text) => {
-            setAscii(text);
-            setShowPlayText(true);
-         });
-   }, []);
-
-   // addBaseStyle(lagText1, baseStyle1);
-   // addBaseStyle(lagText2, baseStyle2);
-   // addBaseStyle(lagText3, baseStyle3);
-   // addBaseStyle(work1, baseStyle3);
-   // addBaseStyle(lagText4, baseStyle3);
-
-   // const height1 = setTopSpacing(lagText1, 1200, 500) + 1400;
-   // const height2 = setTopSpacing(lagText2, 1600, 500) + 1400;
-   // const height3 = setTopSpacing(lagText3, 1200, 600) + 900;
-
-   // const height4 = 2000; //setTopSpacing(lagText4, 600, 120) + 400;
-
-   const getLagText = (lagText, startIndex) => {
-      return lagText.map((e, i) => {
-         let power = 100;
-         let weight = 1;
-         const vectorIndex = startIndex + i;
-         if (lagText[i].type != "object") {
-            const style = lagText[i].style;
-            if (!lagTextSpans.current[vectorIndex]) {
-               lagTextSpans.current[vectorIndex] = [];
-            }
-
-            if (style.fontSize === "auto") {
-               lagText[i].style.fontSize = Math.max(
-                  120 / Math.pow(lagText[i].text.length, 0.5),
-                  20
-               );
-            }
-            power =
-               lagText[i].power ||
-               Math.pow(lagText[i].text.length, 1.5) *
-                  lagText[i].style.fontSize *
-                  0.1;
-            weight =
-               lagText[i].text.length *
-               Math.pow(lagText[i].style.fontSize, 2) *
-               0.0002;
-         }
-
-         if (!!!lagText[i].repeller) {
-            repellingTextVectors.current[vectorIndex] = new Vector(0, 0);
-            repellingTextVectors.current[vectorIndex].power = power;
-         }
-
-         return (
-            <LagElement
-               key={"lag" + i}
-               track={i === 0}
-               //used to put limtis on the target "ghost" element
-               setTargetPosition={(fixedPosition, element) => {
-                  // const destinationY = limitNumberRange(
-                  //    fixedPosition.y + fixedPosition.height * 0.5,
-                  //    -2000,
-                  //    2000
-                  // );
-
-                  const newY = lagText[i].mod
-                     ? lagText[i].mod(
-                          fixedPosition.y,
-                          heightRef.current,
-                          element
-                       )
-                     : fixedPosition.y;
-
-                  return [
-                     fixedPosition.x + fixedPosition.width * 0.5,
-                     newY + fixedPosition.height * 0.5,
-                  ];
-               }}
-               //overrides default catch up logic (returns value of attached element)
-               onMove={(current, target, delta, element) => {
-                  // let targetY = lagText[i].modMove
-                  //    ? lagText[i].modMove(
-                  //         current,
-                  //         target,
-                  //         heightRef.current,
-                  //         delta,
-                  //         element
-                  //      )
-                  //    : target.y;
-
-                  // if(lagText[i].modMove)lagText[i].mode
-                  // const yDiff = target.y - 420;
-                  // const plusMinus = yDiff < 0 ? -1 : 1;
-                  // //slow down towards middle
-
-                  // let modTarget =
-                  //    420 + plusMinus * Math.pow(Math.abs(yDiff), 1.3) * 0.09;
-
-                  // let modTarget = target.y;
-
-                  // if (lagText[i].yLimitLow && lagText[i].yLimitHigh) {
-                  //    falseTarget = clamp(
-                  //       modTarget,
-                  //       lagText[i].yLimitLow,
-                  //       lagText[i].yLimitHigh
-                  //    );
-                  // }
-
-                  const dx = target.x - current.x;
-                  // const dy = targetY - current.y;
-                  const dy = target.y - current.y;
-                  // const damp = 0.98 + Math.pow(weight, 0.5) * 0.0049;
-                  const tween = 1 - Math.pow(0.95, delta);
-                  const newY = current.y + dy * tween;
-
-                  return [current.x + dx * tween, newY];
-                  // return [target.x, target.y]
-               }}
-               onMoveEnd={(position, element) => {
-                  if (lagText[i].expandSpans) {
-                     // const yDiff = position.y - heightRef.current * 0.5;
-                     // const d = Math.max(Math.abs(yDiff) - 30, 0);
-                     // const sin = Math.sin(toRadians(d * 0.15));
-                     // const margin = Math.pow(sin * 20, 1.3);
-                     // const fontSize = lagText[i].style.fontSize;
-                     // const marginMod = (margin * fontSize) / 90;
-                     // const posNeg = yDiff < 0 ? 1 : -1;
-                     // // console.log("font size", fontSize)
-                     // const spans = lagTextSpans.current[vectorIndex];
-                     // for (let j = 0; j < spans.length; j++) {
-                     //    const e = spans[j];
-                     //   if (j < spans.length - 1) {
-                     //       e.style.marginRight = marginMod - 3 + "px";
-                     //   }
-                     //    e.style.opacity = 2.6 - d * 0.008;
-                     //    const zeroMidIndex = j + 0.5 - spans.length * 0.5;
-                     // }
-                  }
-
-                  if (lagText[i].onMoveEnd) {
-                     // lagText[i].onMoveEnd(position, element, heightRef.current);
-                  }
-
-                  //updating arrays which have been passed to funtext class so can be used as repellers
-                  if (
-                     !lagText[i].ignore &&
-                     repellingTextVectors.current[vectorIndex]
-                  ) {
-                     repellingTextVectors.current[vectorIndex].x = position.x;
-                     repellingTextVectors.current[vectorIndex].y = position.y;
-                  }
-               }}
-               style={lagText[i].style}
-            >
-               {typeof lagText[i].text === "object" && lagText[i].text}
-
-               {typeof lagText[i].text === "string" && (
-                  <SpanChars
-                     onSpanRefs={(refs) => {
-                        lagTextSpans.current[vectorIndex] = refs;
-                     }}
-                  >
-                     {lagText[i].text}
-                  </SpanChars>
-               )}
-            </LagElement>
-         );
-      });
-   };
-
    const changeFormat = (i) => {
       formatingIndex.current = i;
+      // if(!homeRef.current)return;
+      // homeRef.current.style.backgroundColor = formatRgbArr(bgColors[i])
+
+      // document.body.style.backgroundColor = formatRgbArr(bgColors[i]);
+
       changeBackgroundColor(formatRgbArr(bgColors[i]));
    };
 
-   // const lagComponents1 = getLagText(lagText1, 0);
-   // const lagComponents1 = useMemo(() => getLagText(lagText1, 0), []);
-   // const lagComponents2 = useMemo(
-   //    () => getLagText(lagText2, lagText1.length),
-   //    []
-   // );
-   // const lagComponents3 = useMemo(
-   //    () => getLagText(lagText3, lagText1.length + lagText2.length),
-   //    []
-   // );
+   useEffect(() => {
+      heightRef.current = size.height;
+      widthRef.current = size.width;
+      console.log("CHANGE SIZE", size.height);
+   }, [size]);
 
-   // const lagComponents4 = getLagText(
-   //    lagText4,
-   //    lagText1.length + lagText2.length + lagText3.length
-   // );
+   useEffect(() => {
+      setTimeout(() => {
+         setShowPlayText(true);
+      }, 200);
 
-   // const work1lag = getLagText(
-   //    work1,
-   //    lagText1.length + lagText2.length + lagText3.length
-   // );
+      // fetch(asciiText)
+      //    .then((t) => t.text())
+      //    .then((text) => {
+      //       setAscii(text);
+      //      // setShowPlayText(true);
+      //    });
+   }, []);
 
-   // const lagComponents1 = useMemo(() => getLagText(lagText1, 0), []);
+   const handleScrollable = (isScrollable) => {
+      if (isMobile) return;
 
-   const buildReppellerGroup = (items) => {
+      if (isScrollable) {
+         enableBodyScroll(scrollLockRef.current);
+         // document.body.style.setProperty("top", "");
+         // document.body.scrollTo(0, storedScrollY.current);
+         setHidePlayText(false);
+         document.body.style.width = "100%";
+
+         //lockMessages.current = false
+      } else {
+         document.body.style.width = `calc(100vw - ${size.gutter}px)`;
+         // lockMessages.current = true;
+         setHidePlayText(true);
+         // storedScrollY.current = window.scrollY;
+         disableBodyScroll(scrollLockRef.current);
+         // document.body.style.setProperty("top", `${window.scrollY * -1}px`);
+      }
+   };
+
+   const buildReppellerGroup = (data, colorSet, baseIndex) => {
+      const lowIndex = baseIndex;
+      const highIndex = lowIndex + data.items.length;
+
+      // for (let i = lowIndex; i < highIndex; i++) {
+      //    const v = new Vector(0, 0);
+      //    v.power = 40 //e.text.length * e.fontSize;
+      //    // v.weight = 10;
+      //    repellingTextVectors.current[i] = v;
+
+      //    // tracking.current[i] = { x: 0, y: 0, element: null };
+      // }
+
+      for (let i = 0; i < data.items.length; i++) {
+         const v = new Vector(0, 0);
+         const fontSize = data.items[i].style.fontSize || 30;
+         v.power =
+            data.items[i].power ||
+            Math.pow(data.items[i].text.length * fontSize, 0.5) * 2;
+         // v.weight = 10;
+         repellingTextVectors.current[i + baseIndex] = v;
+
+         // tracking.current[i] = { x: 0, y: 0, element: null };
+      }
+
+      const max = data.items.reduce((prev, curr) => {
+         return prev.style.top > curr.style.top ? prev : curr;
+      }).style.top;
+
+      // console.log("tracking", lowIndex, repellingTextVectors.current.length)
+
+      let paddingBottom = data.paddingBottom || 100;
+      if (data.paddingBottom === 0) paddingBottom = 0;
+
       return (
          <MirrorElement
             lag={true}
             style={{
                fontSize: 40,
-               marginTop: 500,
-               backgroundColor: "#44882240",
+               fontWeight: 800,
+               width: "100%",
+               maxWidth: 700,
+               marginLeft: "auto",
+               marginRight: "auto",
+
+               height: max + paddingBottom,
+               position: "relative",
+               color: formatRgbArr(slidingTextColors[colorSet]),
             }}
             onMove={(x, y) => {
-               if (!repellingTextVectors.current[0])
-                  repellingTextVectors.current[0] = new Vector(0, 0);
-               repellingTextVectors.current[0].power = 19;
+               // console.log(`?track=mirror${baseIndex}-Y?round=2`, y);
 
-               repellingTextVectors.current[0].x = x + tracking.current[0].x;
-               repellingTextVectors.current[0].y = y + tracking.current[0].y;
+               for (var j = lowIndex; j < highIndex; j++) {
+                  const yPos = y + tracking.current[j].y;
+                  const xPos = x + tracking.current[j].x;
+                  const v = repellingTextVectors.current[j];
 
-            
+                  const d = yPos - heightRef.current * 0.5;
+
+                  let newDistance = d; //Math.pow(Math.abs(d), 1.2)/4;
+
+                  const sinMod = Math.sin(yPos * 0.012) * 40;
+                  // let newDistance = Math.pow(Math.abs(d*2), 2)/9999; //very cool cascade of appearences because distnace is tightend so much
+
+                  //this combo has cool bouncing back effect (never goes above halfway)
+                  //   let newDistance = d
+                  //    if (d < 0) {
+                  //       newDistance *= -1;
+                  //    }
+
+                  // let modDistance = Math.pow(Math.abs(newDistance),1.2)*10
+
+                  //  if(newDistance < 0)modDistance *= -1
+
+                  const newY = heightRef.current * 0.5 + newDistance;
+
+                  //simple const newY = heightRef.current * 0.5 + newDistance
+
+                  const yDiff = newY - yPos;
+
+                  //const yMod = Math.pow(Math.abs(d*0.1), 2)*0.
+
+                  // if( d < 0){
+                  //    console.log("neg d", d)
+                  //    newY = `calc(-50% + ${yMod}px)`
+                  // }
+                  const dx = Math.abs(widthRef.current * 0.5 - xPos);
+                  const limit = Math.max(heightRef.current * 0.2, 120);
+                  const el = tracking.current[j].element;
+                  if (d > limit * 2) {
+                     v.x = xPos;
+                     v.y = yPos;
+                     if (!v.outOfBounds) {
+                        v.outOfBounds = true;
+                        el.style.color = formatRgbArr(bgColors[colorSet]);
+                     }
+                     continue;
+                  } else {
+                     v.outOfBounds = false;
+                  }
+
+                  const darkness = Math.min(
+                     Math.max(Math.abs(d) - limit, 0) * 0.0065,
+                     1
+                  );
+
+                  // const left = `calc(-50% + ${d*0.1}px)`
+                  const scale = 0.9 + Math.abs(d) * 0.0018;
+
+                  const sign = sinMod < 0 ? "-" : "+";
+
+                  const transLeft = `calc(-50% ${sign} ${Math.round(
+                     Math.abs(sinMod)
+                  )}px)`; //using % instead of px would scale deviance with word width
+                  if (j == 6) {
+                     console.log(xPos, yPos, transLeft);
+                  }
+
+                  el.style.transform = `translate(${transLeft}, -50%) scale(${1}) rotate(${
+                     -sinMod * 0.0
+                  }deg)`;
+                  const newColor = blendRgb(
+                     slidingTextColors[colorSet],
+                     bgColors[colorSet],
+                     darkness
+                  );
+                  newColor[3] = 1;
+                  el.style.color = formatRgbArr(newColor);
+
+                  v.x = xPos// + sinMod;
+                  v.y = yPos;
+               }
             }}
          >
-            <SharePosition
-               style={{
-                  position: "relative",
-                  display: "inline-block",
-                  top: 0,
-                  left: 0,
-               }}
-               onRelative={() => {}}
-               storeData={tracking.current[0]}
-            >
-               TEST
-            </SharePosition>
-            <div style={{ position: "relative", top: 1000 }}>like</div>
-            <div style={{ position: "relative", top: 1500 }}>to</div>
-            <div style={{ position: "relative", top: 2000 }}>build</div>
-            <div style={{ position: "relative", top: 2500 }}>things</div>
-            <div style={{ position: "relative", top: 3000 }}>for</div>
-            <div style={{ position: "relative", top: 3500 }}>the</div>
-            <div style={{ position: "relative", top: 4000 }}>web</div>
+            {data.items.map((e, i) => {
+               const index = lowIndex + i;
+
+               const fontSize =
+                  e.style.fontSize || 80 / Math.pow(e.text.length, 0.4);
+
+               return (
+                  <SharePosition
+                     key={"repeller" + index}
+                     style={{
+                        ...e.style,
+                        position: "absolute",
+                        display: "block",
+                        color: "rgba(0,0,0,1)",
+                        fontWeight: 800,
+                        fontSize,
+                        transform: "translate(-50%,-50%)",
+                     }}
+                     recieveData={(data) => {
+                        tracking.current[index] = data;
+                     }}
+                  >
+                     {e.text}
+                  </SharePosition>
+               );
+            })}
          </MirrorElement>
       );
    };
 
-   const repellerGroup1 = buildReppellerGroup(repellerData1);
+   const initReppellerGroups = (repelSets) => {
+      const repelGroups = [];
+      let repelIndex = 0;
+      for (var i = 0; i < repelSets.length; i++) {
+         console.log("repelindex", repelIndex);
+         repelGroups.push(buildReppellerGroup(repelSets[i], i, repelIndex));
+         repelIndex += repelSets[i].items.length;
+      }
+
+      return repelGroups;
+   };
+
+   // const repellerGroup1 = useMemo(
+   //    () => buildReppellerGroup(repellerData1, 0),
+   //    []
+   // );
+   // const repellerGroup2 = useMemo(
+   //    () => buildReppellerGroup(repellerData2, repellerData1.items.length),
+   //    []
+   // );
+
+   //have to manually set infex points. problem with re-rendering children pushing too many items into vector/tracker array
+
+   const repelGroups = useMemo(() => {
+      return initReppellerGroups([
+         repellerData1,
+         repellerData2,
+         repellerData3,
+         repellerData4,
+         repellerData5,
+      ]);
+   }, []);
+
+   const [
+      repellerGroup1,
+      repellerGroup2,
+      repellerGroup3,
+      repellerGroup4,
+      repellerGroup5,
+   ] = repelGroups;
+
+   // const repellerGroup1 = buildReppellerGroup(repellerData1, 0, 0);
+   // const repellerGroup2 = buildReppellerGroup(
+   //    repellerData2,
+   //    1,
+   //    repellerData1.items.length
+   // );
+   // const repellerGroup3 = buildReppellerGroup(
+   //    repellerData3,
+   //    2,
+   //    repellerData1.items.length + repellerData2.items.length
+   // );
+   // const repellerGroup4 = buildReppellerGroup(
+   //    repellerData4,
+   //    3,
+   //    repellerData1.items.length +
+   //       repellerData2.items.length +
+   //       repellerData3.length
+   // );
 
    return (
-      <div className={classes.Home}>
+      <div className={classes.Home} ref={homeRef}>
          <Sticky
             style={{
-               height: 700,
-               width: "100%",
+               position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
             }}
             dominantIn={(dir) => {
+               if (hidePlayText) return;
                setTextIndex(0);
                changeFormat(0);
             }}
-            // stickyChild={<div>This is the first sticky</div>}
          >
-            {repellerGroup1}
+            <div> {repellerGroup1}</div>
          </Sticky>
 
-         {/* <Sticky
+         <Sticky
             style={{
-               height: height2,
-               width: "100%",
-               // backgroundColor: "green",
                position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
             }}
             dominantIn={() => {
+               if (hidePlayText) return;
                setTextIndex(1);
                changeFormat(1);
             }}
             // activeOut={(direction) => setTextIndex(direction === "up" ? 0 : 1)}
             // stickyChild={<div>This is the second sticky</div>}
          >
-            {lagComponents2}
+            {repellerGroup2}
          </Sticky>
-
-         <Sticky
-            style={{ position: "relative", height: height3, width: "100%" }}
-            dominantIn={() => {
-               if (textIndex !== 2) {
-                  setTextIndex(2);
-                  changeFormat(2);
-               }
-
-               // followProjects.current = false;
-               // lockTextToProjects.current = false;
-
-               // const tweenParams = {
-               //    duration: 500,
-               //    type: "ease-in-out",
-               //    callback: (percIncr) => {
-               //       playfulTextY.current +=
-               //          (0 - playfulTextY.current) * percIncr;
-
-               //       playfulTextRef.current.style.top =
-               //          playfulTextY.current + "px";
-               //    },
-               //    onComplete: () => {
-               //       //lockTextToProjects.current = true;
-               //    },
-               // };
-               // if (tracking.current.followTween)
-               //    tracking.current.followTween.remove();
-               // if (tracking.current.returnTween)
-               //    tracking.current.returnTween.remove();
-               // tracking.current.returnTween = addTween(tweenParams);
-            }}
-         >
-            {lagComponents3}
-         </Sticky> */}
 
          <Sticky
             style={{
                position: "relative",
-               height: "200vh",
-               width: "100%",
+               visibility: hidePlayText ? "hidden" : "visible",
             }}
-            dominantIn={(direction) => {
-               if (textIndex !== 3) {
-                  setTextIndex(3);
-                  changeFormat(3);
-                  // setProjectFocus(1);
-               }
-
-               // followProjects.current = true;
-               // lockTextToProjects.current = false;
-
-               // const tweenParams = {
-               //    duration: 500,
-               //    type: "ease-in-out",
-               //    callback: (percIncr) => {
-               //       playfulTextY.current +=
-               //          (projectImagesY.current - playfulTextY.current) *
-               //          percIncr;
-
-               //       playfulTextRef.current.style.top =
-               //          playfulTextY.current + "px";
-               //    },
-               //    onComplete: () => {
-               //       lockTextToProjects.current = true;
-               //    },
-               // };
-
-               // if (tracking.current.returnTween)
-               //    tracking.current.returnTween.remove();
-               // if (tracking.current.followTween)
-               //    tracking.current.followTween.remove();
-               // tracking.current.followTween = addTween(tweenParams);
-
-               //
+            dominantIn={() => {
+               if (hidePlayText) return;
+               // if (textIndex !== 2) {
+               setTextIndex(2);
+               changeFormat(2);
+               setShowProjects(false);
+               //  }
             }}
          >
-            {/* <LagElement
-               style={{
-                  width: "auto",
-                  position: "relative",
-                  display: "block",
-                  top: 300,
-               }}
-               // onMoveEnd={(position, element) => {
-               //    const rect = element.getBoundingClientRect();
-               //    //  var x = document. getElementsByClassName('inner');
-               //    //  var v = x.getBoundingClientRect();
+            {repellerGroup3}
+         </Sticky>
 
-               //    projectImagesY.current =
-               //       position.y - heightRef.current * 0.5 + rect.height + 10;
+         <Sticky
+            style={{
+               position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
+            }}
+            dominantIn={() => {
+               if (hidePlayText) return;
+               // if (textIndex !== 2) {
+               setTextIndex(3);
+               changeFormat(3);
+               setShowProjects(false);
+               //  }
+            }}
+         >
+            {repellerGroup4}
+         </Sticky>
 
-               //    if (projectImagesY.current > heightRef.current * 0.5 - 90) {
-               //       projectImagesY.current = heightRef.current * 0.5 - 90;
-               //    }
+         <Sticky
+            style={{
+               position: "relative",
+               visibility: hidePlayText ? "hidden" : "visible",
+            }}
+            dominantIn={() => {
+               if (hidePlayText) return;
+               // if (textIndex !== 2) {
+               setTextIndex(4);
+               changeFormat(4);
+               setShowProjects(false);
+               //  }
+            }}
+         >
+            {repellerGroup5}
+         </Sticky>
 
-               //    if (lockTextToProjects.current) {
-               //       playfulTextY.current = projectImagesY.current;
-               //       playfulTextRef.current.style.top =
-               //          playfulTextY.current + "px";
-               //    }
-               //}}
-            > */}
-            {/* <img src={hiddenObjects}/> */}
-
-            {/* <ProjectSlider2
-                  selectItem={(i) => {
-                     setTextIndex(i + 3);
-                  }}
-               /> */}
-            {/* </LagElement> */}
-
-            {/* <LagElement style={{height:100, width:"auto", display:"block"}}>
-               <ProjectSlider />
-            </LagElement> */}
+         <Sticky
+            style={{
+               position: "relative",
+               width: "100%",
+               paddingTop: 1000,
+               color: "white",
+            }}
+            dominantIn={(direction) => {
+               if (hidePlayText) return;
+               setTextIndex(null);
+               setShowProjects(true);
+               changeFormat(5);
+            }}
+         >
+            {/* <MirrorElement lag={!isMobile} tween={0.983}> */}
+            <Projects show={showProjects} scrollable={handleScrollable} />
+            {/* </MirrorElement> */}
          </Sticky>
 
          {/* <Sticky
@@ -627,49 +668,94 @@ const Home = ({ changeBackgroundColor }) => {
             />
          </Sticky> */}
 
-         {showPlayText && (
-            <PlayfulText
-               ascii={ascii}
-               parentRef={playfulTextRef}
-               repellers={repellingTextVectors.current}
-               selectedText={textIndex}
-               textOnDraw={(e, distance) => {
-                  const d = Math.min(Math.pow(distance, 0.6) * 10, 255);
-                  e.rotation = (e.x - e.aim.x) * (e.y - e.aim.y) * -0.008;
-
-                  // e.shifting // if letter is tweening
-                  const percColorShift = Math.min(d / 180, 1);
-                  const newColor = blendRgb(
-                     funTextColorRef.current,
-                     slidingTextColors[formatingIndex.current],
-                     percColorShift
-                  );
-                  e.element.style.color = formatRgbArr(newColor);
-                  //rotation is too expensive, can replace display layer with canvas in future update
-                  // e.element.style.transform = `translate(-50%,-50%) rotate(${
-                  //    e.rotation * 0.15
-                  // }deg)`;
-               }}
-            />
-         )}
-
-         {debug && (
+         {/* <div className={classes.frameContainer} style={{backgroundColor:textIndex === 3 ? "black" : "transparent"}}>
             <div
-               style={{
-                  textAlign: "left",
-                  padding: 8,
-                  position: "fixed",
-                  width: "100%",
-                  top: 0,
-                  backgroundColor: "#00000050",
-                  left: 0,
-               }}
-            >
-               textIndex: {textIndex}
+               className={`${classes.frameTop} ${textIndex === 3 && classes.frameTopReveal}`}
+            ></div>
+            <div className={classes.frameBottom}></div>
+         </div> */}
+
+         {showPlayText && (
+            <div style={{ visibility: hidePlayText ? "hidden" : "visible" }}>
+               <PlayfulText
+                  ascii={ascii}
+                  parentRef={playfulTextRef}
+                  repellers={repellingTextVectors.current}
+                  selectedText={textIndex}
+                  textOnDraw={(context, e, dist) => {
+                     const d = Math.min(Math.pow(dist, 0.5) * 15, 255);
+                     //   // e.rotation = (e.x - e.aim.x) * (e.y - e.aim.y) * -0.008;
+
+                     //    // e.shifting // if letter is tweening
+                     const percColorShift = Math.min(
+                        Math.pow(d * 0.12, 2) / 270,
+                        1
+                     );
+
+                     //    //console.log(distance, percColorShift)
+
+                     const newColor = blendRgb(
+                        funTextColorRef.current,
+                        slidingTextColors[formatingIndex.current],
+                        percColorShift
+                     );
+
+                     // console.log(e.opacity)
+
+                     newColor[3] = e.opacity;
+                     const color = formatRgbArr(newColor);
+
+                     // console.log(percColorShift);
+
+                     context.fillStyle = color;
+                     //  e.element.style.color = formatRgbArr(newColor);
+                     //rotation is too expensive, can replace display layer with canvas in future update
+                     // e.element.style.transform = `translate(-50%,-50%) rotate(${
+                     //    e.rotation * 0.15
+                     // }deg)`;
+                  }}
+               />
+
+               {!scrolled && (
+                  <>
+                     <div
+                        className={"downArrow downArrow1"}
+                        style={{
+                           top: heightRef.current * 0.8 + "px",
+                           left: "50%",
+                        }}
+                     >
+                        <img src={arrowDown} />
+                     </div>
+                     <div
+                        className={"downArrow downArrow2"}
+                        style={{
+                           top: heightRef.current * 0.8 + 40 + "px",
+                           left: "50%",
+                        }}
+                     >
+                        <img src={arrowDown} />
+                     </div>
+                     <div
+                        className={"downArrow downArrow3"}
+                        style={{
+                           top: heightRef.current * 0.8 + 80 + "px",
+                           left: "50%",
+                        }}
+                     >
+                        <img src={arrowDown} />
+                     </div>
+                  </>
+               )}
             </div>
          )}
       </div>
    );
 };
+
+// console.log1 = function(...args){
+//    console.log()
+
+// }
 
 export default Home;

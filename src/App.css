@@ -12,7 +12,7 @@ body {
    /* makingheight 100% messes with ios touch events */
    /* background-image: url("./images/background.png");
    background-size: 50px 50px; */
-   background-color: white;
+   background-color: rgb(218,254,253);
    transition: background-color 1000ms;
 }
 

@@ -12,6 +12,9 @@ const MirrorElement = (props) => {
    const size = useWindowSize();
 
    const oldTime = useRef(Date.now());
+   const cloneRefs = useRef([]);
+
+   cloneRefs.current = [];
 
    const resize = () => {
       const rect = guideRef.current.getBoundingClientRect();
@@ -28,7 +31,9 @@ const MirrorElement = (props) => {
       mirrorRef.current.style.height = height + "px";
       oldScreenPosition.current.x = rect.x;
       oldScreenPosition.current.y = rect.y;
-      if(props.onMove)props.onMove(rect.x, rect.y);
+      if (props.onMove) props.onMove(rect.x, rect.y, cloneRefs.current);
+
+      props.onResize && props.onResize(rect, cloneRefs.current);
 
       // setTimeout(()=>{
       //    props.onMove(rect.x, rect.y);
@@ -39,8 +44,6 @@ const MirrorElement = (props) => {
    //    setTimeout(() => {
    //       resize();
    //    }, 500);
-
-   
 
    //    const scrollHandler = () => {
    //       // const newTime = Date.now();
@@ -54,15 +57,13 @@ const MirrorElement = (props) => {
    // }, []);
 
    useEffect(() => {
-  
       resize();
    }, [size]);
 
    const animate = () => {
-
-      const newTime = Date.now()
+      const newTime = Date.now();
       const delta = newTime - oldTime.current;
-      oldTime.current = newTime
+      oldTime.current = newTime;
 
       const originScreenX =
          origin.current.x - document.documentElement.scrollLeft;
@@ -88,7 +89,7 @@ const MirrorElement = (props) => {
             screenX != oldScreenPosition.current.x ||
             screenY != oldScreenPosition.current.y
          ) {
-            props.onMove(screenX, screenY);
+            props.onMove(screenX, screenY, cloneRefs.current);
          }
          oldScreenPosition.current.x = screenX;
          oldScreenPosition.current.y = screenY;
@@ -103,20 +104,28 @@ const MirrorElement = (props) => {
       null,
       []
    );
-
    const clones = [];
-   const createClone = (child) => {
-      const { recieveData, ...childProps } = child.props;
+   const createClone = (child, index) => {
+      //console.log("clone index", index)
+      //split off props by destruct (...childProps being the remainder)
+      //i.e  const {removeThis1, removeThis2,  ...childProps } = child.props;
+      const { ...childProps } = child.props;
       const filteredChild = { ...child, props: childProps };
-     return React.cloneElement(filteredChild);
-   }
+      return React.cloneElement(filteredChild, {
+         ref: (ref) => {
+            cloneRefs.current[index] = ref;
+         },
+      });
+   };
 
    //remove recieveData from children as doublling of child events would upload too much data. i.e the SharedElement sending position twice
-   const children = props.children.length ? props.children : [props.children];
+   const children =
+      props.children.length > 1 ? props.children : [props.children];
    for (var i = 0; i < children.length; i++) {
-     
-      clones.push(createClone(children[i]));
+      clones.push(createClone(children[i], i));
    }
+
+   // console.log("CHILDREN", children);
 
    return (
       <>
@@ -127,7 +136,7 @@ const MirrorElement = (props) => {
                visibility: props.lag ? "hidden" : "visible",
             }}
          >
-            {clones}
+            {props.children}
          </CustomTag>
 
          {props.lag && (
@@ -139,10 +148,10 @@ const MirrorElement = (props) => {
                   margin: 0,
                   top: 0,
                   left: 0,
-                  boxSizing:"border-box"
+                  boxSizing: "border-box",
                }}
             >
-               {props.children}
+               {clones}
             </CustomTag>
          )}
       </>

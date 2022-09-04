@@ -131,14 +131,23 @@ ImageSwirler.prototype.testTap = function (x, y) {
          this.orbiting = true;
          this.switchModesWithTween();
       }, 100);
+      return;
    }
 
    if (this.enableSunClick && this.testHoverSun()) {
+      this.exitAnimation();
+      return;
+      
+   }
+
+   if(this.enableSunClick){
       this.enableSunClick = false;
       this.canvas.style.cursor = "default";
       this.showPointer = false;
       this.orbiting = false;
+      
       this.switchModesWithTween();
+
    }
 };
 

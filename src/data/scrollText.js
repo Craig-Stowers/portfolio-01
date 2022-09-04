@@ -52,19 +52,15 @@ const projectFade = function (position, element, height) {
 };
 
 const getSpacing = (spacing, arr) => {
-   arr.forEach(
-      (e, i) =>{
+   arr.forEach((e, i) => {
+      const spaceFactor = i - (arr.length - 1) * 0.5;
+      const gap = (spaceFactor / arr.length) * 65;
 
-         const spaceFactor = i - (arr.length-1) * 0.5;
-         const gap = (spaceFactor /arr.length)*65
-
-         e.style.left = `calc(50% + ${gap}%)`;
-      }
-        
-   );
+      e.style.left = `calc(50% + ${gap}%)`;
+      e.style.top = 1100 + i * 150;
+   });
    return arr;
 };
-
 
 export const repellerData1 = {
    items: getSpacing(40, [
@@ -81,7 +77,7 @@ export const repellerData1 = {
          text: "build",
          style: {
             left: "calc(50% - 66px",
-            top: 1300,
+            top: 1150,
          },
          expandSpans: true,
          // modMove: slowTowardsMid,
@@ -90,7 +86,7 @@ export const repellerData1 = {
          text: "things",
          style: {
             left: "calc(50% - 22px)",
-            top: 1600,
+            top: 1300,
          },
          expandSpans: true,
          // modMove: slowTowardsMid,
@@ -99,7 +95,7 @@ export const repellerData1 = {
          text: "for",
          style: {
             left: "calc(50% + 22px)",
-            top: 1900,
+            top: 1450,
          },
          expandSpans: true,
          // modMove: slowTowardsMid,
@@ -108,7 +104,7 @@ export const repellerData1 = {
          text: "the",
          style: {
             left: "calc(50% + 66px)",
-            top: 2200,
+            top: 1600,
          },
          expandSpans: true,
          // modMove: slowTowardsMid,
@@ -117,7 +113,7 @@ export const repellerData1 = {
          text: "web",
          style: {
             left: "calc(50% + 110px)",
-            top: 2500,
+            top: 1750,
          },
          expandSpans: true,
          // modMove: slowTowardsMid,
@@ -125,34 +121,33 @@ export const repellerData1 = {
    ]),
 };
 
-
 export const repellerData2 = {
    items: getSpacing(40, [
       {
          text: "websites",
          style: {
             left: "calc(50% + -110px)",
-            top: 1200,
+            top: 700,
             fontSize: 30,
          },
          expandSpans: true,
       },
       {
-         text: <span style={{textAlign:"centre"}}>e-learning<br/>modules</span>,
-         power:42,
+         text: "e-learning",
+         power: 34,
          style: {
             left: "calc(50% - 90px)",
-            top: 1500,
+            top: 850,
             fontSize: 24,
          },
          expandSpans: true,
       },
-      
+
       {
          text: "simulations",
          style: {
             left: "calc(50% + 22px)",
-            top: 1800,
+            top: 1000,
             fontSize: 23,
          },
          expandSpans: true,
@@ -161,7 +156,7 @@ export const repellerData2 = {
          text: "apps",
          style: {
             left: "calc(50% + 66px)",
-            top: 2100,
+            top: 1150,
          },
          expandSpans: true,
       },
@@ -169,7 +164,7 @@ export const repellerData2 = {
          text: "games",
          style: {
             left: "calc(50% + 110px)",
-            top: 2400,
+            top: 1300,
             fontSize: 40,
          },
          expandSpans: true,
@@ -188,8 +183,14 @@ export const repellerData3 = {
          expandSpans: true,
       },
       {
-         text: <span style={{textAlign:"centre"}}>Javascript<br/>(ES6+)</span>,
-         power:37,
+         text: (
+            <span style={{ textAlign: "centre" }}>
+               Javascript
+               <br />
+               (ES6+)
+            </span>
+         ),
+         power: 37,
          style: {
             left: "calc(50% - 90px)",
             top: 1300,
@@ -197,7 +198,64 @@ export const repellerData3 = {
          },
          expandSpans: true,
       },
-     
+
+      {
+         text: "PixiJS",
+         style: {
+            left: "calc(50% - 90px)",
+            top: 1600,
+         },
+         expandSpans: true,
+      },
+      {
+         text: "Canvas",
+         style: {
+            left: "calc(50% + 0px)",
+            top: 1900,
+         },
+         expandSpans: true,
+      },
+      {
+         text: "Node.js",
+         style: {
+            left: "calc(50% - 90px)",
+            top: 2200,
+         },
+         expandSpans: true,
+      },
+      {
+         text: "Unity",
+         style: {
+            left: "calc(50% - 0px)",
+            top: 2500,
+         },
+         expandSpans: true,
+      },
+      {
+         text: "React",
+         style: {
+            left: "calc(50% + 0px)",
+            top: 1000,
+         },
+         expandSpans: true,
+      },
+      {
+         text: (
+            <span style={{ textAlign: "centre" }}>
+               Javascript
+               <br />
+               (ES6+)
+            </span>
+         ),
+         power: 37,
+         style: {
+            left: "calc(50% - 90px)",
+            top: 1300,
+            fontSize: 23,
+         },
+         expandSpans: true,
+      },
+
       {
          text: "PixiJS",
          style: {
@@ -286,7 +344,7 @@ export const repellerData4 = {
 
 export const repellerData5 = {
    paddingBottom: -290,
-   items: getSpacing(80,[
+   items: getSpacing(80, [
       {
          text: "Westpac",
          style: {
@@ -306,8 +364,14 @@ export const repellerData5 = {
          expandSpans: true,
       },
       {
-         text: <span style={{textAlign:"centre"}}>Theory of<br/>Invention</span>,
-         power:44,
+         text: (
+            <span style={{ textAlign: "centre" }}>
+               Theory of
+               <br />
+               Invention
+            </span>
+         ),
+         power: 44,
          style: {
             left: "calc(50% - 90px)",
             top: 1585,
@@ -315,7 +379,7 @@ export const repellerData5 = {
          },
          expandSpans: true,
       },
-     
+
       {
          text: "Marops",
          style: {

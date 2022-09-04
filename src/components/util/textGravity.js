@@ -30,7 +30,7 @@ const push = (obj, pushers, delta) => {
 
       let d = Math.max(vectorDiff.length * 0.35 - 10, 6);
 
-      d *= 0.5;
+      d *= 0.4;
 
     //  if (d > 60) continue;
       // const power = Math.max(1 / Math.pow(d, 3) - 0.000001, 0);
@@ -40,7 +40,7 @@ const push = (obj, pushers, delta) => {
 
       const killWeakEffect = 0.000012; // * power;
 
-      const repel = Math.max(1 / Math.pow(d, 2.5) - killWeakEffect, 0);
+      const repel = Math.max(1 / Math.pow(d, 3) - killWeakEffect, 0);
 
       //if (i === 2) console.log("p", power);
 
@@ -50,8 +50,8 @@ const push = (obj, pushers, delta) => {
 
       // console.log("push", obj.char, power)
 
-      let vx = vectorDiff.x * repel * xPower * 4 * 0.0009;
-      let vy = vectorDiff.y * repel * yPower * 4 * 0.0009;
+      let vx = vectorDiff.x * repel * xPower * 12 * 0.0009;
+      let vy = vectorDiff.y * repel * yPower * 12 * 0.0009;
       // let vx = vectorDiff.x * repel * xPower * 8 * delta * 0.0003;
       // let vy = vectorDiff.y * repel * yPower * 4 * delta * 0.0003;
 

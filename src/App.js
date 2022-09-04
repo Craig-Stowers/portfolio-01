@@ -41,7 +41,7 @@ function App() {
    const [showEnterButton, setShowEnterButton] = useState(false);
    const [hideEnterButton, setHideEnterButton] = useState(true);
    const startExit = useRef(null);
-   const [showIntro, setShowIntro] = useState(false);
+   const [showIntro, setShowIntro] = useState(true);
 
    const size = useWindowSize();
 
@@ -142,7 +142,7 @@ function App() {
                />
             )}
 
-            {showEnterButton && showIntro && (
+            {/* {showEnterButton && showIntro && (
                <div
                   className="enter"
                   style={{
@@ -162,7 +162,7 @@ function App() {
                >
                   enter
                </div>
-            )}
+            )} */}
 
             {!showIntro && (
                <div id="content">
@@ -224,12 +224,12 @@ function App() {
             style={{
                backgroundColor: bgColor,
                position: "fixed",
-               top: 0,
-               left: 0,
-               width: "100vw",
-               height: "100vh",
-               zIndex:-1,
-               transition:"all 500ms"
+               top: "-50vh",
+               left: "-50vw",
+               width: "200vw",
+               height: "200vh",
+               zIndex: -1,
+               transition: "background-color 500ms",
             }}
          ></div>
       </>

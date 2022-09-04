@@ -158,7 +158,7 @@ const Project = ({ data, isLeft, style, setVideo }) => {
       (data.support === "mobileonly" && !isMobile) ||
       (data.support === "desktoponly" && isMobile);
 
-   console.log(data.title, "warning", showWarning);
+  // console.log(data.title, "warning", showWarning);
 
    let WarningMessage = "";
    if (data.support === "mobileonly") {
