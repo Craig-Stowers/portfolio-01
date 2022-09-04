@@ -63,7 +63,7 @@ const ImageSwirler = function () {
    this.draw = draw;
 };
 ImageSwirler.prototype.unload = function () {
-   
+   if(!this.touchAndMouse)return;
    this.touchAndMouse.unload();
 };
 
@@ -392,6 +392,8 @@ ImageSwirler.prototype.calcPixelOrigins = function (isInit) {
       width
    );
    this.imageWidth = imageWidth;
+
+   console.log(imageData.width, imageData.height)
    imageHeight = imageWidth * (imageData.height / imageData.width);
    const correction = 0.5;
    const roundingFactor = 1;
@@ -400,6 +402,9 @@ ImageSwirler.prototype.calcPixelOrigins = function (isInit) {
    //    roundingFactor;
 
    const pixelSize = imageWidth / 50;
+
+
+   console.log("imageWidth", imageWidth)
 
    for (let i = 0; i < this.smartPixels.length; i++) {
       const sp = this.smartPixels[i];
@@ -413,6 +418,8 @@ ImageSwirler.prototype.calcPixelOrigins = function (isInit) {
       const pixelWidth = pixelSize * correction;
       const pixelHeight = pixelSize * correction;
       const distance = Math.hypot(homeX, homeY);
+
+     
 
       const rgba = [...sp.pix.rgba];
       // rgba[0] += (255 - rgba[0]) * 0.4;

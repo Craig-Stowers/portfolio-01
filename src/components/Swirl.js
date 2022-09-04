@@ -3,16 +3,29 @@ import Canvas from "./Canvas";
 import classes from "./Swirl.module.css";
 import ImageSwirler from "../canvas/ImageSwirler";
 
-import image from "../images/craig-blue.png";
+
+
+import useImagePreloader from "./hooks/useImagePreloader";
+
+import portrait from '../images/craig-small.png'
+import star from "../images/star.png";
+import orb from "../images/orb.png";
+const preloadSrcList = [
+   portrait,
+   star,
+   orb,
+]
+
 
 const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
+   const { imagesPreloaded } = useImagePreloader(preloadSrcList)
    const swirler = useRef(null);
 
-   useLayoutEffect(() => {
+   useEffect(()=>{
       document.body.style.overflow = "hidden";
       swirler.current = new ImageSwirler();
       startExit.current = swirler.current.loadImage(
-         image,
+         portrait,
          onImageHeight,
          onCloseOrbit,
          onComplete
@@ -23,25 +36,43 @@ const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
          swirler.current.unload();
       };
 
-      // initParticles();
-   }, []);
+   }, [imagesPreloaded])
 
-   const canvas = React.useMemo(
-      () => (
-         <Canvas
-            init={(...args) => swirler.current.init(...args)}
-            draw={(...args) => swirler.current.draw(...args)}
-            resize={(...args) => swirler.current.resize(...args)}
-            options={{ context: "2d", fillParent: true }}
-            style={{
-               display: "block",
+   // useLayoutEffect(() => {
+   //    document.body.style.overflow = "hidden";
+   //    swirler.current = new ImageSwirler();
+   //    startExit.current = swirler.current.loadImage(
+   //       portrait,
+   //       onImageHeight,
+   //       onCloseOrbit,
+   //       onComplete
+   //    );
+
+   //    return () => {
+   //       document.body.style.overflow = "auto";
+   //       swirler.current.unload();
+   //    };
+
+   // }, []);
+
+   // if(!imagesPreloaded)return <div>loading...</div>
+
+   // const canvas = React.useMemo(
+   //    () => (
+   //       <Canvas
+   //          init={(...args) => swirler.current.init(...args)}
+   //          draw={(...args) => swirler.current.draw(...args)}
+   //          resize={(...args) => swirler.current.resize(...args)}
+   //          options={{ context: "2d", fillParent: true }}
+   //          style={{
+   //             display: "block",
               
               
-            }}
-         />
-      ),
-      []
-   );
+   //          }}
+   //       />
+   //    ),
+   //    []
+   // );
 
    return (
       <div
@@ -51,7 +82,6 @@ const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
             height: "100%",
             left: 0,
             top: 0,
-
             position: "fixed",
             userSelect: "none",
             WebkitUserSelect: "none",
@@ -59,7 +89,18 @@ const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
             msUserSelect: "none",
          }}
       >
-         {canvas}
+          <Canvas
+            init={(...args) => swirler.current && swirler.current.init(...args)}
+            draw={(...args) => swirler.current && swirler.current.draw(...args)}
+            resize={(...args) => swirler.current && swirler.current.resize(...args)}
+            options={{ context: "2d", fillParent: true }}
+            style={{
+               display: "block",
+              
+              
+            }}
+         />
+         
       </div>
    );
 };
