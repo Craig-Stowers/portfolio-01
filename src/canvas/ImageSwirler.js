@@ -132,7 +132,7 @@ ImageSwirler.prototype.testTap = function (x, y) {
          console.log("switch modes")
          this.orbiting = true;
          this.switchModesWithTween();
-      }, 100);
+      }, 1000);
       return;
    }
 

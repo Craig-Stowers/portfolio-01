@@ -115,16 +115,14 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
          const tempY = -t.y + 400;
          //  let xDepthDistort = 2 - tempY * 0.002;
 
-         let xDepthDistort = 1 + t.y * 0.00012;
-         // xDepthDistort = xDepthDistort * xDepthDistort;
-         let yDepthDistort = 1 + t.y * 0.00012;
-         yDepthDistort = xDepthDistort; //xDepthDistort //yDepthDistort * yDepthDistort;
 
-         const screenX = t.x * this.xDistort * xDepthDistort + this.width * 0.5;
+        
+
+         const screenX = t.x * this.xDistort + this.width * 0.5;
          const screenY =
-            t.y * yDepthDistort * this.yDistort + this.height * 0.5;
+            t.y * this.yDistort + this.height * 0.5;
 
-         const scaleFactor = 1.4 * yDepthDistort;
+         const scaleFactor = 1.4;
          ctx.beginPath();
          ctx.arc(screenX, screenY, t.width * 0.5 * scaleFactor, 0, 2 * Math.PI);
          let color = `rgba(${r},${g},${b},${sp.real.alpha})`;
@@ -267,4 +265,7 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
       this.finished = true;
       this.onComplete();
    }
+
+   console.log("?track=xDistort", this.xDistort)
+   console.log("?track=yDistort", this.yDistort)
 };

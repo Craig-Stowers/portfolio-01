@@ -107,6 +107,8 @@ export let switchModesWithTween = function () {
 
    this.distortTween = addTween(distortTween);
 
+   console.log("this.orbiting", this.orbiting)
+
    tweenType = this.orbiting ? "ease-in-out" : "ease-in-out";
 
    for (var i = 0; i < this.smartPixels.length; i++) {
