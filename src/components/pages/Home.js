@@ -312,6 +312,8 @@ const Home = ({ changeBackgroundColor }) => {
       let paddingBottom = data.paddingBottom || 100;
       if (data.paddingBottom === 0) paddingBottom = 0;
 
+      const maxWidth = data.maxWidth || data.items.length * 80;
+
       return (
          <MirrorElement
             lag={true}
@@ -319,7 +321,8 @@ const Home = ({ changeBackgroundColor }) => {
                fontSize: 40,
                fontWeight: 800,
                width: "100%",
-               maxWidth: 700,
+               maxWidth,
+               changeBackgroundColor:"green",
                marginLeft: "auto",
                marginRight: "auto",
 

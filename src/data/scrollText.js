@@ -63,6 +63,7 @@ const getSpacing = (spacing, arr) => {
 };
 
 export const repellerData1 = {
+   maxWidth:400,
    items: getSpacing(40, [
       {
          text: "I",
@@ -122,6 +123,7 @@ export const repellerData1 = {
 };
 
 export const repellerData2 = {
+   maxWidth:400,
    items: getSpacing(40, [
       {
          text: "websites",

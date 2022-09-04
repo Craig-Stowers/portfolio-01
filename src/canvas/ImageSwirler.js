@@ -80,10 +80,12 @@ ImageSwirler.prototype.init = function (context, canvas) {
          this.mouseX = x
          this.mouseY = y
          this.testTap(x, y);
+         console.log("tap", x,y)
       },
       down: (x, y) => {
          this.mouseX = x;
          this.mouseY = y;
+         console.log("down", x,y)
       },
       up: (x, y) => {
          this.mouseX = null;
