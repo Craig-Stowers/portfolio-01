@@ -228,7 +228,7 @@ const Home = ({ changeBackgroundColor }) => {
       heightRef.current = size.height;
       widthRef.current = size.width;
 
-      console.log("cal new positions", slideTextRefs.current.length);
+    //  console.log("cal new positions", slideTextRefs.current.length);
 
       for (let i = 0; i < slideTextRefs.current.length; i++) {
          const ref = slideTextRefs.current[i];
@@ -237,8 +237,6 @@ const Home = ({ changeBackgroundColor }) => {
          const rect = ref.getBoundingClientRect();
          const x = rect.left - parentRect.left + rect.width * 0.5;
          const y = rect.top - parentRect.top + rect.height * 0.5;
-
-         console.log(x, y);
 
          slideTextPositions.current[i] = { x, y };
       }

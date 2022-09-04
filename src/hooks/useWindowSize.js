@@ -57,7 +57,7 @@ function useWindowSize() {
          const rect2 = newDiv2.getBoundingClientRect();
          // console.log("height", rect.height, window.innerHeight)
 
-         const newWidth = window.outerWidth;
+         const newWidth = window.innerWidth;
          const newFullWidth = rect.width;
          const newHeight = window.innerHeight;
          const newFullHeight = rect.height;
