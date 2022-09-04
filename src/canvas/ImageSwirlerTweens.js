@@ -123,7 +123,7 @@ export let switchModesWithTween = function () {
       let duration = 1;
       if (this.orbiting) {
          sp.real.target = sp.orbit;
-         console.log(sp.orbit.y)
+        
          //safari issue with value creating horizontal line grouping.
          duration = Math.pow(Math.hypot(sp.orbit.x, sp.orbit.y), 0.3) * 1000;
       } else {

@@ -15,40 +15,23 @@ const Swirl = ({ onImageHeight, onCloseOrbit, startExit, onComplete }) => {
    const swirler = useRef(null);
 
    useEffect(() => {
-      document.body.style.overflow = "hidden";
+      startExit.current = swirler.current.loadImage(
+         portrait,
+         onImageHeight,
+         onCloseOrbit,
+         onComplete
+      );
+   }, [imagesPreloaded]);
 
-      if (!swirler.current) {
-         swirler.current = new ImageSwirler();
-         startExit.current = swirler.current.loadImage(
-            portrait,
-            onImageHeight,
-            onCloseOrbit,
-            onComplete
-         );
-      }
+   useLayoutEffect(() => {
+      document.body.style.overflow = "hidden";
+      swirler.current = new ImageSwirler();
 
       return () => {
          document.body.style.overflow = "auto";
          swirler.current.unload();
       };
-   }, [imagesPreloaded]);
-
-   // useLayoutEffect(() => {
-   //    document.body.style.overflow = "hidden";
-   //    swirler.current = new ImageSwirler();
-   //    startExit.current = swirler.current.loadImage(
-   //       portrait,
-   //       onImageHeight,
-   //       onCloseOrbit,
-   //       onComplete
-   //    );
-
-   //    return () => {
-   //       document.body.style.overflow = "auto";
-   //       swirler.current.unload();
-   //    };
-
-   // }, []);
+   }, []);
 
    // if(!imagesPreloaded)return <div>loading...</div>
 

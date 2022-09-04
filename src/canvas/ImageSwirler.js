@@ -357,7 +357,7 @@ ImageSwirler.prototype.matchPixelsToOrbits = function () {
    //calc pixel distance from centre so can match with closest orbits
    const pixDistFromMidImage = this.smartPixels
       .map((e, index) => {
-         console.log("e.pix.distance", e.pix)
+         //console.log("e.pix.distance", e.pix)
          return {
             distance: e.pix.distance,
             index,
