@@ -106,7 +106,7 @@ export let switchModesWithTween = function () {
       },
    };
 
-  // this.distortTween = addTween(distortTween);
+      this.distortTween = addTween(distortTween);
 
    console.log("this.orbiting", this.orbiting)
 
@@ -150,7 +150,7 @@ export let switchModesWithTween = function () {
       };
 
       if (sp.tween) sp.tween.remove();
-      sp.tween = addTween(tweenParams);
+     // sp.tween = addTween(tweenParams);
    }
    if (!this.orbiting) {
       this.onCloseOrbit();
