@@ -74,6 +74,8 @@ ImageSwirler.prototype.transMouse = function(mouseX, mouseY){
 ImageSwirler.prototype.init = function (context, canvas) {
    this.showPointer = false;
    this.canvas = canvas;
+   this.width = 100
+   this.height = 100
    this.touchAndMouse = new TouchAndMouse({
       el: canvas,
       tap: (x, y) => {
@@ -132,7 +134,7 @@ ImageSwirler.prototype.testTap = function (x, y) {
          console.log("switch modes")
          this.orbiting = true;
          this.switchModesWithTween();
-      }, 1000);
+      }, 200);
       return;
    }
 
@@ -222,6 +224,9 @@ ImageSwirler.prototype.loadImage = function (
 
       //  console.log("count", this.smartPixels.length, data.pixels.length);
       this.calcPixelOrigins(true);
+
+      
+     // console.log(this.smartPixels)
       this.matchPixelsToOrbits();
 
       for (let i = 0; i < this.smartPixels.length; i++) {
@@ -345,12 +350,14 @@ ImageSwirler.prototype.convertPixelsToOrbits = function () {
 };
 
 ImageSwirler.prototype.matchPixelsToOrbits = function () {
+   console.log("matching pixels to orbits")
    const orbits = this.getInitOrbits(this.smartPixels.length).sort((a, b) =>
       a.distance < b.distance ? 1 : -1
    );
    //calc pixel distance from centre so can match with closest orbits
    const pixDistFromMidImage = this.smartPixels
       .map((e, index) => {
+         console.log("e.pix.distance", e.pix)
          return {
             distance: e.pix.distance,
             index,
@@ -375,49 +382,64 @@ ImageSwirler.prototype.resize = function (width, height, left, top) {
  
 
    if (this.exploding) return; //otherwise repositions exiting particles
+   if(!this.imageData)return;
 
    //refresh origins on resize
    this.calcPixelOrigins();
-};
+
+}
 
 ImageSwirler.prototype.calcPixelOrigins = function (isInit) {
    if (!this.smartPixels) return;
 
    const { width, height } = this;
+   console.log("width/height", width,height)
    const imageData = this.imageData;
 
-   let imageHeight = Math.min(Math.pow(height * 0.4, 0.4) * 37, height);
+   let imageHeight = Math.min(Math.pow(height * 0.4, 0.4) * 40, height);
    const imageWidth = Math.min(
       imageHeight * (imageData.width / imageData.height),
       width
    );
    this.imageWidth = imageWidth;
 
-   console.log(imageData.width, imageData.height)
    imageHeight = imageWidth * (imageData.height / imageData.width);
-   const correction = 0.5;
+  
    const roundingFactor = 1;
    // const pixelSize =
    //    Math.ceil((imageWidth / imageData.width) * roundingFactor) /
    //    roundingFactor;
 
-   const pixelSize = imageWidth / 50;
+   const pixelSize = imageWidth / 70;
 
 
-   console.log("imageWidth", imageWidth)
+   console.log("imageWidth", imageWidth, imageData.width)
 
    for (let i = 0; i < this.smartPixels.length; i++) {
       const sp = this.smartPixels[i];
 
-      const relX =
-         (sp.pix.col / (imageData.width - 1)) * (imageWidth - pixelSize);
+      //const relX =
+        // ( (sp.pix.col) / (imageData.width - 1)) * (imageWidth - pixelSize);
+
+
+         const relX = sp.pix.col / (imageData.width - 1) * (imageWidth);
+        
+
+     
+      
       const relY =
-         (sp.pix.row / (imageData.height - 1)) * (imageHeight - pixelSize);
+         (sp.pix.row / (imageData.height - 1)) * (imageHeight);
       const homeX = -imageWidth * 0.5 + relX;
       const homeY = -imageHeight * 0.5 + relY;
-      const pixelWidth = pixelSize * correction;
-      const pixelHeight = pixelSize * correction;
+      const pixelWidth = pixelSize ;
+      const pixelHeight = pixelSize ;
       const distance = Math.hypot(homeX, homeY);
+
+     
+    //  console.log(sp.pix.col, relX, homeX, pixelSize);
+
+
+     // console.log("pixel d", distance)
 
      
 
@@ -445,6 +467,7 @@ ImageSwirler.prototype.calcPixelOrigins = function (isInit) {
 ImageSwirler.prototype.getInitOrbits = function (count) {
    const orbits = [];
 
+   console.log("GET INIT ORBITS")
    let totalTails = 0;
 
    for (var i = 0; i < count; i++) {
@@ -491,8 +514,9 @@ ImageSwirler.prototype.getInitOrbits = function (count) {
          vel,
       });
 
-      const preCycle = Math.ceil(Math.pow(Math.random() * 50 * size, 1));
+      const preCycle = Math.ceil(200 + Math.random() * 200 );
 
+      //sim the latest particle added
       for (let j = 0; j < preCycle; j++) {
          const o = orbits[orbits.length - 1];
          this.simCycle(orbits[orbits.length - 1], 100);

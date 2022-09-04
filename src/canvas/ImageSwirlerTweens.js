@@ -62,13 +62,13 @@ export let switchModesWithTween = function () {
 
    let distortX, distortY, tweenType;
    if (this.orbiting) {
-      duration = 7000;
-      delay = 0;
+      duration = 4000;
+      delay = 50;
       distortX = this.orbitDistortX;
       distortY = this.orbitDistortY;
       tweenType = "ease-in-out";
    } else {
-      duration = 4000;
+      duration = 2000;
       delay = 0;
       distortX = this.pixDistortX;
       distortY = this.pixDistortY;
@@ -123,7 +123,8 @@ export let switchModesWithTween = function () {
       let duration = 1;
       if (this.orbiting) {
          sp.real.target = sp.orbit;
-         duration = 6000 //Math.pow(Math.hypot(sp.orbit.x, sp.orbit.y), 0.3) * 1400;
+         console.log(sp.orbit.y)
+         duration = Math.pow(Math.hypot(sp.orbit.x, sp.orbit.y), 0.3) * 1000;
       } else {
          sp.real.trail = [];
          sp.real.target = sp.pix;
