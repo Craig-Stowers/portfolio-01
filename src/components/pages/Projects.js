@@ -5,9 +5,14 @@ import image2 from "../../images/projects/memorygame.png";
 import image3 from "../../images/projects/03.png";
 import image4 from "../../images/projects/04.png";
 import image5 from "../../images/projects/05.png";
+import moes from "../../images/projects/moes.jpg";
+import penguinGame from "../../images/projects/penguin-game.jpg";
+import squirrelEditor2 from "../../images/projects/squirrel-editor-02.png";
+import jewelMatch from "../../images/projects/jewel-match.jpg";
 import newto from "../../images/projects/newto.png";
 import VideoPlayer from "./../VideoPlayer";
 import VideoPlayer2 from "./../VideoPlayer2";
+import unitecReel from "../../images/projects/unitec-reel.jpg";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
@@ -25,17 +30,30 @@ import classes from "./Projects.module.css";
 const projectData = [
    {
       image: crossword,
-      title: " Crossword (desktop)",
+      title: "Crossword (desktop)",
       text: "Crossword game with intutive text input and across/down toggle.",
       support: "desktoponly",
       url: "https://toi-crossword.netlify.app/",
    },
    {
-      image: crossword,
-      title: " Crossword (mobile)",
-      text: "Crossword game with intutive text input and across/down toggle.",
-      support: "mobileonly",
-      url: "https://toi-crossword.netlify.app/",
+      image: moes,
+      title: "moes.co.nz",
+      text: "Simple website I designed, built and photographed.",
+
+      url: "https://moes.co.nz/",
+   },
+   {
+      image: squirrelEditor2,
+      title: "Squirrel Editor (desktop)",
+      text: "Training software that guides user through the basics of photo editing.",
+      support: "desktoponly",
+      url: "http://localhost:3001/?activity=2",
+   },
+   {
+      image: jewelMatch,
+      title: "Jewel Match",
+      text: "Game constructed in Construct tools using programming GUI which can get a little overcomplicted for making complex games",
+      url: "https://jewelmatch-test.netlify.app/",
    },
    {
       image: backgammon,
@@ -44,24 +62,24 @@ const projectData = [
       url: "https://silvereye.dev/",
    },
    {
-      image: backgammon,
+      image: penguinGame,
       title: "Penguin Game",
       // support: "mobileonly",
-      text: "Prototype game to test live socket connections.",
-      video: "https://www.dropbox.com/s/u7c2q99m7ieykzm/penguin-game.mp4",
+      text: "An experiement to see if I could create some 2d wave/splash physics. It hopefully evolve's into a racing/surfing type game. Applied bououcey phyrics to icebergs which accurately reacts to exactl how much mass is submerged by a variable wave.",
+      video: "https://www.dropbox.com/s/c5xpycsq3760dp1/penguin-game.mp4?dl=0",
    },
    {
       image: newto,
       title: "Newto",
-      text: "Prototype game to test live socket connections. Prototype game to test live socket connections. Prototype game to test live socket connections. Prototype game to test live socket connections.",
-      video: "https://www.dropbox.com/s/cauralukkzb3hdf/gravity-game.mp4",
+      text: "Early stages of game being developed for mobile devices. The idea is to drift through space and make use of gravity wells so as to conserve gas. There is a time slowing component and ability to predict the future orbital pathsways.",
+      video: "https://www.dropbox.com/s/8i13dumn23oemfo/gravity-game.mp4?dl=0",
    },
 
    {
-      image: backgammon,
-      title: "Stone Roses",
-      text: "Great video of a great band.",
-      video: "https://www.youtube.com/watch?v=cokwtKStjKQ",
+      image: unitecReel,
+      title: "Carpentry/Plumbing training",
+      text: "Training modules to help train carpentry & plumbing students. Very dated but thought I'd share to show my background in vectors & Flash",
+      video: "https://www.dropbox.com/s/4k1b0thjjpsjpbb/carpentryplumbingvideo.mp4?dl=0",
    },
 ];
 
@@ -158,7 +176,7 @@ const Project = ({ data, isLeft, style, setVideo }) => {
       (data.support === "mobileonly" && !isMobile) ||
       (data.support === "desktoponly" && isMobile);
 
-  // console.log(data.title, "warning", showWarning);
+   // console.log(data.title, "warning", showWarning);
 
    let WarningMessage = "";
    if (data.support === "mobileonly") {

@@ -41,7 +41,7 @@ function App() {
    const [showEnterButton, setShowEnterButton] = useState(false);
    const [hideEnterButton, setHideEnterButton] = useState(true);
    const startExit = useRef(null);
-   const [showIntro, setShowIntro] = useState(true);
+   const [showIntro, setShowIntro] = useState(false);
 
    const size = useWindowSize();
 

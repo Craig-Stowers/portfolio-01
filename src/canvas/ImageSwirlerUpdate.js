@@ -1,9 +1,6 @@
 import { updateTweens } from "../utility/Tweens";
 
 export const draw = function ({ context: ctx, canvas, delta, ratio }) {
-
-   
-
    if (!this.smartPixels) return;
    delta = Math.min(delta, 100);
    if (this.exiting) {
@@ -115,17 +112,24 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
          const tempY = -t.y + 400;
          //  let xDepthDistort = 2 - tempY * 0.002;
 
-
-        
-
          const screenX = t.x * this.xDistort + this.width * 0.5;
-         const screenY =
-            t.y * this.yDistort + this.height * 0.5;
+         const screenY = t.y * this.yDistort + this.height * 0.5;
 
          const scaleFactor = 1.4;
-         ctx.beginPath();
-         ctx.arc(screenX, screenY, t.width * 0.5 * scaleFactor, 0, 2 * Math.PI);
          let color = `rgba(${r},${g},${b},${sp.real.alpha})`;
+
+         // ctx.beginPath();
+         // ctx.arc(screenX, screenY, t.width * 0.5 * scaleFactor, 0, 2 * Math.PI);
+         // ctx.fillStyle = color;
+         // ctx.fill();
+
+         ctx.beginPath();
+         ctx.rect(
+            screenX,
+            screenY,
+            t.width * scaleFactor,
+            t.width * scaleFactor
+         );
          ctx.fillStyle = color;
          ctx.fill();
       }
@@ -160,7 +164,7 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
 
             // t.width = Math.max(t.width * diminishFactor, 0);
             // t.alpha *= t.width*0.01;
-            t.alpha *=diminishFactor;
+            t.alpha *= diminishFactor;
          } else {
             if (j !== sp.real.trail.length - 1) {
                t.alpha = 0;
@@ -173,7 +177,7 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
 
          // const alpha =
          //    t.alpha * target.alpha * j === sp.real.trail.length - 1 ? 1 : 1;
-         const alpha = t.alpha
+         const alpha = t.alpha;
 
          const xDepthDistort = 1 + t.y * 0.0012;
          const yDepthDistort = 1 + t.y * 0.0012;
@@ -205,10 +209,16 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
             screenY > 0 &&
             screenY < this.height
          ) {
+            // ctx.beginPath();
+            // ctx.arc(screenX, screenY, radius, 0, 2 * Math.PI);
+            // ctx.fillStyle = color;
+            // ctx.fill();
+
             ctx.beginPath();
-            ctx.arc(screenX, screenY, radius, 0, 2 * Math.PI);
+            ctx.rect(screenX, screenY, radius * 2, radius * 2);
             ctx.fillStyle = color;
             ctx.fill();
+            // ctx.stroke();
          }
       }
 
@@ -228,7 +238,7 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
       if (!this.orbiting) {
       }
 
-      const change = Math.pow(1.01, delta * 0.2);
+      const change = Math.pow(1.012, delta * 0.25);
       this.sunScale *= Math.pow(change, 1.2);
       this.brightness = Math.min(
          this.brightness + (1 - this.brightness) * 0.12 + 0.005,
@@ -265,7 +275,7 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
       this.finished = true;
       this.onComplete();
    }
-   console.log("?track=delta", delta)
-   console.log("?track=xDistort", this.xDistort)
-   console.log("?track=yDistort", this.yDistort)
+   // console.log("?track=delta", delta)
+   // console.log("?track=xDistort", this.xDistort)
+   // console.log("?track=yDistort", this.yDistort)
 };
