@@ -35,19 +35,20 @@ const projectData = [
       url: "https://toi-crossword.netlify.app/",
    },
    {
+      image: backgammon,
+      title: "Tabletop Simulator",
+      text: "Prototype online multiplayer sim developed in Javascript & Node.js. A learning exercise for me in socket connections.",
+      support: "desktoponly",
+      url: "https://silvereye.dev/",
+   },
+   {
       image: squirrelEditor2,
       title: "Squirrel Editor (desktop)",
       text: "Training software that guides user through the basics of photo editing. This is one small lesson among many.",
       support: "desktoponly",
       url: "https://toi-photo-editor.netlify.app?activity=2",
    },
-   {
-      image: backgammon,
-      title: "Backgammon",
-      text: "Multiplayer prototype game developed using Node.js & socket connections.",
-      support: "desktoponly",
-      url: "https://silvereye.dev/",
-   },
+  
    {
       image: hiddenObjects,
       title: "Hidden Objects",
@@ -72,19 +73,20 @@ const projectData = [
    {
       image: fruitSwipe,
       title: "Fruit Swipe",
+      support:"mobileonly",
       text: "A game to get users familiar with swiping.",
       url: "https://esafety-fruitswipe.netlify.app/",
    },
    {
       image: newto,
       title: "Newto (ios/android)",
-      text: "Early stages of a personal project in development for mobile devices. The idea is to drift, make use of gravity wells and orbit planets to conserve gas. There is a time slowing component and custom built newtonian physics calculations",
+      text: "Early stages of a personal project in development. The idea is make use of gravity wells and orbit planets to conserve gas as you drift between goals. There is a time slowing component and the newtonian physics were custom built.",
       video: "https://www.dropbox.com/s/8i13dumn23oemfo/gravity-game.mp4?dl=0",
    },
    {
       image: penguinGame,
       title: "Penguin Game (ios/android)",
-      text: "An experiement to create 2d wave/splash physics from scratch. It hopefully evolves into a surfing type scroller game. I applied buoyancy to icebergs which accurately reacts to how much mass is being submerged by a variable wave shape.",
+      text: "An experiment to create 2d wave/splash physics from scratch. It hopefully evolves into a surfing type scroller game. I applied buoyancy to icebergs which accurately reacts to how much mass is being submerged by a variable wave shape.",
       video: "https://www.dropbox.com/s/c5xpycsq3760dp1/penguin-game.mp4?dl=0",
    },
   
@@ -93,21 +95,22 @@ const projectData = [
    {
       image: fill,
       title: "Fill",
-      text: "Quiz game where you flip an image to reveal multi-choice answers.",
+      support:"mobileonly",
+      text: "Draw paths that covers all available squares.",
       url: "https://craigstowers-fill.netlify.app/",
    },
   
-   {
-      image: memorygame,
-      title: "Memory Game",
-      text: "Simple website I designed, built and photographed.",
-      url: "https://toi-memory-game.netlify.app/",
-   },
+   // {
+   //    image: memorygame,
+   //    title: "Memory Game",
+   //    text: "Simple website I designed, built and photographed.",
+   //    url: "https://toi-memory-game.netlify.app/",
+   // },
    
    {
       image: easythreesy,
       title: "Easy Threesy (desktop)",
-      text: "Training software that guides user through the basics of photo editing.",
+      text: "Drag and drop groups of letters to solve questions.",
       support: "desktoponly",
       url: "https://toi-easy-threesy.netlify.app/",
    },
@@ -115,7 +118,7 @@ const projectData = [
    {
       image: jewelMatch,
       title: "Jewel Match",
-      text: "Game constructed in Construct tools using programming GUI which can get a little overcomplicted for making complex games",
+      text: "Game built in Construct. The graphical programming tools were a little convoluted for my liking but it was a challenge non the less.",
       url: "https://jewelmatch-test.netlify.app/",
    },
   
@@ -124,7 +127,7 @@ const projectData = [
    {
       image: unitecReel,
       title: "Carpentry/Plumbing training",
-      text: "Training modules to help train carpentry & plumbing students. Very dated but thought I'd share to show my background in vectors & Flash",
+      text: "A small reel of old flash training modules to compiment online learning material for carpentry & plumbing students. Dated, but I thought I'd share to show my background in vectors & Flash animation",
       video: "https://www.dropbox.com/s/4k1b0thjjpsjpbb/carpentryplumbingvideo.mp4?dl=0",
    },
 ];
