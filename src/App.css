@@ -397,21 +397,34 @@ canvas {
    -moz-osx-font-smoothing: grayscale;
 }
 
+.downArrowContainer {
+   position:fixed;
+   
+   top:90%;
+   left:50%;
+   width:100px;
+   height:100px;
+}
+
 .downArrow {
-   opacity: 0;
-   animation: pulse 1000ms infinite;
+   opacity: 1;
+   animation: pulse 700ms infinite;
    animation-direction: alternate;
    animation-iteration-count: infinite;
-   animation-timing-function: ease-in;
-   position: fixed;
+   /* animation-timing-function: ease-in; */
+   transition-timing-function: cubic-bezier(0.42,0,0.58,1);
+   
+   position: absolute;
    z-index: 10;
+   top:0px;
+   left:0px;
 }
 
 .downArrow img {
-   transform: translate(-50%, -50%) scale(0.4, 0.4);
+   transform: translate(-50%, -50%) scale(0.8, 0.6);
 }
 
-.downArrow1 {
+/* .downArrow1 {
 }
 
 .downArrow2 {
@@ -420,8 +433,20 @@ canvas {
 
 .downArrow3 {
    animation-delay: 200ms;
+} */
+
+
+@keyframes pulse {
+   100% {
+      top: 0px;
+   }
+ 
+   0% {
+      top: 30px;
+   }
 }
 
+/* 
 @keyframes pulse {
    0% {
       opacity: 0;
@@ -432,4 +457,4 @@ canvas {
    100% {
       opacity: 0.8;
    }
-}
+} */

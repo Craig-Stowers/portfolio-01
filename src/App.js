@@ -41,11 +41,11 @@ function App() {
    const [showEnterButton, setShowEnterButton] = useState(false);
    const [hideEnterButton, setHideEnterButton] = useState(true);
    const startExit = useRef(null);
-   const [showIntro, setShowIntro] = useState(false);
+   const [showIntro, setShowIntro] = useState(true);
 
    const size = useWindowSize();
 
-   console.log("app size", size);
+
 
    useEffect(() => {
       var font = new FontFaceObserver("Albert Sans");
@@ -228,7 +228,7 @@ function App() {
                left: "-50vw",
                width: "200vw",
                height: "200vh",
-               zIndex: -1,
+               zIndex: -3,
                transition: "background-color 500ms",
             }}
          ></div>

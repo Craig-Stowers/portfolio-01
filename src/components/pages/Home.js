@@ -186,7 +186,7 @@ const Home = ({ changeBackgroundColor }) => {
 
    useScroller(
       (scroll) => {
-         if (scroll.y > 300) {
+         if (scroll.y > 100) {
             setScrolled(true);
          } else {
             setScrolled(false);
@@ -763,8 +763,17 @@ const Home = ({ changeBackgroundColor }) => {
                />
 
                {!scrolled && (
-                  <>
-                     <div
+                  <div className={"downArrowContainer"}>
+                      <div
+                        className={"downArrow downArrow1"}
+                        // style={{
+                        //    top: heightRef.current * 0.8 + "px",
+                        //    left: "50%",
+                        // }}
+                     >
+                        <img src={arrowDown} />
+                     </div>
+                     {/* <div
                         className={"downArrow downArrow1"}
                         style={{
                            top: heightRef.current * 0.8 + "px",
@@ -790,8 +799,8 @@ const Home = ({ changeBackgroundColor }) => {
                         }}
                      >
                         <img src={arrowDown} />
-                     </div>
-                  </>
+                     </div> */}
+                  </div>
                )}
             </div>
          )}

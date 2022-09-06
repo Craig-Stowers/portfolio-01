@@ -135,6 +135,16 @@ export const repellerData2 = {
          expandSpans: true,
       },
       {
+         text: "interactivity",
+         power: 34,
+         style: {
+            left: "calc(50% - 90px)",
+            top: 850,
+            fontSize: 24,
+         },
+         expandSpans: true,
+      },
+      {
          text: "e-learning",
          power: 34,
          style: {
@@ -187,9 +197,9 @@ export const repellerData3 = {
       {
          text: (
             <span style={{ textAlign: "centre" }}>
-               Javascript
+               React
                <br />
-               (ES6+)
+               hooks
             </span>
          ),
          power: 37,
@@ -197,49 +207,8 @@ export const repellerData3 = {
             left: "calc(50% - 90px)",
             top: 1300,
             fontSize: 23,
-         },
-         expandSpans: true,
-      },
-
-      {
-         text: "PixiJS",
-         style: {
-            left: "calc(50% - 90px)",
-            top: 1600,
-         },
-         expandSpans: true,
-      },
-      {
-         text: "Canvas",
-         style: {
-            left: "calc(50% + 0px)",
-            top: 1900,
-         },
-         expandSpans: true,
-      },
-      {
-         text: "Node.js",
-         style: {
-            left: "calc(50% - 90px)",
-            top: 2200,
-         },
-         expandSpans: true,
-      },
-      {
-         text: "Unity",
-         style: {
-            left: "calc(50% - 0px)",
-            top: 2500,
-         },
-         expandSpans: true,
-      },
-      {
-         text: "React",
-         style: {
-            left: "calc(50% + 0px)",
-            top: 1000,
-         },
-         expandSpans: true,
+         }
+      
       },
       {
          text: (
@@ -254,8 +223,8 @@ export const repellerData3 = {
             left: "calc(50% - 90px)",
             top: 1300,
             fontSize: 23,
-         },
-         expandSpans: true,
+         }
+      
       },
 
       {
@@ -290,6 +259,24 @@ export const repellerData3 = {
          },
          expandSpans: true,
       },
+      {
+         text: "Strapi",
+         style: {
+            left: "calc(50% + 0px)",
+            top: 1000,
+         },
+     
+      },
+
+      {
+         text: "Git",
+         style: {
+            left: "calc(50% - 90px)",
+            top: 1600,
+         },
+         expandSpans: true,
+      },
+     
    ]),
 };
 

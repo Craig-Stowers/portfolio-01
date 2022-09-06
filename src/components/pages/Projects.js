@@ -5,9 +5,12 @@ import unitecReel from "../../images/projects/unitec-reel.jpg";
 import moes from "../../images/projects/moes.jpg";
 import easythreesy from "../../images/projects/easy-threesy.jpg";
 import greatMinds from "../../images/projects/great-minds.jpg";
+import hiddenObjects from "../../images/projects/hidden-objects.jpg";
 import penguinGame from "../../images/projects/penguin-game.jpg";
 import squirrelEditor2 from "../../images/projects/squirrel-editor.jpg";
 import jewelMatch from "../../images/projects/jewel-match.jpg";
+import fruitSwipe from "../../images/projects/fruit-swipe.jpg";
+import fill from "../../images/projects/fill.jpg";
 import newto from "../../images/projects/newto.jpg";
 import videoIcon from "./../../images/video-icon.png";
 
@@ -31,6 +34,33 @@ const projectData = [
       support: "desktoponly",
       url: "https://toi-crossword.netlify.app/",
    },
+   {
+      image: squirrelEditor2,
+      title: "Squirrel Editor (desktop)",
+      text: "Training software that guides user through the basics of photo editing. This is one small lesson among many.",
+      support: "desktoponly",
+      url: "https://toi-photo-editor.netlify.app?activity=2",
+   },
+   {
+      image: backgammon,
+      title: "Backgammon",
+      text: "Multiplayer prototype game developed using Node.js & socket connections.",
+      support: "desktoponly",
+      url: "https://silvereye.dev/",
+   },
+   {
+      image: hiddenObjects,
+      title: "Hidden Objects",
+      support:"mobileonly",
+      text: "A game to teach non-digital-native people how to pinch & zoom.",
+      url: "https://craigstowers-hidden-objects.netlify.app/",
+   },
+   {
+      image: moes,
+      title: "moes.co.nz",
+      text: "Simple website I designed, built and photographed.",
+      url: "https://moes.co.nz/",
+   },
    
    {
       image: greatMinds,
@@ -38,22 +68,30 @@ const projectData = [
       text: "Quiz game where you flip an image to reveal multi-choice answers.",
       url: "https://toi-great-minds.netlify.app/",
    },
+  
    {
-      image: greatMinds,
-      title: "Word Up",
-      text: "Quiz game where you flip an image to reveal multi-choice answers.",
-      url: "https://wordup-test.netlify.app/",
+      image: fruitSwipe,
+      title: "Fruit Swipe",
+      text: "A game to get users familiar with swiping.",
+      url: "https://esafety-fruitswipe.netlify.app/",
    },
+   {
+      image: newto,
+      title: "Newto (ios/android)",
+      text: "Early stages of a personal project in development for mobile devices. The idea is to drift, make use of gravity wells and orbit planets to conserve gas. There is a time slowing component and custom built newtonian physics calculations",
+      video: "https://www.dropbox.com/s/8i13dumn23oemfo/gravity-game.mp4?dl=0",
+   },
+   {
+      image: penguinGame,
+      title: "Penguin Game (ios/android)",
+      text: "An experiement to create 2d wave/splash physics from scratch. It hopefully evolves into a surfing type scroller game. I applied buoyancy to icebergs which accurately reacts to how much mass is being submerged by a variable wave shape.",
+      video: "https://www.dropbox.com/s/c5xpycsq3760dp1/penguin-game.mp4?dl=0",
+   },
+  
 
+  
    {
-      image: greatMinds,
-      title: "Hidden Objects",
-      support:"mobileonly",
-      text: "Quiz game where you flip an image to reveal multi-choice answers.",
-      url: "https://craigstowers-hidden-objects.netlify.app/",
-   },
-   {
-      image: greatMinds,
+      image: fill,
       title: "Fill",
       text: "Quiz game where you flip an image to reveal multi-choice answers.",
       url: "https://craigstowers-fill.netlify.app/",
@@ -65,13 +103,7 @@ const projectData = [
       text: "Simple website I designed, built and photographed.",
       url: "https://toi-memory-game.netlify.app/",
    },
-   {
-      image: squirrelEditor2,
-      title: "Squirrel Editor (desktop)",
-      text: "Training software that guides user through the basics of photo editing.",
-      support: "desktoponly",
-      url: "https://toi-photo-editor.netlify.app?activity=2",
-   },
+   
    {
       image: easythreesy,
       title: "Easy Threesy (desktop)",
@@ -79,37 +111,15 @@ const projectData = [
       support: "desktoponly",
       url: "https://toi-easy-threesy.netlify.app/",
    },
-   {
-      image: moes,
-      title: "moes.co.nz",
-      text: "Simple website I designed, built and photographed.",
-      url: "https://moes.co.nz/",
-   },
+   
    {
       image: jewelMatch,
       title: "Jewel Match",
       text: "Game constructed in Construct tools using programming GUI which can get a little overcomplicted for making complex games",
       url: "https://jewelmatch-test.netlify.app/",
    },
-   {
-      image: backgammon,
-      title: "Backgammon",
-      text: "Prototype game to test live socket connections.",
-      url: "https://silvereye.dev/",
-   },
-   {
-      image: penguinGame,
-      title: "Penguin Game",
-      // support: "mobileonly",
-      text: "An experiement to see if I could create some 2d wave/splash physics. It hopefully evolve's into a racing/surfing type game. Applied bououcey phyrics to icebergs which accurately reacts to exactl how much mass is submerged by a variable wave.",
-      video: "https://www.dropbox.com/s/c5xpycsq3760dp1/penguin-game.mp4?dl=0",
-   },
-   {
-      image: newto,
-      title: "Newto",
-      text: "Early stages of game being developed for mobile devices. The idea is to drift through space and make use of gravity wells so as to conserve gas. There is a time slowing component and ability to predict the future orbital pathsways.",
-      video: "https://www.dropbox.com/s/8i13dumn23oemfo/gravity-game.mp4?dl=0",
-   },
+  
+
 
    {
       image: unitecReel,
@@ -184,7 +194,7 @@ const Projects = ({ show, scrollable }) => {
                <p>
                   I built that ridiculous text morphing feature from scratch and
                   am currently optimising it so apologies for any performance
-                  issuse.
+                  issues.
                </p>
                <p>
                   I'm in the process of collating many years of work so watch

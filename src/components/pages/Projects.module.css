@@ -20,7 +20,7 @@
 
 .projectsWrapper {
   
-  
+   
    max-width: 900px;
    margin-left: auto;
    margin-right: auto;
@@ -61,6 +61,9 @@
    display: block;
    text-decoration: none;
    -webkit-tap-highlight-color: transparent;
+
+   
+  
 }
 
 .project,
@@ -72,8 +75,13 @@
 
 .imageWrapper {
    /* background-color: #00778c60; */
-
+   border-radius: 20px;
    -webkit-tap-highlight-color: transparent;
+   box-shadow: inset 0px 0px 90px rgba(0,0,0,0.3);
+  
+  
+   z-index: 1;
+   
 }
 
 .topNote {
@@ -97,6 +105,16 @@
    display: block;
    /* opacity: 0.8; */
    border-radius: 20px;
+   position:relative;
+   z-index: -2;
+   /* border:1px solid rgba(0, 0, 0, 1);
+   box-sizing: border-box; */
+
+  
+
+   
+
+   
 
    /* -webkit-filter: grayscale(0%);
    filter: grayscale(0%); */
@@ -145,8 +163,8 @@
       0deg,
       rgba(0, 0, 0, 0.8) 0%,
 
-      rgba(0, 0, 0, 0.3) 45%,
-      rgba(0, 0, 0, 0.3) 55%,
+      rgba(0, 0, 0, 0.5) 45%,
+      rgba(0, 0, 0, 0.5) 55%,
       rgba(0, 0, 0, 0.8) 100%
    );
 }
