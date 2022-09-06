@@ -17,7 +17,7 @@ import {
 } from "react-device-detect";
 import useWindowSize from "./hooks/useWindowSize";
 
-require("./utility/Console");
+//require("./utility/Console");
 
 var FontFaceObserver = require("fontfaceobserver");
 

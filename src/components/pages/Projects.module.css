@@ -2,6 +2,7 @@
    display: flex;
    position:relative;
    margin-right:auto;
+
   
   
   width:100%;
@@ -78,7 +79,7 @@
 .topNote {
    color: #333;
    font-size: 18px;
-   margin-bottom: 80px;
+   margin-top: 80px;
    max-width: 600px;
 
    margin-right: auto;

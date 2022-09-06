@@ -1,20 +1,18 @@
-import image1 from "../../images/projects/greatminds.png";
-import crossword from "../../images/projects/crossword.png";
-import backgammon from "../../images/projects/backgammon.png";
-import image2 from "../../images/projects/memorygame.png";
-import image3 from "../../images/projects/03.png";
-import image4 from "../../images/projects/04.png";
-import image5 from "../../images/projects/05.png";
-import moes from "../../images/projects/moes.jpg";
-import penguinGame from "../../images/projects/penguin-game.jpg";
-import squirrelEditor2 from "../../images/projects/squirrel-editor-02.png";
-import jewelMatch from "../../images/projects/jewel-match.jpg";
-import newto from "../../images/projects/newto.png";
-import VideoPlayer from "./../VideoPlayer";
-import VideoPlayer2 from "./../VideoPlayer2";
+import crossword from "../../images/projects/crossword.jpg";
+import backgammon from "../../images/projects/backgammon.jpg";
+import memorygame from "../../images/projects/memorygame.jpg";
 import unitecReel from "../../images/projects/unitec-reel.jpg";
+import moes from "../../images/projects/moes.jpg";
+import easythreesy from "../../images/projects/easy-threesy.jpg";
+import greatMinds from "../../images/projects/great-minds.jpg";
+import penguinGame from "../../images/projects/penguin-game.jpg";
+import squirrelEditor2 from "../../images/projects/squirrel-editor.jpg";
+import jewelMatch from "../../images/projects/jewel-match.jpg";
+import newto from "../../images/projects/newto.jpg";
+import videoIcon from "./../../images/video-icon.png";
+
+import VideoPlayer from "./../VideoPlayer";
 import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
 
 import {
    BrowserView,
@@ -23,31 +21,69 @@ import {
    isMobile,
 } from "react-device-detect";
 
-import videoIcon from "./../../images/video-icon.png";
-
 import classes from "./Projects.module.css";
 
 const projectData = [
    {
       image: crossword,
-      title: "Crossword (desktop)",
-      text: "Crossword game with intutive text input and across/down toggle.",
+      title: "Crossword (desktop only)",
+      text: "Crossword game which features an intuitive input method. Toggle input direction by clicking intersecting squares. Use arrow keys to navigate squares or click a clue to refocus input.",
       support: "desktoponly",
       url: "https://toi-crossword.netlify.app/",
    },
+   
    {
-      image: moes,
-      title: "moes.co.nz",
-      text: "Simple website I designed, built and photographed.",
+      image: greatMinds,
+      title: "Great Minds",
+      text: "Quiz game where you flip an image to reveal multi-choice answers.",
+      url: "https://toi-great-minds.netlify.app/",
+   },
+   {
+      image: greatMinds,
+      title: "Word Up",
+      text: "Quiz game where you flip an image to reveal multi-choice answers.",
+      url: "https://wordup-test.netlify.app/",
+   },
 
-      url: "https://moes.co.nz/",
+   {
+      image: greatMinds,
+      title: "Hidden Objects",
+      support:"mobileonly",
+      text: "Quiz game where you flip an image to reveal multi-choice answers.",
+      url: "https://craigstowers-hidden-objects.netlify.app/",
+   },
+   {
+      image: greatMinds,
+      title: "Fill",
+      text: "Quiz game where you flip an image to reveal multi-choice answers.",
+      url: "https://craigstowers-fill.netlify.app/",
+   },
+  
+   {
+      image: memorygame,
+      title: "Memory Game",
+      text: "Simple website I designed, built and photographed.",
+      url: "https://toi-memory-game.netlify.app/",
    },
    {
       image: squirrelEditor2,
       title: "Squirrel Editor (desktop)",
       text: "Training software that guides user through the basics of photo editing.",
       support: "desktoponly",
-      url: "http://localhost:3001/?activity=2",
+      url: "https://toi-photo-editor.netlify.app?activity=2",
+   },
+   {
+      image: easythreesy,
+      title: "Easy Threesy (desktop)",
+      text: "Training software that guides user through the basics of photo editing.",
+      support: "desktoponly",
+      url: "https://toi-easy-threesy.netlify.app/",
+   },
+   {
+      image: moes,
+      title: "moes.co.nz",
+      text: "Simple website I designed, built and photographed.",
+      url: "https://moes.co.nz/",
    },
    {
       image: jewelMatch,
@@ -85,8 +121,15 @@ const projectData = [
 
 const Projects = ({ show, scrollable }) => {
    const midSplit = Math.ceil(projectData.length / 2);
-   const col1 = projectData.slice(0, midSplit);
-   const col2 = projectData.slice(midSplit, projectData.length);
+   
+
+   //put every 2nd item in seperate column
+   const col1 = projectData.filter((e, i) => {
+      return i % 2 == 0;
+   });
+   const col2 = projectData.filter((e, i) => {
+      return i % 2 == 1;
+   });
 
    const [videoUrl, setVideoUrl] = useState(null);
 
@@ -101,28 +144,6 @@ const Projects = ({ show, scrollable }) => {
    return (
       <div className={classes.projects}>
          <div className={classes.projectsWrapper}>
-            <div className={classes.topNote}>
-               <h3>This website is a work in progress...</h3>
-               <p>
-                  I apologize for any performance issues. I built that
-                  ridiculous text morphing feature from scratch and am currently
-                  optimising it.
-               </p>
-
-               <p>
-                  Please flick an email to{" "}
-                  <a href="mailto:craig.stowers@proton.me">
-                     craig.stowers@proton.me
-                  </a>
-                  if you'd like to discuss a project or job opportunity.
-               </p>
-
-               <p>
-                  I'm in the process of collating many years of work to show
-                  below (so watch this space).
-               </p>
-            </div>
-
             <div className={classes.heading}>
                <h1>projects.</h1>
             </div>
@@ -157,6 +178,26 @@ const Projects = ({ show, scrollable }) => {
                      );
                   })}
                </div>
+            </div>
+            <div className={classes.topNote}>
+               <h3>This website is a work in progress...</h3>
+               <p>
+                  I built that ridiculous text morphing feature from scratch and
+                  am currently optimising it so apologies for any performance
+                  issuse.
+               </p>
+               <p>
+                  I'm in the process of collating many years of work so watch
+                  this space.
+               </p>
+
+               <p>
+                  Please flick an email to{" "}
+                  <a href="mailto:craig.stowers@proton.me">
+                     craig.stowers@proton.me
+                  </a>{" "}
+                  if you'd like to discuss a project or job opportunity.
+               </p>
             </div>
          </div>
          <VideoPlayer
