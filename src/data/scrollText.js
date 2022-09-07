@@ -379,15 +379,6 @@ export const repellerData5 = {
    paddingBottom: -290,
    items: getSpacing(80, [
       {
-         text: "Westpac",
-         style: {
-            left: "calc(50% + 0px)",
-            top: 1000,
-            fontSize: 32,
-         },
-         expandSpans: true,
-      },
-      {
          text: "Air NZ",
          style: {
             left: "calc(50% + 50px",
@@ -396,6 +387,16 @@ export const repellerData5 = {
          },
          expandSpans: true,
       },
+      {
+         text: "Westpac",
+         style: {
+            left: "calc(50% + 0px)",
+            top: 1000,
+            fontSize: 32,
+         },
+         expandSpans: true,
+      },
+
       {
          text: (
             <span style={{ textAlign: "centre" }}>

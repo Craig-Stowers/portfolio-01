@@ -39,7 +39,7 @@ const projectData = [
       title: "Tabletop Simulator",
       text: "Prototype online multiplayer tabletop sim developed in React/Javascript & Node.js. A learning exercise to create live multiplayer experiences using socket connections.",
       support: "desktoponly",
-      url: "https://silvereye.dev/",
+      url: "https://silvereye.dev/tabletop",
    },
    {
       image: squirrelEditor2,

@@ -343,8 +343,8 @@ const PlayfulText = (props) => {
             >
                <SpanChars onSpanRefs={(refs) => handleSpanRefs(refs, 1, 0)}>
                   I’m a developer with 10 years experience building engaging
-                  software across a variety of industries. I worked in graphics &
-                  animation roles for a while but caught the coding bug after
+                  software across a variety of industries. I worked in graphics
+                  & animation roles for a while but caught the coding bug after
                   programming some old flash games.
                </SpanChars>{" "}
             </div>
@@ -394,7 +394,7 @@ const PlayfulText = (props) => {
             >
                <SpanChars onSpanRefs={(refs) => handleSpanRefs(refs, 3, 0)}>
                   Though I’m all about coding front end experiences, I have some
-                  handy “bonus” skills...
+                  “bonus” skills that occasionally come in handy...
                </SpanChars>
             </h1>
          </>,
