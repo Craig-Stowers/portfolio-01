@@ -29,7 +29,7 @@ import classes from "./Projects.module.css";
 const projectData = [
    {
       image: crossword,
-      title: "Crossword (desktop only)",
+      title: "Crossword",
       text: "Crossword game which features an intuitive input method. Toggle input direction by clicking intersecting squares. Use arrow keys to navigate squares or click a clue to refocus input.",
       support: "desktoponly",
       url: "https://toi-crossword.netlify.app/",
@@ -37,22 +37,22 @@ const projectData = [
    {
       image: backgammon,
       title: "Tabletop Simulator",
-      text: "Prototype online multiplayer sim developed in Javascript & Node.js. A learning exercise for me in socket connections.",
+      text: "Prototype online multiplayer tabletop sim developed in React/Javascript & Node.js. A learning exercise to create live multiplayer experiences using socket connections.",
       support: "desktoponly",
       url: "https://silvereye.dev/",
    },
    {
       image: squirrelEditor2,
-      title: "Squirrel Editor (desktop)",
+      title: "Squirrel Editor",
       text: "Training software that guides user through the basics of photo editing. This is one small lesson among many.",
       support: "desktoponly",
       url: "https://toi-photo-editor.netlify.app?activity=2",
    },
-  
+
    {
       image: hiddenObjects,
       title: "Hidden Objects",
-      support:"mobileonly",
+      support: "mobileonly",
       text: "A game to teach non-digital-native people how to pinch & zoom.",
       url: "https://craigstowers-hidden-objects.netlify.app/",
    },
@@ -62,18 +62,18 @@ const projectData = [
       text: "Simple website I designed, built and photographed.",
       url: "https://moes.co.nz/",
    },
-   
+
    {
       image: greatMinds,
       title: "Great Minds",
       text: "Quiz game where you flip an image to reveal multi-choice answers.",
       url: "https://toi-great-minds.netlify.app/",
    },
-  
+
    {
       image: fruitSwipe,
       title: "Fruit Swipe",
-      support:"mobileonly",
+      support: "mobileonly",
       text: "A game to get users familiar with swiping.",
       url: "https://esafety-fruitswipe.netlify.app/",
    },
@@ -89,24 +89,22 @@ const projectData = [
       text: "An experiment to create 2d wave/splash physics from scratch. It hopefully evolves into a surfing type scroller game. I applied buoyancy to icebergs which accurately reacts to how much mass is being submerged by a variable wave shape.",
       video: "https://www.dropbox.com/s/c5xpycsq3760dp1/penguin-game.mp4?dl=0",
    },
-  
 
-  
    {
       image: fill,
       title: "Fill",
-      support:"mobileonly",
+      support: "mobileonly",
       text: "Draw paths that covers all available squares.",
       url: "https://craigstowers-fill.netlify.app/",
    },
-  
+
    // {
    //    image: memorygame,
    //    title: "Memory Game",
    //    text: "Simple website I designed, built and photographed.",
    //    url: "https://toi-memory-game.netlify.app/",
    // },
-   
+
    {
       image: easythreesy,
       title: "Easy Threesy (desktop)",
@@ -114,27 +112,24 @@ const projectData = [
       support: "desktoponly",
       url: "https://toi-easy-threesy.netlify.app/",
    },
-   
+
    {
       image: jewelMatch,
       title: "Jewel Match",
-      text: "Game built in Construct. The graphical programming tools were a little convoluted for my liking but it was a challenge non the less.",
+      text: "Revamped a game in Construct 3 for a client. Constructs graphical programming tools were a little convoluted for my liking but it was a challenge none the less.",
       url: "https://jewelmatch-test.netlify.app/",
    },
-  
-
 
    {
       image: unitecReel,
       title: "Carpentry/Plumbing training",
-      text: "A small reel of old flash training modules to compiment online learning material for carpentry & plumbing students. Dated, but I thought I'd share to show my background in vectors & Flash animation",
+      text: "A small reel of old flash training modules to compiment online learning material for carpentry & plumbing students. These are dated, but I thought I'd share my background in vector graphics & Flash animation",
       video: "https://www.dropbox.com/s/4k1b0thjjpsjpbb/carpentryplumbingvideo.mp4?dl=0",
    },
 ];
 
 const Projects = ({ show, scrollable }) => {
    const midSplit = Math.ceil(projectData.length / 2);
-   
 
    //put every 2nd item in seperate column
    const col1 = projectData.filter((e, i) => {
@@ -195,13 +190,21 @@ const Projects = ({ show, scrollable }) => {
             <div className={classes.topNote}>
                <h3>This website is a work in progress...</h3>
                <p>
-                  I built that ridiculous text morphing feature from scratch and
-                  am currently optimising it so apologies for any performance
-                  issues.
+                  I built the top interactive text from scratch and am in the
+                  process of optimising the javascript/canvas code (apologies
+                  for any performance issues on older computers). There are a
+                  few issues to iron out but I'm happy enough with how it works.
                </p>
                <p>
-                  I'm in the process of collating many years of work so watch
-                  this space.
+                  FYI: when the text changes, relevant letters stay on screen
+                  while others are transitioned in & out. Animated letters are
+                  all mapped onto hidden inline html elements so they’ll react
+                  to page size/layout/flow changes like normal responsive
+                  elements do.
+               </p>
+               <p>
+                  I’m currently collating many years of work and experimental
+                  projects for the above collection (so watch this space).
                </p>
 
                <p>

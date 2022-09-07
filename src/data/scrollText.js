@@ -63,7 +63,7 @@ const getSpacing = (spacing, arr) => {
 };
 
 export const repellerData1 = {
-   maxWidth:400,
+   maxWidth: 400,
    items: getSpacing(40, [
       {
          text: "I",
@@ -123,7 +123,7 @@ export const repellerData1 = {
 };
 
 export const repellerData2 = {
-   maxWidth:400,
+   maxWidth: 400,
    items: getSpacing(40, [
       {
          text: "websites",
@@ -207,8 +207,7 @@ export const repellerData3 = {
             left: "calc(50% - 90px)",
             top: 1300,
             fontSize: 23,
-         }
-      
+         },
       },
       {
          text: (
@@ -223,8 +222,7 @@ export const repellerData3 = {
             left: "calc(50% - 90px)",
             top: 1300,
             fontSize: 23,
-         }
-      
+         },
       },
 
       {
@@ -244,6 +242,14 @@ export const repellerData3 = {
          expandSpans: true,
       },
       {
+         text: "Box2D",
+         style: {
+            left: "calc(50% - 0px)",
+            top: 2500,
+         },
+         expandSpans: true,
+      },
+      {
          text: "Node.js",
          style: {
             left: "calc(50% - 90px)",
@@ -251,6 +257,15 @@ export const repellerData3 = {
          },
          expandSpans: true,
       },
+      {
+         text: "Express.js",
+         style: {
+            left: "calc(50% - 90px)",
+            top: 2200,
+         },
+         expandSpans: true,
+      },
+
       {
          text: "Unity",
          style: {
@@ -265,7 +280,6 @@ export const repellerData3 = {
             left: "calc(50% + 0px)",
             top: 1000,
          },
-     
       },
 
       {
@@ -276,12 +290,21 @@ export const repellerData3 = {
          },
          expandSpans: true,
       },
-     
    ]),
 };
 
 export const repellerData4 = {
    items: getSpacing(40, [
+      {
+         text: "Photography",
+         style: {
+            left: "calc(50% + 0px)",
+            top: 1000,
+            fontSize: 25,
+         },
+         expandSpans: true,
+      },
+
       {
          text: "Photoshop",
          style: {
@@ -292,7 +315,7 @@ export const repellerData4 = {
          expandSpans: true,
       },
       {
-         text: "animation",
+         text: "2d animation",
          style: {
             left: "calc(50% + 90px",
             top: 1250,
@@ -319,6 +342,27 @@ export const repellerData4 = {
          },
          expandSpans: true,
       },
+
+      {
+         text: "back end",
+         style: {
+            left: "calc(50% + 0px)",
+            top: 2000,
+            fontSize: 27,
+         },
+         expandSpans: true,
+      },
+
+      {
+         text: "authentication",
+         style: {
+            left: "calc(50% + 0px)",
+            top: 2000,
+            fontSize: 27,
+         },
+         expandSpans: true,
+      },
+
       {
          text: "databases",
          style: {

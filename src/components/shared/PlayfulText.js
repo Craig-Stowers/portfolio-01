@@ -275,7 +275,7 @@ const PlayfulText = (props) => {
    const getMessages = useCallback(() => {
       return [
          <>
-            <div style={{marginTop:-30}}>
+            <div style={{ marginTop: -30 }}>
                <div
                   style={{
                      fontSize: 56,
@@ -293,10 +293,10 @@ const PlayfulText = (props) => {
                         console.log("handle spans");
                      }}
                   >
-                    Hello.
+                     Hello.
                   </SpanChars>
                </div>
-               
+
                <div
                   style={{
                      fontSize: 90,
@@ -336,14 +336,16 @@ const PlayfulText = (props) => {
          >
             <div
                style={{
-                  fontSize: 34,
+                  fontSize: 30,
                   fontWeight: 500,
                   lineHeight: "44px",
                }}
             >
                <SpanChars onSpanRefs={(refs) => handleSpanRefs(refs, 1, 0)}>
                   I’m a developer with 10 years experience building engaging
-                  software across a variety of industries.
+                  software across a variety of industries. I worked in graphics &
+                  animation roles for a while but caught the coding bug after
+                  programming some old flash games.
                </SpanChars>{" "}
             </div>
             <div
@@ -354,7 +356,7 @@ const PlayfulText = (props) => {
                }}
             >
                <SpanChars onSpanRefs={(refs) => handleSpanRefs(refs, 1, 1)}>
-                  (currently freelancing in Melbourne)
+                  (Currently I’m freelancing in Melbourne)
                </SpanChars>{" "}
             </div>
          </div>,
@@ -373,8 +375,8 @@ const PlayfulText = (props) => {
                }}
             >
                <SpanChars onSpanRefs={(refs) => handleSpanRefs(refs, 2, 0)}>
-                  I’m familiar with many tools & frameworks and keen to learn
-                  whichever new technology is best suited to each project.
+                  I’ve learned many tools & frameworks and have a keen apetite
+                  for more. Whichever technology is best suited to each job.
                </SpanChars>
             </div>
          </>,
@@ -391,8 +393,8 @@ const PlayfulText = (props) => {
                }}
             >
                <SpanChars onSpanRefs={(refs) => handleSpanRefs(refs, 3, 0)}>
-                  I’m all about coding front end experiences, but I have bonus
-                  skills which come in handy...
+                  Though I’m all about coding front end experiences, I have some
+                  handy “bonus” skills...
                </SpanChars>
             </h1>
          </>,
