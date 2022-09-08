@@ -248,8 +248,16 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
 
    //const sunDistort = this.xDistort
 
-   const w = this.starImage.width * this.xDistort * 0.2 * this.sunScale;
-   const h = this.starImage.height * this.yDistort * 0.2 * this.sunScale;
+
+   if(this.showPointer){
+      this.hoverSunScale += (1.4 - this.hoverSunScale)*0.1;
+   }else{
+      this.hoverSunScale += (1 - this.hoverSunScale)*0.1;
+   }
+   
+   const glowMod = this.hoverSunScale * 2;
+   const w = this.starImage.width * this.xDistort * 0.2 * this.sunScale * glowMod;
+   const h = this.starImage.height * this.yDistort * 0.2 * this.sunScale * glowMod;
 
    ctx.globalAlpha = this.brightness;
    ctx.drawImage(
@@ -260,8 +268,8 @@ export const draw = function ({ context: ctx, canvas, delta, ratio }) {
       h
    );
 
-   const w2 = this.orb.width * 2 * this.sunScale;
-   const h2 = this.orb.height * 2 * this.sunScale;
+   const w2 = this.orb.width * 1.5 * this.sunScale * this.hoverSunScale;
+   const h2 = this.orb.height * 1.5 * this.sunScale * this.hoverSunScale;
 
    ctx.drawImage(
       this.orb,

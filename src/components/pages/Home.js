@@ -101,10 +101,10 @@ const powderblue = [190, 227, 219];
 const wildblueyonder = [161, 181, 216];
 const persimmon = [235, 100, 36];
 
-const yellow = [241,	210,	89	]
+const yellow = [241, 210, 89];
 
 const bgColors = [
-   [218,254,253],
+   [218, 254, 253],
    coral,
    charcoal,
    yellow,
@@ -228,7 +228,7 @@ const Home = ({ changeBackgroundColor }) => {
       heightRef.current = size.height;
       widthRef.current = size.width;
 
-    //  console.log("cal new positions", slideTextRefs.current.length);
+      //  console.log("cal new positions", slideTextRefs.current.length);
 
       for (let i = 0; i < slideTextRefs.current.length; i++) {
          const ref = slideTextRefs.current[i];
@@ -245,7 +245,7 @@ const Home = ({ changeBackgroundColor }) => {
    useEffect(() => {
       setTimeout(() => {
          setShowPlayText(true);
-      }, 200);
+      }, 400);
 
       // fetch(asciiText)
       //    .then((t) => t.text())
@@ -294,7 +294,7 @@ const Home = ({ changeBackgroundColor }) => {
          const fontSize = data.items[i].style.fontSize || 30;
          v.power =
             data.items[i].power ||
-            Math.pow(data.items[i].text.length * fontSize, 0.5) * 1.2;
+            Math.pow(data.items[i].text.length * fontSize, 0.4) * 0.8;
          // v.weight = 10;
          repellingTextVectors.current[i + baseIndex] = v;
 
@@ -307,7 +307,7 @@ const Home = ({ changeBackgroundColor }) => {
 
       // console.log("tracking", lowIndex, repellingTextVectors.current.length)
 
-      let paddingBottom = data.paddingBottom || 100;
+      let paddingBottom = 10//data.paddingBottom || 100;
       if (data.paddingBottom === 0) paddingBottom = 0;
 
       const maxWidth = data.maxWidth || data.items.length * 80;
@@ -320,9 +320,12 @@ const Home = ({ changeBackgroundColor }) => {
                fontWeight: 800,
                width: "100%",
                maxWidth,
-               changeBackgroundColor:"green",
+               changeBackgroundColor: "green",
                marginLeft: "auto",
                marginRight: "auto",
+             
+               marginBottom:-400,
+             
 
                height: max + paddingBottom,
                position: "relative",
@@ -330,19 +333,7 @@ const Home = ({ changeBackgroundColor }) => {
             }}
             onResize={() => {}}
             //recieve x,y of sliding mirror
-            onMovexx={(x, y) => {
-               for (var j = lowIndex; j < highIndex; j++) {
-                  // console.log("slideText", j)
-                  const slideText = slideTextPositions.current[j];
-                  if (!slideText) continue;
-                  const yPos = y + slideText.y;
-                  const xPos = x + slideText.x;
-                  const v = repellingTextVectors.current[j];
-                  v.x = xPos; // + sinMod;
-                  v.y = yPos;
-                  //  console.log("slideText", j, slideText);
-               }
-            }}
+
             onMove={(x, y, clones) => {
                for (var j = lowIndex; j < highIndex; j++) {
                   const slideText = slideTextPositions.current[j];
@@ -356,11 +347,11 @@ const Home = ({ changeBackgroundColor }) => {
 
                   let newDistance = d; //Math.pow(Math.abs(d), 1.2)/4;
 
-                  const sinMod = Math.sin(d * 0.010) * 40;
-                  if(j === 0){
-                   //  console.log(yPos, sinMod)
+                  const sinMod = Math.sin(d * 0.01) * 40;
+                  if (j === 0) {
+                     //  console.log(yPos, sinMod)
                   }
-                  
+
                   // let newDistance = Math.pow(Math.abs(d*2), 2)/9999; //very cool cascade of appearences because distnace is tightend so much
 
                   //this combo has cool bouncing back effect (never goes above halfway)
@@ -396,7 +387,7 @@ const Home = ({ changeBackgroundColor }) => {
 
                   const newColor = blendRgb(
                      slidingTextColors[colorSet],
-                     bgColors[formatingIndex.current],                   
+                     bgColors[formatingIndex.current],
                      darkness
                   );
                   newColor[3] = 1;
@@ -407,16 +398,17 @@ const Home = ({ changeBackgroundColor }) => {
                      v.y = yPos;
                      if (!v.outOfBounds) {
                         v.outOfBounds = true;
-                       // el.style.color = formatRgbArr(bgColors[formatingIndex.current]);
+                        // el.style.color = formatRgbArr(bgColors[formatingIndex.current]);
                      }
                      continue;
                   } else {
                      v.outOfBounds = false;
                   }
 
-                 
                   // const left = `calc(-50% + ${d*0.1}px)`
-                  const scale = 0.9 + Math.abs(d) * 0.0018;
+
+
+                  const scale = 0.9 + Math.max(Math.abs(d), 50) * 0.0018;
 
                   const sign = sinMod < 0 ? "-" : "+";
 
@@ -427,11 +419,9 @@ const Home = ({ changeBackgroundColor }) => {
                   //    console.log(xPos, yPos, transLeft);
                   // }
 
-                  el.style.transform = `translate(${transLeft}, -50%) scale(${1}) rotate(${
+                  el.style.transform = `translate(${transLeft}, -50%) scale(${scale}) rotate(${
                      -sinMod * 0.0
                   }deg)`;
-
-                  
 
                   v.x = xPos + sinMod;
                   v.y = yPos;
@@ -454,10 +444,11 @@ const Home = ({ changeBackgroundColor }) => {
                         ...e.style,
                         position: "absolute",
                         display: "block",
-                        color: "rgba(0,0,0,1)",
+                        color: formatRgbArr(bgColors[formatingIndex.current]),
                         fontWeight: 800,
                         fontSize,
                         transform: "translate(-50%,-50%)",
+                     
                      }}
                   >
                      {e.text}
@@ -530,106 +521,107 @@ const Home = ({ changeBackgroundColor }) => {
 
    return (
       <div className={classes.Home} ref={homeRef}>
-         <Sticky
-            style={{
-               position: "relative",
-               visibility: hidePlayText ? "hidden" : "visible",
-            }}
-            dominantIn={(dir) => {
-               if (hidePlayText) return;
-               setTextIndex(0);
-               changeFormat(0);
-            }}
-         >
-            <div> {repellerGroup1}</div>
-         </Sticky>
+         
+            <Sticky
+               style={{
+                  position: "relative",
+                  visibility: hidePlayText ? "hidden" : "visible",
+               }}
+               dominantIn={(dir) => {
+                  if (hidePlayText) return;
+                  setTextIndex(0);
+                  changeFormat(0);
+               }}
+            >
+               <div> {repellerGroup1}</div>
+            </Sticky>
 
-         <Sticky
-            style={{
-               position: "relative",
-               visibility: hidePlayText ? "hidden" : "visible",
-            }}
-            dominantIn={() => {
-               if (hidePlayText) return;
-               setTextIndex(1);
-               changeFormat(1);
-            }}
-            // activeOut={(direction) => setTextIndex(direction === "up" ? 0 : 1)}
-            // stickyChild={<div>This is the second sticky</div>}
-         >
-            {repellerGroup2}
-         </Sticky>
+            <Sticky
+               style={{
+                  position: "relative",
+                  visibility: hidePlayText ? "hidden" : "visible",
+               }}
+               dominantIn={() => {
+                  if (hidePlayText) return;
+                  setTextIndex(1);
+                  changeFormat(1);
+               }}
+               // activeOut={(direction) => setTextIndex(direction === "up" ? 0 : 1)}
+               // stickyChild={<div>This is the second sticky</div>}
+            >
+               {repellerGroup2}
+            </Sticky>
 
-         <Sticky
-            style={{
-               position: "relative",
-               visibility: hidePlayText ? "hidden" : "visible",
-            }}
-            dominantIn={() => {
-               if (hidePlayText) return;
-               // if (textIndex !== 2) {
-               setTextIndex(2);
-               changeFormat(2);
-               setShowProjects(false);
-               //  }
-            }}
-         >
-            {repellerGroup3}
-         </Sticky>
+            <Sticky
+               style={{
+                  position: "relative",
+                  visibility: hidePlayText ? "hidden" : "visible",
+               }}
+               dominantIn={() => {
+                  if (hidePlayText) return;
+                  // if (textIndex !== 2) {
+                  setTextIndex(2);
+                  changeFormat(2);
+                  setShowProjects(false);
+                  //  }
+               }}
+            >
+               {repellerGroup3}
+            </Sticky>
 
-         <Sticky
-            style={{
-               position: "relative",
-               visibility: hidePlayText ? "hidden" : "visible",
-            }}
-            dominantIn={() => {
-               if (hidePlayText) return;
-               // if (textIndex !== 2) {
-               setTextIndex(3);
-               changeFormat(3);
-               setShowProjects(false);
-               //  }
-            }}
-         >
-            {repellerGroup4}
-         </Sticky>
+            <Sticky
+               style={{
+                  position: "relative",
+                  visibility: hidePlayText ? "hidden" : "visible",
+               }}
+               dominantIn={() => {
+                  if (hidePlayText) return;
+                  // if (textIndex !== 2) {
+                  setTextIndex(3);
+                  changeFormat(3);
+                  setShowProjects(false);
+                  //  }
+               }}
+            >
+               {repellerGroup4}
+            </Sticky>
 
-         <Sticky
-            style={{
-               position: "relative",
-               visibility: hidePlayText ? "hidden" : "visible",
-            }}
-            dominantIn={() => {
-               if (hidePlayText) return;
-               // if (textIndex !== 2) {
-               setTextIndex(4);
-               changeFormat(4);
-               setShowProjects(false);
-               //  }
-            }}
-         >
-            {repellerGroup5}
-            
-         </Sticky>
+            <Sticky
+               style={{
+                  position: "relative",
+                  visibility: hidePlayText ? "hidden" : "visible",
+               }}
+               dominantIn={() => {
+                  if (hidePlayText) return;
+                  // if (textIndex !== 2) {
+                  setTextIndex(4);
+                  changeFormat(4);
+                  setShowProjects(false);
+                  //  }
+               }}
+            >
+               {repellerGroup5}
+            </Sticky>
 
-         <Sticky
-            style={{
-               position: "relative",
-               width: "100%",
-               paddingTop: 1000,
-               color: "white",
-            }}
-            dominantIn={(direction) => {
-               if (hidePlayText) return;
-               setTextIndex(null);
-               setShowProjects(true);
-               changeFormat(5);
-            }}
-         >
-            {/* <MirrorElement lag={!isMobile} tween={0.983}> */}
-            <Projects show={showProjects} scrollable={handleScrollable} />
-            {/* </MirrorElement> */}
-         </Sticky>
+            <Sticky
+               style={{
+                  position: "relative",
+                  width: "100%",
+                  paddingTop: 1000,
+                  color: "white",
+               }}
+               dominantIn={(direction) => {
+                  if (hidePlayText) return;
+                  setTextIndex(null);
+                  setShowProjects(true);
+                  changeFormat(5);
+               }}
+            >
+               {/* <MirrorElement lag={!isMobile} tween={0.983}> */}
+               <Projects show={showProjects} scrollable={handleScrollable} />
+               {/* </MirrorElement> */}
+            </Sticky>
+        
 
          {/* <Sticky
             style={{
@@ -764,7 +756,7 @@ const Home = ({ changeBackgroundColor }) => {
 
                {!scrolled && (
                   <div className={"downArrowContainer"}>
-                      <div
+                     <div
                         className={"downArrow downArrow1"}
                         // style={{
                         //    top: heightRef.current * 0.8 + "px",

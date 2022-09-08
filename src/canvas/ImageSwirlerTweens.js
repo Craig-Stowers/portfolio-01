@@ -29,8 +29,8 @@ export let switchModesWithTween = function () {
 
    let duration, delay, brightnessTarget;
    if (this.orbiting) {
-      duration = 800;
-      delay = 1300;
+      duration = 1000;
+      delay = 1200;
       brightnessTarget = 1;
    } else {
       duration = 800;
@@ -47,6 +47,15 @@ export let switchModesWithTween = function () {
       delay,
       exponent: 1,
       type: "ease-in-out",
+
+      onStart:()=> {
+
+         if(this.orbiting){
+            this.enableSunClick = true;
+         }
+         
+
+      },
       callback: (percIncr) => {
          // console.log("target", brightnessTarget, percIncr);
          this.brightness += (brightnessTarget - this.brightness) * percIncr;
@@ -97,7 +106,7 @@ export let switchModesWithTween = function () {
          this.yDistort = distortY;
 
          if (this.orbiting) {
-            this.enableSunClick = true;
+           // this.enableSunClick = true;
          } else {
             this.enableImageClick = true;
          }

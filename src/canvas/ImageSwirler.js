@@ -55,6 +55,7 @@ const ImageSwirler = function () {
    this.finished = false;
    this.fadeSunTween = fadeSunTween;
    this.sunScale = 1;
+   this.hoverSunScale = 1;
    this.enableImageClick = true;
    this.enableSunClick = false;
 
@@ -130,11 +131,11 @@ ImageSwirler.prototype.testTap = function (x, y) {
       this.canvas.style.cursor = "default";
       this.showPointer = false;
       this.enableRepel = false;
-      setTimeout(() => {
-         console.log("switch modes")
+     // setTimeout(() => {
+        
          this.orbiting = true;
          this.switchModesWithTween();
-      }, 200);
+     // }, 10);
       return;
    }
 

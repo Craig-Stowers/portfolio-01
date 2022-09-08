@@ -57,7 +57,7 @@ const getSpacing = (spacing, arr) => {
       const gap = (spaceFactor / arr.length) * 65;
 
       e.style.left = `calc(50% + ${gap}%)`;
-      e.style.top = 1100 + i * 150;
+      e.style.top = 1400 + i * 150;
    });
    return arr;
 };
