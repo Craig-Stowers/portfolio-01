@@ -353,15 +353,15 @@ export const repellerData4 = {
          expandSpans: true,
       },
 
-      {
-         text: "authentication",
-         style: {
-            left: "calc(50% + 0px)",
-            top: 2000,
-            fontSize: 27,
-         },
-         expandSpans: true,
-      },
+      // {
+      //    text: "authentication",
+      //    style: {
+      //       left: "calc(50% + 0px)",
+      //       top: 2000,
+      //       fontSize: 27,
+      //    },
+      //    expandSpans: true,
+      // },
 
       {
          text: "databases",
