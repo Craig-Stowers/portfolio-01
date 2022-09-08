@@ -275,7 +275,7 @@ const PlayfulText = (props) => {
    const getMessages = useCallback(() => {
       return [
          <>
-            <div style={{ marginTop: -30 }}>
+            <div style={{ marginTop: -40 }}>
                <div
                   style={{
                      fontSize: 56,
@@ -285,6 +285,7 @@ const PlayfulText = (props) => {
                      maxWidth: 800,
                      marginLeft: "auto",
                      marginRight: "auto",
+                   
                   }}
                >
                   <SpanChars
@@ -293,15 +294,16 @@ const PlayfulText = (props) => {
                         console.log("handle spans");
                      }}
                   >
-                     Hello.
+                     Hi!
                   </SpanChars>
                </div>
 
                <div
                   style={{
+                     marginTop:-20,
                      fontSize: 90,
-                     letterSpacing: 4,
-                     fontWeight: 800,
+                     letterSpacing: 2,
+                     fontWeight: 900,
                      padding: 20,
                      maxWidth: 800,
                      marginLeft: "auto",
