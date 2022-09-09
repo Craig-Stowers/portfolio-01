@@ -191,16 +191,13 @@ const Projects = ({ show, scrollable }) => {
                <h3>This website is a work in progress...</h3>
                <p>
                   I built the top interactive text from scratch and am in the
-                  process of optimising the javascript/canvas code (apologies
-                  for any performance issues on older computers). There are a
+                  process of optimising the javascript/canvas code. There are a
                   few issues to iron out but I'm happy enough with how it works.
                </p>
                <p>
-                  FYI: when the text changes, relevant letters stay on screen
-                  while others are transitioned in & out. Animated letters are
-                  all mapped onto hidden inline html elements so they’ll react
-                  to page size/layout/flow changes like normal responsive
-                  elements do.
+                  For the curious devs: when the text changes, relevant letters stay on screen
+                  while others are transitioned in & out. Animated letters are rendered in canvas and are mapped onto hidden inline html elements so they’ll react to page size/layout/flow changes like normal responsive
+                  elements would.
                </p>
                <p>
                   I’m currently collating many years of work and experimental
@@ -209,7 +206,7 @@ const Projects = ({ show, scrollable }) => {
 
                <p>
                   Please flick an email to{" "}
-                  <a href="mailto:craig.stowers@proton.me">
+                  <a href="mailto:craig.stowers@pm.me">
                      craig.stowers@proton.me
                   </a>{" "}
                   if you'd like to discuss a project or job opportunity.
