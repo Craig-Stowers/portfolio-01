@@ -2,6 +2,9 @@
 
 //canvas size could be reduced
 
+//anti-aliasing canvas text hurts performance
+
 //background color transition hurts performance
 
-//anti-aliasing canvas text hurts performance
+
+
